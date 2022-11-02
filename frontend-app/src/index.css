@@ -27,8 +27,6 @@ code {
 
 .carousel .carousel-item {
     height: 40rem;
-    display: flex;
-    align-self: center;
 }
 
 .carousel-item img {
@@ -47,8 +45,8 @@ code {
 
 .carousel-desc {
     /* display: flex; */
-    justify-content: center;
-    align-content: center;
+    /* justify-content: center; */
+    /* align-content: center; */
     position: absolute;
     left: 6rem;
     /* right: 0; */
