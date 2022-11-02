@@ -9,6 +9,7 @@ const cors = require("cors");
 const corsOptions = require("./backend/config/corsOptions");
 const connectDB = require("./backend/config/dbConn");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT || 3500;
 
@@ -20,8 +21,10 @@ app.use(logger);
 
 app.use(cors(corsOptions));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 app.use(cookieParser());
 

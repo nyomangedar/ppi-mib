@@ -16,9 +16,17 @@ const postSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		image: {
+		link: {
 			type: String,
-			required: true,
+			default: "",
+		},
+		activeStatus: {
+			type: Boolean,
+			default: true,
+		},
+		image: {
+			data: Buffer,
+			contentType: String,
 		},
 	},
 	{
