@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
 const asyncHandler = require("express-async-handler");
+const fs = require("fs");
+const path = require("path");
 
 // @desc Get all users
 // @route GET /users
@@ -18,13 +20,23 @@ const getAllPost = asyncHandler(async (req, res) => {
 });
 
 const createNewPost = asyncHandler(async (req, res) => {
-	const { user, title, text, image } = req.body;
+	const { user, title, text } = req.body;
 
 	if ((!user, !title, !text, !image)) {
 		return res.status(400).json({ message: "All fields are required" });
 	}
 
-	const postObject = { user, title, text, image };
+	const postObject = {
+		user,
+		title,
+		text,
+		image: {
+			data: fs.readFileSync(
+				path.join(__dirname, "/../uploads/" + req.file.filename)
+			),
+			contentType: "image/png",
+		},
+	};
 
 	const post = await Post.create(postObject);
 
