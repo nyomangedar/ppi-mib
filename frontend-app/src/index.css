@@ -1,20 +1,11 @@
-/* html,
-body,
-#root,
-.App {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	position: relative;
-	box-sizing: inherit;
-	padding-bottom: 15rem;
-} */
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif; */
+    font-family: "Montserrat";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100vh;
@@ -66,14 +57,13 @@ code {
     position: absolute;
     left: 0;
     right: 0;
-    top: 1rem;
+    top: 2rem;
     /* opacity: 40%; */
     color: white;
     cursor: pointer;
-    opacity: 0.3;
+    opacity: 0.5;
     transition: 1s;
-    animation: fadeIn 0.5s ease-in-out;
-    /* animation: fadeOut 0.5 ease-out; */
+    animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes fadeIn {
@@ -81,7 +71,7 @@ code {
         opacity: 0;
     }
     100% {
-        opacity: 0.3;
+        opacity: 0.5;
     }
 }
 
@@ -108,7 +98,7 @@ code {
         rgba(255, 255, 255, 0.1) 0.55%,
         rgba(255, 255, 255, 0) 100%
     );
-    backdrop-filter: blur(21px);
+    backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
 
     border-radius: 30px;
@@ -151,7 +141,7 @@ code {
     }
     .carousel-item img {
         /* filter: grayscale(100%); */
-        object-fit: contain; /* Do not scale the image */
+        object-fit: cover; /* Do not scale the image */
         object-position: center; /* Center the image within the element */
         /* height: auto; */
         width: 100%;
@@ -164,6 +154,28 @@ code {
     }
     .gradient-card {
         height: 15em;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .carousel .carousel-item {
+        height: 40em;
+    }
+    .carousel-item img {
+        /* filter: grayscale(100%); */
+        object-fit: cover; /* Do not scale the image */
+        object-position: center; /* Center the image within the element */
+        /* height: auto; */
+        width: 100%;
+        /* object-position: center top;
+		position: absolute;
+		object-fit: cover;
+		top: 0;
+		left: 0;
+		min-height: 500px; */
+    }
+    .gradient-card {
+        height: 20em;
     }
 }
 
