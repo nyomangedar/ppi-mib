@@ -5,10 +5,13 @@ import { useGetPostsQuery } from "../../features/posts/postsApiSlice";
 import student_adv from "../../image/student_adv.png";
 import { Buffer } from "buffer";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import { useEffect } from "react";
 
 const CarouselBody = () => {
     const [descShow, descSetter] = useState(false);
     const [descPop, descPopSetter] = useState(false);
+    const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
     const {
         data: posts,
         isLoading,
@@ -16,6 +19,15 @@ const CarouselBody = () => {
         isError,
         error,
     } = useGetPostsQuery();
+
+    useEffect(() => {
+        if (isTabletOrMobile) {
+            descSetter(false);
+            descPopSetter(false);
+        }
+    }, [isTabletOrMobile]);
+
+    const detailProperties = {};
 
     let content;
 
@@ -32,7 +44,9 @@ const CarouselBody = () => {
         const postList = ids?.length
             ? ids.map((postId) => (
                   <Carousel.Item
-                      onMouseEnter={() => descSetter(true)}
+                      onMouseEnter={() => {
+                          descSetter(!isTabletOrMobile && true);
+                      }}
                       onMouseLeave={() => {
                           descSetter(false);
                           descPopSetter(false);
