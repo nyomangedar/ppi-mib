@@ -45,6 +45,8 @@ code {
 	top: 100%;
 	/* bottom: -2rem; */
 	transition: 0.7s ease-out;
+	width: 50rem;
+	height: 30rem;
 	/* animation: fadeIn 1s; */
 	/* transform: opacity 0.5s ease-out; */
 }
@@ -74,6 +76,7 @@ code {
 		opacity: 0.5;
 	}
 }
+
 .click-for-detail:hover {
 	opacity: 1;
 }
@@ -102,7 +105,7 @@ code {
 
 	border-radius: 30px;
 	height: 100%;
-	/* width: 100%; */
+	width: 100%;
 	border-radius: 25px;
 }
 
@@ -130,41 +133,32 @@ code {
 	outline: black 1px;
 }
 
-@media screen and (max-width: 475px) {
+/* @media screen and (max-width: 475px) {
 	.title {
 		font-size: 1.5em;
-		/* Apply some styles */
 	}
 	.carousel .carousel-item {
 		height: 30em;
 	}
 	.carousel-item img {
-		/* filter: grayscale(100%); */
-		object-fit: cover; /* Do not scale the image */
-		object-position: center; /* Center the image within the element */
-		/* height: auto; */
-		width: 100%;
-		/* object-position: center top;
-		position: absolute;
 		object-fit: cover;
-		top: 0;
-		left: 0;
-		min-height: 500px; */
+		object-position: center;
+		width: 100%;
 	}
 	.gradient-card {
 		height: 15em;
 	}
-}
+} */
 
 @media screen and (min-width: 1440px) {
 	.carousel .carousel-item {
-		height: 40em;
+		height: 60em;
 	}
 	.carousel-item img {
 		/* filter: grayscale(100%); */
 		object-fit: cover; /* Do not scale the image */
 		object-position: center; /* Center the image within the element */
-		/* height: auto; */
+		height: auto;
 		width: 100%;
 		/* object-position: center top;
 		position: absolute;
@@ -174,7 +168,7 @@ code {
 		min-height: 500px; */
 	}
 	.gradient-card {
-		height: 20em;
+		height: 30em;
 	}
 }
 
