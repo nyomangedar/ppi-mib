@@ -12,7 +12,7 @@ const CarouselBody = () => {
 	const [descShow, descSetter] = useState(false);
 	const [descPop, descPopSetter] = useState(false);
 	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
-	const isBigScreen = useMediaQuery({ query: "(min-width: 1440px)" });
+	const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
 	const {
 		data: posts,
 		isLoading,
