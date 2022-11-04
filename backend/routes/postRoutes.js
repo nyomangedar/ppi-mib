@@ -18,7 +18,16 @@ var upload = multer({ storage: storage });
 router
 	.route("/")
 	.get(postController.getAllPost)
-	.post(upload.single("image"), postController.createNewPost);
+	// .post(upload.single("image"), postController.createNewPost);
+	.post(
+		upload.fields([
+			{ name: "image", maxCount: 1 },
+			{ name: "image_wide", maxCount: 1 },
+			{ name: "image_mobile", maxCount: 1 },
+		]),
+		postController.createNewPost
+	);
+
 // .patch(postController.editPost)
 // .delete(postController.deletePost);
 

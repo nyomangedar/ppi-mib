@@ -17,6 +17,8 @@ const CarouselBody = () => {
 		error,
 	} = useGetPostsQuery();
 
+	const developmentUri = "http://localhost:3500";
+
 	let content;
 
 	// if (isLoading) content = <PulseLoader color={"#FFF"}/>
@@ -29,48 +31,87 @@ const CarouselBody = () => {
 	if (isSuccess) {
 		console.log({ posts });
 		const { ids, entities } = posts;
-		const postList = ids?.length
-			? ids.map((postId) => (
-					<Carousel.Item
-						onMouseEnter={() => descSetter(true)}
-						onMouseLeave={() => {
-							descSetter(false);
-							descPopSetter(false);
-						}}
-					>
-						<img
-							src={`data:${
-								entities[postId].image.contentType
-							};base64,${entities[postId].image.data.toString("base64")}`}
-							class="d-block w-100 center"
-							alt="StudentAdvisory"
-						/>
-						{descShow && (
-							<div
-								className="click-for-detail d-flex justify-content-center align-items-center"
-								onClick={() => descPopSetter(!descPop)}
-							>
-								<h3>Click Here For Details!</h3>
-							</div>
-						)}
-						<div className={`carousel-desc ${descPop && "animate-slideUp"}`}>
-							<div class="gradient-card align-middle d-flex justify-content-center">
-								<div className="gradient">
-									<div className="info ms-auto">
-										<div className="title text-center">
-											{entities[postId].title}
-										</div>
-										<div className="text fs-3">{entities[postId].text}</div>
+		// const postList = ids?.length
+		// 	? ids.map((postId) => (
+		// 			<Carousel.Item
+		// 				onMouseEnter={() => descSetter(true)}
+		// 				onMouseLeave={() => {
+		// 					descSetter(false);
+		// 					descPopSetter(false);
+		// 				}}
+		// 			>
+		// 				<img
+		// 					src={`data:${
+		// 						entities[postId].image.contentType
+		// 					};base64,${entities[postId].image.data.toString("base64")}`}
+		// 					class="d-block w-100 center"
+		// 					alt="StudentAdvisory"
+		// 				/>
+		// 				{descShow && (
+		// 					<div
+		// 						className="click-for-detail d-flex justify-content-center align-items-center"
+		// 						onClick={() => descPopSetter(!descPop)}
+		// 					>
+		// 						<h3>Click Here For Details!</h3>
+		// 					</div>
+		// 				)}
+		// 				<div className={`carousel-desc ${descPop && "animate-slideUp"}`}>
+		// 					<div class="gradient-card align-middle d-flex justify-content-center">
+		// 						<div className="gradient">
+		// 							<div className="info ms-auto">
+		// 								<div className="title text-center">
+		// 									{entities[postId].title}
+		// 								</div>
+		// 								<div className="text fs-3">{entities[postId].text}</div>
+		// 							</div>
+		// 						</div>
+		// 					</div>
+		// 				</div>
+		// 			</Carousel.Item>
+		// 			// <PostCarousel key={postId} postId={postId}></PostCarousel>
+		// 	  ))
+		// 	: null;
+
+		// content = <Carousel interval={null}>{postList}</Carousel>;
+		content = (
+			<Carousel interval={null}>
+				<Carousel.Item
+					onMouseEnter={() => descSetter(true)}
+					onMouseLeave={() => {
+						descSetter(false);
+						descPopSetter(false);
+					}}
+				>
+					<img
+						src={`${developmentUri}/${entities["6365963bb265de140fb156e0"].image}`}
+						class="d-block w-100 center"
+						alt="StudentAdvisory"
+					/>
+					{descShow && (
+						<div
+							className="click-for-detail d-flex justify-content-center align-items-center"
+							onClick={() => descPopSetter(!descPop)}
+						>
+							<h3>Click Here For Details!</h3>
+						</div>
+					)}
+					<div className={`carousel-desc ${descPop && "animate-slideUp"}`}>
+						<div class="gradient-card align-middle d-flex justify-content-center">
+							<div className="gradient">
+								<div className="info ms-auto">
+									<div className="title text-center">
+										{entities["6365963bb265de140fb156e0"].title}
+									</div>
+									<div className="text fs-3">
+										{entities["6365963bb265de140fb156e0"].text}
 									</div>
 								</div>
 							</div>
 						</div>
-					</Carousel.Item>
-					// <PostCarousel key={postId} postId={postId}></PostCarousel>
-			  ))
-			: null;
-
-		content = <Carousel interval={null}>{postList}</Carousel>;
+					</div>
+				</Carousel.Item>
+			</Carousel>
+		);
 	}
 	return content;
 };
