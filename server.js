@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/", express.static(path.join(__dirname, "backend", "/public")));
+app.use("/", express.static(path.join(__dirname, "backend", "/uploads")));
 
 app.use("/", require("./backend/routes/root"));
 app.use("/users", require("./backend/routes/userRoutes"));

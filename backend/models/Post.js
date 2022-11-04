@@ -25,8 +25,16 @@ const postSchema = new mongoose.Schema(
 			default: true,
 		},
 		image: {
-			data: Buffer,
-			contentType: String,
+			type: String,
+			required: true,
+		},
+		image_mobile: {
+			type: String,
+			required: true,
+		},
+		image_wide: {
+			type: String,
+			required: true,
 		},
 	},
 	{

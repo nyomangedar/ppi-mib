@@ -22,6 +22,8 @@ const getAllPost = asyncHandler(async (req, res) => {
 const createNewPost = asyncHandler(async (req, res) => {
 	const { user, title, text } = req.body;
 
+	console.log("files + " + JSON.stringify(req.files));
+
 	if ((!user, !title, !text)) {
 		return res.status(400).json({ message: "All fields are required" });
 	}
@@ -30,12 +32,15 @@ const createNewPost = asyncHandler(async (req, res) => {
 		user,
 		title,
 		text,
-		image: {
-			data: fs.readFileSync(
-				path.join(__dirname, "/../uploads/" + req.file.filename)
-			),
-			contentType: "image/png",
-		},
+		image: req.files.image[0].filename,
+		image_wide: req.files.image_wide[0].filename,
+		image_mobile: req.files.image_mobile[0].filename,
+		// image: {
+		// 	data: fs.readFileSync(
+		// 		path.join(__dirname, "/../uploads/" + req.file.filename)
+		// 	),
+		// 	contentType: "image/png",
+		// },
 	};
 
 	const post = await Post.create(postObject);
