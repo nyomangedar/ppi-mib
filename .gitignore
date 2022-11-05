@@ -28,6 +28,9 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# For react build folder
+build/
+
 # Dependency directories
 node_modules
 jspm_packages
@@ -41,3 +44,5 @@ jspm_packages
 
 #Excluding build directory
 # public/
+
+
