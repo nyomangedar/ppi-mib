@@ -24,8 +24,8 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - run: |
                   touch .env
-                  echo DATABASE_URI=${{production.DATABASE_URI}} >> env
-                  echo NODE_ENV=${{production.NODE_ENV}} >> env
+                  echo DATABASE_URI=${{secrets.production.DATABASE_URI}} >> env
+                  echo NODE_ENV=${{secrets.production.NODE_ENV}} >> env
                   cat .env
                   npm install
                   cd frontend-app
