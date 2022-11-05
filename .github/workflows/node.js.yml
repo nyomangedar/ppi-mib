@@ -24,8 +24,6 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
             - run: |
-                  "DATABASE_URI"=${{secrets.DATABASE_URI}} >> .env
-                  "NODE_ENV"=${{secrets.NODE_ENV}} >> .env
                   npm install
                   cd frontend-app
                   npm install
