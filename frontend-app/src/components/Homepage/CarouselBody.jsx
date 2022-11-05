@@ -7,6 +7,7 @@ import { Buffer } from "buffer";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useEffect } from "react";
+import env from "react-dotenv";
 
 const CarouselBody = () => {
     const [descShow, descSetter] = useState(false);
@@ -20,13 +21,23 @@ const CarouselBody = () => {
         isError,
         error,
     } = useGetPostsQuery();
+    console.log(env);
+
+    const developmentUri =
+        process.env.NODE_ENV === "development"
+            ? "http://localhost:3500"
+            : "http://167.99.198.188:3500";
 
     // const developmentUri = "http://localhost:3500";
-    const developmentUri = "http://167.99.198.188:3500";
 
     let content;
 
     useEffect(() => {
+        // if (process.env.REACT_APP_MY_ENVIRONMENT_VARIABLE === "test") {
+        //     console.log("test");
+        // } else {
+        //     console.log(process.env);
+        // }
         if (isTabletOrMobile) {
             descSetter(false);
             descPopSetter(false);

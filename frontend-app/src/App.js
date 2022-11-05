@@ -11,17 +11,17 @@ import Footer from "./components/Footer";
 import "./index.css";
 
 function App() {
-	return (
-		<>
-			<PPIHeader />
-			<Routes>
-				<Route path="/" element={<Layout />} />
-				{/* Public Routes */}
-				<Route index element={<Homepage />} />
-			</Routes>
-			<Footer />
-		</>
-	);
+    return (
+        <>
+            <PPIHeader />
+            <Routes>
+                <Route path="/" element={<Layout />} />
+                {/* Public Routes */}
+                <Route index element={<Homepage />} />
+            </Routes>
+            <Footer />
+        </>
+    );
 }
 
 export default App;
