@@ -36,28 +36,30 @@ app.use("/users", require("./backend/routes/userRoutes"));
 app.use("/posts", require("./backend/routes/postRoutes"));
 // app.use("/posts", require("./backend/routes/postRoutes"));
 
+// app.use(express.static(path.join(__dirname, "frontend-app/build")));
+
 app.all("*", (req, res) => {
-	res.status(404);
-	if (req.accepts("html")) {
-		res.sendFile(path.join(__dirname, "backend", "views", "404.html"));
-	} else if (req.accepts("json")) {
-		res.json({ messeage: "404 Not Found" });
-	} else {
-		res.type("txt").send("404 Not Found");
-	}
+    res.status(404);
+    if (req.accepts("html")) {
+        res.sendFile(path.join(__dirname, "backend", "views", "404.html"));
+    } else if (req.accepts("json")) {
+        res.json({ messeage: "404 Not Found" });
+    } else {
+        res.type("txt").send("404 Not Found");
+    }
 });
 
 app.use(errorHandler);
 
 mongoose.connection.once("open", () => {
-	console.log("Connected to MongoDB");
-	app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
 
 mongoose.connection.on("error", (err) => {
-	console.log(err);
-	logEvents(
-		`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
-		"mongoErrLog.log"
-	);
+    console.log(err);
+    logEvents(
+        `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
+        "mongoErrLog.log"
+    );
 });
