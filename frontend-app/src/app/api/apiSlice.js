@@ -7,7 +7,7 @@ export const apiSlice = createApi({
         baseUrl:
             process.env.NODE_ENV === "development"
                 ? "http://localhost:3500"
-                : "http://167.99.198.188/:3500",
+                : "http://167.99.198.188:3500",
     }),
     tagTypes: ["Post", "User"],
     endpoints: (builder) => ({}),

@@ -21,7 +21,8 @@ const CarouselBody = () => {
         error,
     } = useGetPostsQuery();
 
-    const developmentUri = process.env.API_URI_BACKEND;
+    // const developmentUri = "http://localhost:3500";
+    const developmentUri = "http://167.99.198.188:3500";
 
     let content;
 
