@@ -21,12 +21,11 @@ const CarouselBody = () => {
 		isError,
 		error,
 	} = useGetPostsQuery();
-	console.log(env);
 
 	const developmentUri =
 		process.env.NODE_ENV === "development"
 			? "http://localhost:3500"
-			: "http://68.183.32.204:3500";
+			: "https://ppi-mib.co.uk:3500";
 
 	// const developmentUri = "http://localhost:3500";
 
@@ -54,7 +53,6 @@ const CarouselBody = () => {
 	}
 
 	if (isSuccess) {
-		console.log({ posts });
 		const { ids, entities } = posts;
 		const postList = ids?.length
 			? ids.map((postId) => (

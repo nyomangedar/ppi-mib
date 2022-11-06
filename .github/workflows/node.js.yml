@@ -4,30 +4,29 @@
 name: Node.js CI
 
 on:
-    push:
-        branches: ["main"]
-    pull_request:
-        branches: ["main"]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 env:
-    CI: false
+  CI: false
 
 jobs:
-    build:
-        runs-on: self-hosted
+  build:
+    runs-on: self-hosted
 
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: |
-                  touch .env
-                  echo DATABASE_URI=${{secrets.DATABASE_URI}} >> .env
-                  echo NODE_ENV=${{secrets.NODE_ENV}} >> .env
-                  cat .env
-                  npm install
-                  cd frontend-app
-                  npm install
-                  npm run build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: |
+          touch .env
+          echo -e "DATABASE_URI=${{secrets.DATABASE_URI}}\nNODE_ENV=${{secrets.NODE_ENV}}" >> .env
+          cat .env
+          npm install
+          cd frontend-app
+          npm install
+          npm run build
