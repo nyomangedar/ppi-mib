@@ -65,18 +65,22 @@ const CarouselBody = () => {
 							descPopSetter(false);
 						}}
 					>
-						<img
-							src={
-								isTabletOrMobile
-									? `${developmentUri}/${entities[postId].image_mobile}`
-									: isBigScreen
-									? `${developmentUri}/${entities[postId].image_wide}`
-									: `${developmentUri}/${entities[postId].image}`
-							}
-							class="d-block w-100 center"
-							alt="StudentAdvisory"
-							style={{ cursor: "pointer" }}
-						/>
+						<a
+							href={entities[postId].link === "" ? null : entities[postId].link}
+						>
+							<img
+								src={
+									isTabletOrMobile
+										? `${developmentUri}/${entities[postId].image_mobile}`
+										: isBigScreen
+										? `${developmentUri}/${entities[postId].image_wide}`
+										: `${developmentUri}/${entities[postId].image}`
+								}
+								class="d-block w-100 center"
+								alt="StudentAdvisory"
+								style={{ cursor: "pointer" }}
+							/>
+						</a>
 						{/* {descShow && (
 							<div
 								className="click-for-detail d-flex justify-content-center align-items-center"
