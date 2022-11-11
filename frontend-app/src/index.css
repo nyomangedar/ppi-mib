@@ -20,16 +20,16 @@ code {
 		monospace;
 }
 
-/* .carousel .carousel-item {
+.carousel .carousel-item {
 	height: 40rem;
-} */
+}
 
 .carousel-item img {
 	/* filter: grayscale(100%); */
-	object-fit: contain; /* Do not scale the image */
+	object-fit: cover; /* Do not scale the image */
 	object-position: center; /* Center the image within the element */
-	/* height: 40em;
-    width: 40em; */
+	height: 40em;
+	width: 40em;
 	/* object-position: center top;
 	position: absolute;
 	object-fit: cover;
@@ -135,6 +135,7 @@ code {
 	margin-top: 1rem;
 	text-align: center;
 	font-size: 1.5em;
+	/* color: white; */
 	color: #86543b;
 }
 
@@ -167,14 +168,22 @@ code {
 } */
 
 @media screen and (min-width: 1824px) {
-	/* .carousel .carousel-item {
+	.carousel .carousel-item {
 		height: 60em;
-	} */
-	/* .carousel-item img {
-		object-fit: contain;
-		object-position: center;
+	}
+	.carousel-item img {
+		/* filter: grayscale(100%); */
+		object-fit: cover; /* Do not scale the image */
+		object-position: center; /* Center the image within the element */
 		height: auto;
-	} */
+		width: 100%;
+		/* object-position: center top;
+		position: absolute;
+		object-fit: cover;
+		top: 0;
+		left: 0;
+		min-height: 500px; */
+	}
 	.gradient-card {
 		height: 30em;
 	}
@@ -214,8 +223,7 @@ code {
 }
 @media screen and (min-width: 2560px) {
 	.footer-ppi {
-		position: relative;
-		bottom: 0;
+		position: fixed;
 	}
 }
 /* @media screen and (min-width: 1440px) {
