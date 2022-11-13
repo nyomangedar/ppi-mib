@@ -9,6 +9,7 @@ import HompageContent from "./components/Homepage/HompageContent";
 import PPIHeader from "./components/PPIHeader";
 import Footer from "./components/Footer";
 import "./index.css";
+import AdminMenu from "./pages/AdminMenu";
 
 function App() {
     return (
@@ -18,6 +19,8 @@ function App() {
                 <Route path="/" element={<Layout />} />
                 {/* Public Routes */}
                 <Route index element={<Homepage />} />
+                {/* Admin Routes */}
+                <Route path="/admin" element={<AdminMenu />} />
             </Routes>
             <Footer />
         </>
