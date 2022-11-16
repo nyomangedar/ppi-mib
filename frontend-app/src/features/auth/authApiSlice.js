@@ -29,19 +29,21 @@ export const authApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 		refresh: builder.mutation({
-			query: "admin/refresh",
-			method: "GET",
+			query: () => ({
+				url: "/admin/refresh",
+				method: "GET",
+			}),
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					console.log(data);
+					const { accessToken } = data;
+					dispatch(setCredentials({ accessToken }));
+				} catch (error) {
+					console.log(error);
+				}
+			},
 		}),
-		async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-			try {
-				const { data } = await queryFulfilled;
-				console.log(data);
-				const { accessToken } = data;
-				dispatch(setCredentials({ accessToken }));
-			} catch (error) {
-				console.log(error);
-			}
-		},
 	}),
 });
 

@@ -12,6 +12,7 @@ import "./index.css";
 import AdminMenu from "./pages/AdminMenu";
 import RequireAuth from "./features/auth/RequireAuth";
 import LoginAdmin from "./pages/LoginAdmin";
+import PersistLogin from "./features/auth/PersistLogin";
 
 function App() {
 	return (
@@ -23,8 +24,10 @@ function App() {
 				<Route index element={<Homepage />} />
 				<Route path="login" element={<LoginAdmin />} />
 				{/* Admin Routes */}
-				<Route element={<RequireAuth />}>
-					<Route path="admin" element={<AdminMenu />} />
+				<Route element={<PersistLogin />}>
+					<Route element={<RequireAuth />}>
+						<Route path="admin" element={<AdminMenu />} />
+					</Route>
 				</Route>
 			</Routes>
 			<Footer />

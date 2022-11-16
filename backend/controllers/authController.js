@@ -98,7 +98,7 @@ const generateToken = (id, username, divisi, active) => {
 		{ _id: id, username, divisi, active },
 		process.env.ACCESS_TOKEN_KEY,
 		{
-			expiresIn: "10m",
+			expiresIn: "10s",
 		}
 	);
 };
@@ -106,7 +106,7 @@ const generateToken = (id, username, divisi, active) => {
 // Generate Refresh Token
 const generateRefreshToken = (username) => {
 	return jwt.sign({ username }, process.env.REFRESH_TOKEN_KEY, {
-		expiresIn: "30m",
+		expiresIn: "2m",
 	});
 };
 

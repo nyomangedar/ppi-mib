@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../features/auth/authApiSlice";
 import { setCredentials } from "../features/auth/authSlice";
+import usePersist from "../features/hooks/usePersist";
 
 function LoginAdmin() {
 	const userRef = useRef();
@@ -12,6 +13,7 @@ function LoginAdmin() {
 	const [password, setPassword] = useState("");
 	const [divisi, setDivisi] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
+	const [persist, setPersist] = usePersist();
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -56,6 +58,7 @@ function LoginAdmin() {
 	const handleUserInput = (e) => setUsername(e.target.value);
 	const handlePwdInput = (e) => setPassword(e.target.value);
 	const handleDivisiInput = (e) => setDivisi(e.target.value);
+	const handleToggle = () => setPersist((prev) => !prev);
 
 	const errClass = errorMessage ? "errorMessage" : "offscreen";
 
@@ -110,6 +113,17 @@ function LoginAdmin() {
 								onChange={handleDivisiInput}
 								required
 							></input>
+						</div>
+						<div>
+							<label htmlFor="persist" class="form-check-label"></label>
+							<input
+								type="checkbox"
+								class="form-check-input"
+								id="persist"
+								onChange={handleToggle}
+								checked={persist}
+							/>
+							Trust This Device
 						</div>
 						<div>
 							<button type="submit" class="btn btn-primary">
