@@ -10,21 +10,26 @@ import PPIHeader from "./components/PPIHeader";
 import Footer from "./components/Footer";
 import "./index.css";
 import AdminMenu from "./pages/AdminMenu";
+import RequireAuth from "./features/auth/RequireAuth";
+import LoginAdmin from "./pages/LoginAdmin";
 
 function App() {
-    return (
-        <>
-            <PPIHeader />
-            <Routes>
-                <Route path="/" element={<Layout />} />
-                {/* Public Routes */}
-                <Route index element={<Homepage />} />
-                {/* Admin Routes */}
-                <Route path="/admin" element={<AdminMenu />} />
-            </Routes>
-            <Footer />
-        </>
-    );
+	return (
+		<>
+			<PPIHeader />
+			<Routes>
+				<Route path="/" element={<Layout />} />
+				{/* Public Routes */}
+				<Route index element={<Homepage />} />
+				<Route path="login" element={<LoginAdmin />} />
+				{/* Admin Routes */}
+				<Route element={<RequireAuth />}>
+					<Route path="admin" element={<AdminMenu />} />
+				</Route>
+			</Routes>
+			<Footer />
+		</>
+	);
 }
 
 export default App;
