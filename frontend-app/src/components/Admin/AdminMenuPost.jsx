@@ -10,10 +10,10 @@ const AdminMenuPost = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
-    const [active, setActive] = useState("");
-    const [image, setImage] = useState("");
-    const [imageW, setImageW] = useState("");
-    const [imageM, setImageM] = useState("");
+    const [active, setActive] = useState(true);
+    const [image, setImage] = useState(null);
+    const [image_wide, setimage_wide] = useState(null);
+    const [image_mobile, setimage_mobile] = useState(null);
 
     useEffect(() => {
         if (isSuccess) {
@@ -22,8 +22,8 @@ const AdminMenuPost = () => {
             setLink("");
             setActive("");
             setImage(null);
-            setImageM(null);
-            setImageW(null);
+            setimage_mobile(null);
+            setimage_wide(null);
         }
     }, [isSuccess]);
 
@@ -31,14 +31,41 @@ const AdminMenuPost = () => {
     const onDescriptionChanged = (e) => setDescription(e.target.value);
     const onLinkChanged = (e) => setLink(e.target.value);
     const onActiveChanged = (e) => setActive(e.target.value);
-    const onImageChanged = (e) => setImage(e.target.value);
-    const onImageWChanged = (e) => setImageW(e.target.value);
-    const onImageMChanged = (e) => setImageM(e.target.value);
+    const onImageChanged = (e) => setImage(e.target.files[0]);
+    const onimage_wideChanged = (e) => setimage_wide(e.target.files[0]);
+    const onimage_mobileChanged = (e) => setimage_mobile(e.target.files[0]);
 
+    var formData = new FormData();
     const onSavePostClicked = async (e) => {
         e.preventDefault();
-        console.log({ user, title, link, active });
-        await addNewPost(user, title, link, active, image, imageM, imageW);
+        // const attribute = [
+        //     ["user", user],
+        //     ["title", title],
+        //     ["link", link],
+        //     ["active", active],
+        //     ["image", image],
+        //     ["image_mobile", image_mobile],
+        //     ["image_wide", image_wide],
+        // ];
+        // for (var i = 0; i < attribute.length; i += 1) {
+        //     var x = attribute[i];
+        //     formData.append(x[0], x[1]);
+        //     console.log(formData.get(x[0]));
+        // }
+
+        formData.append("user", user);
+        formData.append("title", title);
+        formData.append("text", description);
+        formData.append("link", link);
+        formData.append("activeStatus", active);
+        formData.append("image", image);
+        formData.append("image_mobile", image_mobile);
+        formData.append("image_wide", image_wide);
+
+        // for (const value of formData.values()) {
+        //     console.log({ value });
+        // }
+        await addNewPost(formData);
     };
 
     const errClass = isError ? "errmsg" : "offscreen";
@@ -97,7 +124,7 @@ const AdminMenuPost = () => {
                             class="form-control-file"
                             id="image"
                             name="image"
-                            value={image}
+                            // value={image}
                             onChange={onImageChanged}
                         />
                     </div>
@@ -106,10 +133,10 @@ const AdminMenuPost = () => {
                         <input
                             type="file"
                             class="form-control-file"
-                            id="imageW"
-                            name="imageW"
-                            value={imageW}
-                            onChange={onImageWChanged}
+                            id="image_wide"
+                            name="image_wide"
+                            // value={image_wide}
+                            onChange={onimage_wideChanged}
                         />
                     </div>
                     <div className="col-md-12">
@@ -117,10 +144,10 @@ const AdminMenuPost = () => {
                         <input
                             type="file"
                             class="form-control-file"
-                            id="imageM"
-                            name="imageM"
-                            value={imageM}
-                            onChange={onImageMChanged}
+                            id="image_mobile"
+                            name="image_mobile"
+                            // value={image_mobile}
+                            onChange={onimage_mobileChanged}
                         />
                     </div>
                     <div className="col-md-12">
