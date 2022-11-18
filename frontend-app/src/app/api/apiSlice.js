@@ -6,6 +6,7 @@ const baseQuery = fetchBaseQuery({
 		process.env.NODE_ENV === "development"
 			? "http://localhost:3500"
 			: "https://ppi-mib.co.uk",
+	// baseUrl: "http://localhost:3500",
 	credentials: "include",
 	prepareHeaders: (headers, { getState }) => {
 		const token = getState().auth.token;

@@ -31,10 +31,10 @@ app.use(cookieParser());
 // CONNECTING SERVER TO BUILD PATH
 app.use(express.static(path.join(__dirname, "frontend-app/build")));
 
-app.get("/", function (req, res) {
-	res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-///////////////////////////////////
+// app.get("/", function (req, res) {
+// 	res.sendFile(path.join(__dirname, "frontend-app/build", "index.html"));
+// });
+/////////////////////////////////
 
 app.use("/", express.static(path.join(__dirname, "backend", "/public")));
 app.use("/", express.static(path.join(__dirname, "backend", "/uploads")));
@@ -43,7 +43,11 @@ app.use("/", require("./backend/routes/root"));
 app.use("/admin", require("./backend/routes/authRoutes"));
 app.use("/users", require("./backend/routes/userRoutes"));
 app.use("/posts", require("./backend/routes/postRoutes"));
-// app.use("/posts", require("./backend/routes/postRoutes"));
+// app.use("/posts", require("./backend/routes/postRoutes"));c
+
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "frontend-app/build", "index.html"));
+});
 
 app.all("*", (req, res) => {
 	res.status(404);
