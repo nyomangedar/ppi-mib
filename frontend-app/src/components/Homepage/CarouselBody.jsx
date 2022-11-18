@@ -1,13 +1,9 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import PostCarousel from "./PostCarousel";
 import { useGetPostsQuery } from "../../features/posts/postsApiSlice";
-import student_adv from "../../image/student_adv.png";
-import { Buffer } from "buffer";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useEffect } from "react";
-import env from "react-dotenv";
 
 const CarouselBody = () => {
 	const [descShow, descSetter] = useState(false);
