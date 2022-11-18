@@ -10,7 +10,7 @@ const path = require("path");
 const getAllPost = asyncHandler(async (req, res) => {
 	console.log("Masuk get post");
 	// Get all posts from Database
-	const posts = await Post.find().lean();
+	const posts = await Post.find().sort({ createdAt: -1 }).lean();
 
 	if (!posts?.length) {
 		return res.status(400).json({ message: "No posts found" });
@@ -22,6 +22,7 @@ const getAllPost = asyncHandler(async (req, res) => {
 const createNewPost = asyncHandler(async (req, res) => {
 	const { user, title, text } = req.body;
 
+	console.log(JSON.stringify(req.body));
 	console.log("files + " + JSON.stringify(req.files));
 
 	if ((!user, !title, !text)) {
