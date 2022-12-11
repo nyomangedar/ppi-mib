@@ -106,7 +106,7 @@ const generateToken = (id, username, divisi, active) => {
 // Generate Refresh Token
 const generateRefreshToken = (username) => {
 	return jwt.sign({ username }, process.env.REFRESH_TOKEN_KEY, {
-		expiresIn: "2m",
+		expiresIn: "30m",
 	});
 };
 

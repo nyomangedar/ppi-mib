@@ -44,21 +44,6 @@ const AdminMenuPost = () => {
 	var formData = new FormData();
 	const onSavePostClicked = async (e) => {
 		e.preventDefault();
-		// const attribute = [
-		//     ["user", user],
-		//     ["title", title],
-		//     ["link", link],
-		//     ["active", active],
-		//     ["image", image],
-		//     ["image_mobile", image_mobile],
-		//     ["image_wide", image_wide],
-		// ];
-		// for (var i = 0; i < attribute.length; i += 1) {
-		//     var x = attribute[i];
-		//     formData.append(x[0], x[1]);
-		//     console.log(formData.get(x[0]));
-		// }
-
 		formData.append("user", user);
 		formData.append("title", title);
 		formData.append("text", description);
@@ -67,10 +52,6 @@ const AdminMenuPost = () => {
 		formData.append("image", image);
 		formData.append("image_mobile", image_mobile);
 		formData.append("image_wide", image_wide);
-
-		// for (const value of formData.values()) {
-		//     console.log({ value });
-		// }
 		await addNewPost(formData);
 	};
 
@@ -80,13 +61,21 @@ const AdminMenuPost = () => {
 		}
 	}, [logOutSuccess, navigate]);
 
+	const errClass = isError ? "errmsg" : "offscreen";
+
 	return (
 		<>
-			<div class="p-5">
-				<h1>Create a Post </h1>
-				<form className="row" onSubmit={onSavePostClicked}>
-					<div className="col-md-12">
-						<label className="form-label">Title</label>
+			<p className={errClass}>{error?.data?.message}</p>
+			<div class="mb-5">
+				<div class="d-flex justify-content-between">
+					<h1>Create a Post </h1>
+					<button type="button" class="btn btn-primary" onClick={sendLogout}>
+						Logout
+					</button>
+				</div>
+				<form className="row mb-5" onSubmit={onSavePostClicked}>
+					<div className="col-md-12 mb-3">
+						<label className=" fs-4 form-label">Title</label>
 						<input
 							type="text"
 							className="form-control"
@@ -96,8 +85,8 @@ const AdminMenuPost = () => {
 							onChange={onTitleChanged}
 						/>
 					</div>
-					<div className="col-md-12">
-						<label className="form-label">Description</label>
+					<div className="col-md-12 mb-3">
+						<label className=" fs-4 form-label">Description</label>
 						<textarea
 							class="form-control"
 							id="description"
@@ -106,8 +95,8 @@ const AdminMenuPost = () => {
 							onChange={onDescriptionChanged}
 						/>
 					</div>
-					<div className="col-md-12">
-						<label className="form-label">Link</label>
+					<div className="col-md-12 mb-3">
+						<label className=" fs-4 form-label">Link</label>
 						<input
 							class="form-control"
 							type="text"
@@ -117,18 +106,20 @@ const AdminMenuPost = () => {
 							onChange={onLinkChanged}
 						/>
 					</div>
-					<div className="col-md-12">
+					<div className="col-md-12 mb-3">
 						<input
+							class="form-check-input me-2"
 							type="checkbox"
 							id="activate"
 							name="activate"
 							value={true}
 							onChange={onActiveChanged}
+							style={{ width: "25px", height: "25px" }}
 						/>
-						<label className="form-check-label">Activate</label>
+						<label className="form-check-label  fs-4">Activate</label>
 					</div>
-					<div className="col-md-12">
-						<label className="form-label">Image large: </label>
+					<div className="col-md-12 mb-3">
+						<label className="form-label me-2  fs-4">Image: </label>
 						<input
 							type="file"
 							class="form-control-file"
@@ -138,8 +129,8 @@ const AdminMenuPost = () => {
 							onChange={onImageChanged}
 						/>
 					</div>
-					<div className="col-md-12">
-						<label className="form-label">Image wide: </label>
+					<div className="col-md-12 mb-3">
+						<label className="form-label me-2  fs-4">Image wide: </label>
 						<input
 							type="file"
 							class="form-control-file"
@@ -149,8 +140,8 @@ const AdminMenuPost = () => {
 							onChange={onimage_wideChanged}
 						/>
 					</div>
-					<div className="col-md-12">
-						<label className="form-label">Image mobile:</label>
+					<div className="col-md-12 mb-3">
+						<label className="form-label me-2  fs-4">Image mobile:</label>
 						<input
 							type="file"
 							class="form-control-file"
@@ -161,11 +152,10 @@ const AdminMenuPost = () => {
 						/>
 					</div>
 					<div className="col-md-12">
-						<button type="submit">submit</button>
+						<button type="submit" class="btn btn-primary">
+							Submit
+						</button>
 					</div>
-					<button type="button" class="btn btn-primary" onClick={sendLogout}>
-						Logout
-					</button>
 				</form>
 			</div>
 		</>

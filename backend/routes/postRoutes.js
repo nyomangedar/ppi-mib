@@ -28,7 +28,16 @@ router
 			{ name: "image_mobile", maxCount: 1 },
 		]),
 		postController.createNewPost
-	);
+	)
+	.patch(
+		upload.fields([
+			{ name: "image", maxCount: 1 },
+			{ name: "image_wide", maxCount: 1 },
+			{ name: "image_mobile", maxCount: 1 },
+		]),
+		postController.updatePost
+	)
+	.delete(postController.deletePost);
 
 // .patch(postController.editPost)
 // .delete(postController.deletePost);
