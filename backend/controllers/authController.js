@@ -10,7 +10,7 @@ const login = asyncHandler(async (req, res) => {
 	console.log(req.body);
 	const { username, password, divisi } = req.body;
 
-	if (!username || !password || !divisi) {
+	if (!username || !password) {
 		return res.status(401).json({ message: "All fields are required!" });
 	}
 

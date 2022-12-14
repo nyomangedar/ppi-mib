@@ -101,7 +101,7 @@ function LoginAdmin() {
 								required
 							></input>
 						</div>
-						<div class="mb-4">
+						{/* <div class="mb-4">
 							<label htmlFor="password" class="form-label">
 								Divisi
 							</label>
@@ -113,7 +113,7 @@ function LoginAdmin() {
 								onChange={handleDivisiInput}
 								required
 							></input>
-						</div>
+						</div> */}
 						<div>
 							<label htmlFor="persist" class="form-check-label"></label>
 							<input
