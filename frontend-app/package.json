@@ -20,6 +20,7 @@
         "react-scripts": "5.0.1",
         "react-spinners": "^0.13.6",
         "react-transition-group": "^4.4.5",
+        "require-context": "^1.1.0",
         "serve": "^14.1.2",
         "web-vitals": "^3.1.0"
     },
