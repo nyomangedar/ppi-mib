@@ -20,16 +20,16 @@ code {
         monospace;
 }
 
-.carousel .carousel-item {
-    height: 40rem;
-}
+/* .carousel .carousel-item {
+	height: 40rem;
+} */
 
 .carousel-item img {
     /* filter: grayscale(100%); */
-    object-fit: cover; /* Do not scale the image */
+    object-fit: contain; /* Do not scale the image */
     object-position: center; /* Center the image within the element */
-    height: 40em;
-    width: 40em;
+    /* height: 40em;
+	width: 40em; */
     /* object-position: center top;
 	position: absolute;
 	object-fit: cover;
@@ -236,11 +236,11 @@ code {
     .title {
         font-size: 1.5em;
     }
-    .carousel .carousel-item {
-        height: 37em;
-    }
+    /* .carousel .carousel-item {
+		height: 37em;
+	} */
     .carousel-item img {
-        object-fit: cover;
+        object-fit: contain;
         object-position: center;
         /* height: 37em; */
         width: 100%;

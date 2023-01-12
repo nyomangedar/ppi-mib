@@ -10,7 +10,7 @@ const login = asyncHandler(async (req, res) => {
 	console.log(req.body);
 	const { username, password, divisi } = req.body;
 
-	if (!username || !password || !divisi) {
+	if (!username || !password) {
 		return res.status(401).json({ message: "All fields are required!" });
 	}
 
@@ -106,7 +106,7 @@ const generateToken = (id, username, divisi, active) => {
 // Generate Refresh Token
 const generateRefreshToken = (username) => {
 	return jwt.sign({ username }, process.env.REFRESH_TOKEN_KEY, {
-		expiresIn: "2m",
+		expiresIn: "30m",
 	});
 };
 
