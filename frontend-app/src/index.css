@@ -20,9 +20,9 @@ code {
 		monospace;
 }
 
-.carousel .carousel-item {
+/* .carousel .carousel-item {
 	height: 40rem;
-}
+} */
 
 .carousel-item img {
 	/* filter: grayscale(100%); */
@@ -305,7 +305,8 @@ code {
 }
 @media screen and (min-width: 2560px) {
 	.footer-ppi {
-		position: fixed;
+		position: relative;
+		bottom: 0;
 	}
 }
 /* @media screen and (min-width: 1440px) {

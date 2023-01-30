@@ -144,7 +144,7 @@ const OrgStructure = () => {
 						src={image1}
 						// style={{ transform: "translateX(-80px)" }}
 					></img>
-					<div className={isLargeScreen ? "px-5 col-3" : "px-5 m-auto"}>
+					<div className={isLargeScreen ? "px-5 col-4" : "px-5 m-auto"}>
 						<h3
 							style={{
 								color: "#1D1D59",
