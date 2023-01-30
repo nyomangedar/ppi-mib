@@ -1,0 +1,23 @@
+Buat deploy React NodeJS:
+
+* -> ikutin tutor bang yutub aja 
+tutor bang yutub: https://www.youtube.com/watch?v=6-RtA6FlbgQ
+
+langkah langkah yang musti kau tempuh:
+    1. install nodejs* -> buat nodejs
+    2. install npm* -> buat npm
+    3. install nginx* -> buat jalanin server
+    4. install certbot -> buat ssl certificate
+    5. install pm2* -> buat jalanin production build nya
+    6. install github action* -> buat konekin github
+    7. buat super user ikutin tutor bang yutub aja*
+    7. setup github action* -> seharusnya gaperlu ngedit yaml lagi kecuali buat .env
+    8. setup nginx*
+    9. setup pm2* -> seharusnya disini dah bisa ngakses web nya
+    10. setup dlu domainnya sampe bisa konek ke hostinger, ni gua lom tau gimana
+    11. setup certbot -> menurut gua dah bisa dlu domainnya baru jalanin ini. (https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04)
+    12. seharusnya dah bisa ci/cd kalo udah bisa setup pm2 sama write automaticly env dari .yaml
+
+Note:
+hampir semua ada di tutorial bang yutub, tapi klo mau cari cari lagi di gugel seharusnya aman
+ikutin aja flow nya ini

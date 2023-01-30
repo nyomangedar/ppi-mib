@@ -25,10 +25,12 @@ jobs:
       - run: |
           pm2 stop 0
           touch .env
-          echo -e "DATABASE_URI=${{secrets.DATABASE_URI}}\nNODE_ENV=${{secrets.NODE_ENV}}" >> .env
+          echo -e "DATABASE_URI=${{secrets.DATABASE_URI}}\nNODE_ENV=${{secrets.NODE_ENV}}\nACCESS_TOKEN_KEY=${{secrets.ACCESS_TOKEN_KEY}}\nREFRESH_TOKEN_KEY=${{secrets.REFRESH_TOKEN_KEY}}" >> .env
           cat .env
+          ncu -u
           npm install
           cd frontend-app
+          ncu -u
           npm install
           npm run build
           cd ..
