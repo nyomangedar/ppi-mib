@@ -20,9 +20,9 @@ code {
         monospace;
 }
 
-.carousel .carousel-item {
+/* .carousel .carousel-item {
     height: 40rem;
-}
+} */
 
 .carousel-item img {
     /* filter: grayscale(100%); */
