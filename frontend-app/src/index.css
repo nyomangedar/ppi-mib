@@ -77,7 +77,7 @@ code {
 }
 
 #navbar-links > a {
-    font-size: 25px;
+    /* font-size: 25px; */
     font-weight: 1000;
     margin-right: 2em;
 }
@@ -230,6 +230,10 @@ code {
     color: white;
     /* color: #86543b; */
     outline: black 1px;
+}
+
+.next-button {
+    position: absolute;
 }
 
 @media screen and (max-width: 475px) {

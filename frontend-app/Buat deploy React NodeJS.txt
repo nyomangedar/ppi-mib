@@ -21,3 +21,11 @@ langkah langkah yang musti kau tempuh:
 Note:
 hampir semua ada di tutorial bang yutub, tapi klo mau cari cari lagi di gugel seharusnya aman
 ikutin aja flow nya ini
+
+
+MANUAL SERVER FIX:
+    1. ssh -i key root@{server_ip}
+    2. cd /var/www/ppiwebsite/_work/ppi_mib/ppi_mib
+    3. then repeat node.js.yml
+
+    ** pm2 status for server runner status

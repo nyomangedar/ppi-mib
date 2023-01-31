@@ -44,7 +44,7 @@ const festivalIndonesia = [
 const talentSportsHobby = [
     {
         Nama: "Sandi Fajar Pratama",
-        Posisi: "Kepala Divisi Talent, Sports, and Hobby",
+        Posisi: "Head of Talent, Sports, and Hobby",
         Picture: orgMemberImgs["tsh_1.png"],
     },
     {
@@ -62,7 +62,7 @@ const talentSportsHobby = [
 const hwfk = [
     {
         Nama: "Arifah Rahmi",
-        Posisi: "Kepala Divisi Health, Wellbeing, Family and Kids",
+        Posisi: "Head of Health, Wellbeing, Family and Kids",
         Picture: orgMemberImgs["hwfk_1.png"],
     },
     {
@@ -75,7 +75,7 @@ const hwfk = [
 const entrepreunership = [
     {
         Nama: "Micha Paramitha",
-        Posisi: "Kepala Divisi Entrepreneurship",
+        Posisi: "Head of Entrepreneurship",
         Picture: orgMemberImgs["entre_1.png"],
     },
     {
@@ -98,7 +98,7 @@ const entrepreunership = [
 const socmed = [
     {
         Nama: "Keysha Aira Rizki Riyadi",
-        Posisi: "Kepala Divisi Social Media and Public Relations",
+        Posisi: "Head of Social Media and Public Relations",
         Picture: orgMemberImgs["socmed_1.png"],
     },
     {
@@ -126,7 +126,7 @@ const socmed = [
 const profDev = [
     {
         Nama: "Fildzah Cindra Yunita",
-        Posisi: "Kepala Divisi Professional Development and Institutional Affairs",
+        Posisi: "Head of Professional Development and Institutional Affairs",
         Picture: orgMemberImgs["profDev_1.png"],
     },
     {
@@ -144,7 +144,7 @@ const profDev = [
 const orgDev = [
     {
         Nama: "Fakhruddin Wirakusuma",
-        Posisi: "Kepala Divisi Organisational Development and Engagement",
+        Posisi: "Head of Organisational Development and Engagement",
         Picture: orgMemberImgs["orgDev_1.png"],
     },
     {
@@ -154,14 +154,14 @@ const orgDev = [
     },
     {
         Nama: "Andrea Nabilla Supit",
-        Posisi: "",
+        Posisi: "Head of Organisational Development Strategy Subdivision",
         Picture: orgMemberImgs["orgDev_3.png"],
     },
 ];
 
 const academic = [
     {
-        Nama: "Anisa Nurfirda Ramadhani",
+        Nama: "Anisa Nurfirda Ramdhani",
         Posisi: "Head of Academic Support, Data, and Information",
         Picture: orgMemberImgs["academic_1.png"],
     },
@@ -182,9 +182,11 @@ const academic = [
     },
 ];
 
-const generateCards = (members) =>
-    members.map((member) => (
+const generateCards = (members, name) =>
+    members.map((member, index) => (
         <CardProfile
+            team={name}
+            index={index}
             nama={member.Nama}
             posisi={member.Posisi}
             picture={member.Picture}
@@ -200,12 +202,3 @@ export const socmedCards = generateCards(socmed);
 export const profDevCards = generateCards(profDev);
 export const orgDevCards = generateCards(orgDev);
 export const academicCards = generateCards(academic);
-
-// const OrgMember = (org) => {
-//     switch (org) {
-//         case "bph":
-//             return bph;
-//         case "talentSportsHobby":
-//             return talentSportsHobby;
-//     }
-// };
