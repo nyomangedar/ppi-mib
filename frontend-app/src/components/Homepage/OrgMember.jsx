@@ -13,12 +13,12 @@ const coreTeam = [
     },
     {
         Nama: "Lukman Septaekwara",
-        Posisi: "Vice President (Internal Affairs)",
+        Posisi: "Vice President (External Affairs)",
         Picture: orgMemberImgs["coreTeam_2.png"],
     },
     {
         Nama: "Qinthara Ulya Yassifa",
-        Posisi: "Vice Presiednt (External Affairs)",
+        Posisi: "Vice Presiednt (Internal Affairs)",
         Picture: orgMemberImgs["coreTeam_3.png"],
     },
     {
