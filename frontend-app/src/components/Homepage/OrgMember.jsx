@@ -8,27 +8,27 @@ const orgMemberImgs = importMany(
 const coreTeam = [
     {
         Nama: "Aldian Vounthougerenth S.",
-        Posisi: "Ketua",
+        Posisi: "President",
         Picture: orgMemberImgs["coreTeam_1.png"],
     },
     {
         Nama: "Lukman Septaekwara",
-        Posisi: "Wakil Ketua (Internal)",
+        Posisi: "Vice President (Internal Affairs)",
         Picture: orgMemberImgs["coreTeam_2.png"],
     },
     {
         Nama: "Qinthara Ulya Yassifa",
-        Posisi: "Wakil Ketua (Eksternal)",
+        Posisi: "Vice Presiednt (External Affairs)",
         Picture: orgMemberImgs["coreTeam_3.png"],
     },
     {
         Nama: "Jusrida Ramadhanti Fadhila",
-        Posisi: "Sekretaris Umum",
+        Posisi: "General Secretary",
         Picture: orgMemberImgs["coreTeam_4.png"],
     },
     {
         Nama: "Babtista Varani Anggraeni",
-        Posisi: "Bendahara",
+        Posisi: "General Treasurer",
         Picture: orgMemberImgs["coreTeam_5.png"],
     },
 ];
@@ -36,7 +36,7 @@ const coreTeam = [
 const festivalIndonesia = [
     {
         Nama: "Mardiansah Subhani",
-        Posisi: "Ketua Festival Indonesia",
+        Posisi: "Head of Festival Indonesia",
         Picture: orgMemberImgs["festIndonesia_1.png"],
     },
 ];
