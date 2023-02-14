@@ -44,7 +44,7 @@ const festivalIndonesia = [
 const talentSportsHobby = [
     {
         Nama: "Sandi Fajar Pratama",
-        Posisi: "Talent, Sports, and Hobby",
+        Posisi: "Head of Talent, Sports, and Hobby Division",
         Picture: orgMemberImgs["tsh_1.png"],
     },
     {
@@ -62,7 +62,7 @@ const talentSportsHobby = [
 const hwfk = [
     {
         Nama: "Arifah Rahmi",
-        Posisi: "Health, Wellbeing, Family and Kids",
+        Posisi: "Head of Health, Wellbeing, Family and Kids Division",
         Picture: orgMemberImgs["hwfk_1.png"],
     },
     {
