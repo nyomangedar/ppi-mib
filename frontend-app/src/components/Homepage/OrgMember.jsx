@@ -36,7 +36,7 @@ const coreTeam = [
 const festivalIndonesia = [
     {
         Nama: "Mardiansah Subhani",
-        Posisi: "Festival Indonesia",
+        Posisi: "Head of Festival Indonesia",
         Picture: orgMemberImgs["festIndonesia_1.png"],
     },
 ];
