@@ -12,6 +12,7 @@ import AdminMenu from "./pages/AdminMenu";
 import RequireAuth from "./features/auth/RequireAuth";
 import LoginAdmin from "./pages/LoginAdmin";
 import PersistLogin from "./features/auth/PersistLogin";
+import StudentForm from "./pages/StudentForm";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 				{/* Public Routes */}
 				<Route index element={<Homepage />} />
 				<Route path="login" element={<LoginAdmin />} />
+				<Route path="register" element={<StudentForm />} />
 				{/* Admin Routes */}
 				<Route element={<PersistLogin />}>
 					<Route element={<RequireAuth />}>

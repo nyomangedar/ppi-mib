@@ -98,7 +98,7 @@ const generateToken = (id, username, divisi, active) => {
 		{ _id: id, username, divisi, active },
 		process.env.ACCESS_TOKEN_KEY,
 		{
-			expiresIn: "10s",
+			expiresIn: "10m",
 		}
 	);
 };

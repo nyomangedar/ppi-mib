@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import logo_ppi from "../image/logo_ppi.png";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavbarBrand from "react-bootstrap/esm/NavbarBrand";
 
 const PPIHeader = () => {
-    const currentLocation = window.location.href.split("/");
-
     return (
         <>
-            <Navbar bg="light" sticky="top">
-                <NavbarBrand className="ps-5" href="/">
+            <Navbar expand="lg">
+                <NavbarBrand className="ps-4">
                     <img
                         src={logo_ppi}
                         // src={`${serverBaseURI}/logo_ppi.png`}
-                        class="mx-auto d-block img-fluid"
+                        class="p-4 mx-auto d-block img-fluid"
                         alt="logo-ppi"
                     ></img>
                 </NavbarBrand>
@@ -24,22 +22,12 @@ const PPIHeader = () => {
                     className="justify-content-center"
                 >
                     <Nav id="navbar-links">
-                        <Nav.Link
-                            href={
-                                currentLocation[currentLocation.length - 1] ===
-                                    "" ||
-                                currentLocation[currentLocation.length - 1] ===
-                                    "#home"
-                                    ? "#home"
-                                    : "/"
-                            }
-                        >
-                            Home
-                        </Nav.Link>
+                        <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#aboutUs">About Us</Nav.Link>
-                        <Nav.Link href="https://bit.ly/MIBRegistration">
+                        <Nav.Link href="/register">Registration</Nav.Link>
+                        {/* <Nav.Link href="https://bit.ly/MIBRegistration">
                             Registration
-                        </Nav.Link>
+                        </Nav.Link> */}
                         {/* <Nav.Link>Article</Nav.Link> */}
                     </Nav>
                 </Navbar.Collapse>
