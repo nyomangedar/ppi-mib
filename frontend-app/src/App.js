@@ -13,27 +13,29 @@ import RequireAuth from "./features/auth/RequireAuth";
 import LoginAdmin from "./pages/LoginAdmin";
 import PersistLogin from "./features/auth/PersistLogin";
 import StudentForm from "./pages/StudentForm";
+import FormLandingPage from "./pages/FormLandingPage";
 
 function App() {
-	return (
-		<>
-			<PPIHeader />
-			<Routes>
-				<Route path="/" element={<Layout />} />
-				{/* Public Routes */}
-				<Route index element={<Homepage />} />
-				<Route path="login" element={<LoginAdmin />} />
-				<Route path="register" element={<StudentForm />} />
-				{/* Admin Routes */}
-				<Route element={<PersistLogin />}>
-					<Route element={<RequireAuth />}>
-						<Route path="admin" element={<AdminMenu />} />
-					</Route>
-				</Route>
-			</Routes>
-			<Footer />
-		</>
-	);
+    return (
+        <>
+            <PPIHeader />
+            <Routes>
+                <Route path="/" element={<Layout />} />
+                {/* Public Routes */}
+                <Route index element={<Homepage />} />
+                <Route path="login" element={<LoginAdmin />} />
+                <Route path="register" element={<FormLandingPage />} />
+                <Route path="register/student" element={<StudentForm />} />
+                {/* Admin Routes */}
+                <Route element={<PersistLogin />}>
+                    <Route element={<RequireAuth />}>
+                        <Route path="admin" element={<AdminMenu />} />
+                    </Route>
+                </Route>
+            </Routes>
+            <Footer />
+        </>
+    );
 }
 
 export default App;

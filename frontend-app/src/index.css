@@ -24,6 +24,21 @@ code {
     height: 40rem;
 } */
 
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
 .carousel-item img {
     /* filter: grayscale(100%); */
     object-fit: contain; /* Do not scale the image */
