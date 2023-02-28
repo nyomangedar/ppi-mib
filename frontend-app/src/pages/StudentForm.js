@@ -1,8 +1,8 @@
 import React from "react";
-import BasicInfo from "../components/Admin/RegisterForm/BasicInfo";
+import BasicInfo from "../components/Form/RegisterForm/BasicInfo";
 
 function StudentForm() {
-	return <BasicInfo />;
+    return <BasicInfo />;
 }
 
 export default StudentForm;

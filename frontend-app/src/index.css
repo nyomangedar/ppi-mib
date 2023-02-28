@@ -341,87 +341,87 @@ code {
 
 /* Form CSS */
 .form-header {
-	font-family: "Montserrat";
-	font-style: normal;
-	font-weight: 700;
-	line-height: 52px;
-	text-align: center;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    line-height: 52px;
+    text-align: center;
 
-	color: #000000;
+    color: #000000;
 }
 
 .form-input {
-	box-sizing: border-box !important;
-	border: 1px solid #8e8d94 !important;
-	border-radius: 8px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #8e8d94 !important;
+    border-radius: 8px !important;
 }
 
 .input-label {
-	font-family: "Montserrat";
-	font-style: normal !important;
-	font-weight: 400 !important;
-	font-size: 22px !important;
-	line-height: 27px !important;
+    font-family: "Montserrat";
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 22px !important;
+    line-height: 27px !important;
 
-	color: #000000;
+    color: #000000;
 }
 
 @media screen and (min-width: 768px) {
-	.form-input {
-		width: 50% !important;
-	}
+    .form-input {
+        width: 50% !important;
+    }
 }
 
 .divider-basic {
-	height: 2px;
-	/* width: 50% !important; */
-	/* Primary/Red */
+    height: 2px;
+    /* width: 50% !important; */
+    /* Primary/Red */
 
-	background: #8d191a !important;
-	border-radius: 9px !important;
+    background: #8d191a !important;
+    border-radius: 9px !important;
 }
 
 .radio-relationship {
-	font-family: "Montserrat" !important;
-	font-style: normal !important;
-	font-weight: 300 !important;
-	font-size: 20px !important;
-	line-height: 24px !important;
+    font-family: "Montserrat" !important;
+    font-style: normal !important;
+    font-weight: 300 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
 
-	color: #000000;
+    color: #000000;
 }
 
 .relationship-other {
-	box-sizing: border-box;
+    box-sizing: border-box;
 
-	/* position: absolute; */
-	width: 127px !important;
-	height: 23px !important;
+    /* position: absolute; */
+    width: 127px !important;
+    height: 23px !important;
 
-	border: 1px solid #8e8d94 !important;
-	border-radius: 5px !important;
+    border: 1px solid #8e8d94 !important;
+    border-radius: 5px !important;
 }
 
 .form-prev {
-	width: 15em;
-	height: 3.5rem;
+    width: 15em;
+    height: 3.5rem;
 
-	/* gray */
-	background: #8e8d94 !important;
-	box-shadow: 8px 6px 15px rgba(0, 0, 0, 0.25) !important;
-	border-radius: 15px !important;
-	border: none !important;
+    /* gray */
+    background: #8e8d94 !important;
+    box-shadow: 8px 6px 15px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 15px !important;
+    border: none !important;
 }
 
 .form-prev span {
-	font-family: "Montserrat";
-	font-style: normal;
-	font-weight: 400;
-	font-size: 30px;
-	line-height: 39px;
-	text-align: center;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 39px;
+    text-align: center;
 
-	color: #ffffff;
+    color: #ffffff;
 }
 
 /* .button-content {
@@ -432,7 +432,7 @@ code {
 } */
 
 .form-prev img {
-	align-items: center !important;
-	width: 35px;
-	height: 35px;
+    align-items: center !important;
+    width: 35px;
+    height: 35px;
 }
