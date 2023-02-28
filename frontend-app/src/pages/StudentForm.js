@@ -5,75 +5,74 @@ import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
 import ContactIndo from "../components/RegisterForm/ContactIndo";
 import ContactUK from "../components/RegisterForm/ContactUK";
+import FormBreadCrumb from "../components/RegisterForm/FormBreadcrumb";
 
 function StudentForm() {
-	const [currentPage, setCurrentPage] = useState(1);
-	const totalPages = 4;
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 4;
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [currentPage]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentPage]);
 
-	const handleNext = () => {
-		if (currentPage < totalPages) {
-			setCurrentPage(currentPage + 1);
-		} else {
-			// console.log("Submitting form:", formData);
-			console.log("Max page");
-			// submit form here
-		}
-	};
+    const handleNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        } else {
+            // console.log("Submitting form:", formData);
+            console.log("Max page");
+            // submit form here
+        }
+    };
 
-	const handlePrev = () => {
-		if (currentPage > 1) {
-			setCurrentPage(currentPage - 1);
-		} else {
-			return;
-			// submit form here
-		}
-	};
+    const handlePrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        } else {
+            return;
+            // submit form here
+        }
+    };
 
-	return (
-		<>
-			<div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
-				<div class="container text-center">
-					<h1 class="align-items-center form-header">
-						Student's Basic Information
-					</h1>
-				</div>
-				<div class="container text-center p-5">
-					<h2 class="align-items-center">Progress Bar</h2>
-				</div>
-				{currentPage === 1 && <BasicInfo />}
-				{currentPage === 2 && <StudentEdu />}
-				{currentPage === 3 && <ContactIndo />}
-				{currentPage === 4 && <ContactUK />}
-			</div>
-			<div class="button-col d-flex justify-content-center py-5">
-				<Button
-					className="form-prev d-flex align-items-center px-4 me-5"
-					onClick={() => handlePrev()}
-				>
-					<img src={arrow} className="me-4" />
-					<span class="text-center fs-4">Previous</span>
-				</Button>
-				<Button
-					className="form-next d-flex align-items-center px-4"
-					style={{ background: "#1D1D59 !important" }}
-					onClick={() => handleNext()}
-				>
-					<img
-						src={arrow}
-						style={{
-							transform: "scaleX(-1)",
-							marginRight: "30px",
-						}}
-					/>
-					<span class="text-center fs-4">Proceed</span>
-				</Button>
-			</div>
-		</>
-	);
+    return (
+        <>
+            <div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
+                <div class="container text-center">
+                    <h1 class="align-items-center form-header">
+                        Student's Basic Information
+                    </h1>
+                </div>
+                <div class="container text-center"></div>
+                {currentPage === 1 && <BasicInfo />}
+                {currentPage === 2 && <StudentEdu />}
+                {currentPage === 3 && <ContactIndo />}
+                {currentPage === 4 && <ContactUK />}
+            </div>
+            <div class="button-col d-flex justify-content-center py-5">
+                <Button
+                    className="form-prev d-flex align-items-center px-4 me-5"
+                    onClick={() => handlePrev()}
+                >
+                    <img src={arrow} className="me-4" />
+                    <span class="text-center fs-4">Previous</span>
+                </Button>
+                <Button
+                    className="form-next d-flex align-items-center px-4"
+                    style={{ background: "#1D1D59 !important" }}
+                    onClick={() => handleNext()}
+                >
+                    <img
+                        src={arrow}
+                        style={{
+                            transform: "scaleX(-1)",
+                            marginRight: "30px",
+                        }}
+                    />
+                    <span class="text-center fs-4">Proceed</span>
+                </Button>
+            </div>
+        </>
+    );
 }
 
 export default StudentForm;
