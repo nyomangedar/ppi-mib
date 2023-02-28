@@ -41,32 +41,42 @@ function FormBreadCrumb(props) {
         },
     };
 
-    const generateCrumb = listCrumbs.map((crumb) => (
-        <>
-            <div style={{ height: "71px", width: "121px" }}>
-                <a style={{ cursor: "pointer" }}>
+    function mapFunction(crumb) {
+        const path = crumb.path;
+        return (
+            <>
+                <div style={{ height: "71px", width: "121px" }}>
+                    <a
+                        style={{ cursor: "pointer" }}
+                        onClick={() => props.onClick(path)}
+                    >
+                        <div
+                            style={
+                                crumb.active
+                                    ? style.circleActive
+                                    : style.circleInactive
+                            }
+                        >
+                            {crumb.active && <div style={style.circleFill} />}
+                        </div>
+                        <p className="my-2 px-3">{crumb.title}</p>
+                    </a>
+                </div>
+
+                {!crumb.end && (
                     <div
                         style={
-                            crumb.active
-                                ? style.circleActive
-                                : style.circleInactive
+                            crumb.progress
+                                ? style.lineActive
+                                : style.lineInactive
                         }
-                    >
-                        {crumb.active && <div style={style.circleFill} />}
-                    </div>
-                    <p className="my-2 px-3">{crumb.title}</p>
-                </a>
-            </div>
+                    />
+                )}
+            </>
+        );
+    }
 
-            {!crumb.end && (
-                <div
-                    style={
-                        crumb.progress ? style.lineActive : style.lineInactive
-                    }
-                />
-            )}
-        </>
-    ));
+    const generateCrumb = listCrumbs.map(mapFunction);
 
     return (
         <div className="d-flex justify-content-center align-items-center">

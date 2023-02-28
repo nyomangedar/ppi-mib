@@ -34,28 +34,46 @@ function StudentForm() {
         }
     };
 
+    const activateCurrent = (index) => {
+        return currentPage == index;
+    };
+
+    const progressTracker = (index) => {
+        return index < currentPage;
+    };
+
+    const handleOnClick = (index) => {
+        setCurrentPage(index);
+    };
+
     const crumbs = [
         {
-            active: true,
-            progress: false,
+            active: activateCurrent(1),
+            progress: progressTracker(1),
             end: false,
             title: "Basic Information",
-            path: "basic-info",
+            path: 1,
         },
-        { active: false, progress: false, end: false, title: "Education" },
         {
-            active: false,
-            progress: false,
+            active: activateCurrent(2),
+            progress: progressTracker(2),
+            end: false,
+            title: "Education",
+            path: 2,
+        },
+        {
+            active: activateCurrent(3),
+            progress: progressTracker(3),
             end: false,
             title: "Emergency Contact Indonesia",
-            path: "basic-info",
+            path: 3,
         },
         {
-            active: false,
-            progress: false,
+            active: activateCurrent(4),
+            progress: progressTracker(4),
             end: true,
             title: "Emergency Contact in UK",
-            path: "basic-info",
+            path: 4,
         },
     ];
 
@@ -68,7 +86,7 @@ function StudentForm() {
                     </h1>
                 </div>
                 <div class="container text-center py-5">
-                    <FormBreadCrumb crumbs={crumbs} />
+                    <FormBreadCrumb crumbs={crumbs} onClick={setCurrentPage} />
                 </div>
                 {currentPage === 1 && <BasicInfo />}
                 {currentPage === 2 && <StudentEdu />}

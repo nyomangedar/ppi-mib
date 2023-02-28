@@ -92,11 +92,11 @@ const sensusSchema = new mongoose.Schema({
         required: true,
     },
     entryYear: {
-        type: Date,
+        type: Number,
         required: true,
     },
     graduateYear: {
-        type: String,
+        type: Number,
         required: true,
     },
     studentId: {
