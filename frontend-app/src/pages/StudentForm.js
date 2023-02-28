@@ -6,6 +6,8 @@ import { Button } from "react-bootstrap";
 import ContactIndo from "../components/RegisterForm/ContactIndo";
 import ContactUK from "../components/RegisterForm/ContactUK";
 import FormBreadCrumb from "../components/RegisterForm/FormBreadcrumb";
+import Banner from "../components/RegisterForm/Banner";
+import studentBanner from "../image/formAsset/studentFormBanner.png";
 
 function StudentForm() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -34,16 +36,20 @@ function StudentForm() {
         }
     };
 
+    const title = {
+        basicInfo: "Student's Basic Info",
+        education: "Student's Education",
+        contactIndo: "Student's Emergency Contact in Indonesia",
+        contactUK: "Student's Emergency Contact in UK",
+    };
+
+    // Breadcrumb function and stuff
     const activateCurrent = (index) => {
         return currentPage == index;
     };
 
     const progressTracker = (index) => {
         return index < currentPage;
-    };
-
-    const handleOnClick = (index) => {
-        setCurrentPage(index);
     };
 
     const crumbs = [
@@ -76,23 +82,36 @@ function StudentForm() {
             path: 4,
         },
     ];
+    // End Breadcrumb stuff
 
     return (
         <>
+            {/* BANNER */}
+            <Banner image={studentBanner} type={"student"} />
+
             <div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
+                {/* TITLE */}
                 <div class="container text-center">
                     <h1 class="align-items-center form-header">
-                        Student's Basic Information
+                        {currentPage === 1 && title.basicInfo}
+                        {currentPage === 2 && title.education}
+                        {currentPage === 3 && title.contactIndo}
+                        {currentPage === 4 && title.contactUK}
                     </h1>
                 </div>
+                {/* BREADCRUMBS */}
                 <div class="container text-center py-5">
                     <FormBreadCrumb crumbs={crumbs} onClick={setCurrentPage} />
                 </div>
+
+                {/* FORM CONTENT */}
                 {currentPage === 1 && <BasicInfo />}
                 {currentPage === 2 && <StudentEdu />}
                 {currentPage === 3 && <ContactIndo />}
                 {currentPage === 4 && <ContactUK />}
             </div>
+
+            {/* BOTTOM BUTTONS */}
             <div class="button-col d-flex justify-content-center py-5">
                 <Button
                     className="form-prev d-flex align-items-center px-4 me-5"
