@@ -34,6 +34,31 @@ function StudentForm() {
         }
     };
 
+    const crumbs = [
+        {
+            active: true,
+            progress: false,
+            end: false,
+            title: "Basic Information",
+            path: "basic-info",
+        },
+        { active: false, progress: false, end: false, title: "Education" },
+        {
+            active: false,
+            progress: false,
+            end: false,
+            title: "Emergency Contact Indonesia",
+            path: "basic-info",
+        },
+        {
+            active: false,
+            progress: false,
+            end: true,
+            title: "Emergency Contact in UK",
+            path: "basic-info",
+        },
+    ];
+
     return (
         <>
             <div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
@@ -42,7 +67,9 @@ function StudentForm() {
                         Student's Basic Information
                     </h1>
                 </div>
-                <div class="container text-center"></div>
+                <div class="container text-center py-5">
+                    <FormBreadCrumb crumbs={crumbs} />
+                </div>
                 {currentPage === 1 && <BasicInfo />}
                 {currentPage === 2 && <StudentEdu />}
                 {currentPage === 3 && <ContactIndo />}

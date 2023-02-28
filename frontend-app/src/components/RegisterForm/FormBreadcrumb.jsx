@@ -69,7 +69,7 @@ function FormBreadCrumb(props) {
     ));
 
     return (
-        <div className="d-flex justfy-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center">
             {generateCrumb}
         </div>
     );
