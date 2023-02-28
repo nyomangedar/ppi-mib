@@ -267,19 +267,28 @@ function BasicInfo() {
 								required
 							/>
 						</div>
-						<div class="d-flex justify-content-center">
+						<div class="button-col d-flex justify-content-center">
 							<Button className="form-prev d-flex align-items-center px-4 me-5">
-								<img src={arrow} className="" />
-								<span class="text-center">Previous</span>
+								<img src={arrow} className="me-4" />
+								<span class="text-center fs-4">Previous</span>
 							</Button>
-							<Button className="form-prev d-flex align-items-center px-4">
-								<img src={arrow} className="" />
-								<span class="text-center">Previous</span>
+							<Button
+								className="form-next d-flex align-items-center px-4"
+								style={{ background: "#1D1D59 !important" }}
+							>
+								<img
+									src={arrow}
+									style={{
+										transform: "scaleX(-1)",
+										marginRight: "30px",
+									}}
+								/>
+								<span class="text-center fs-4">Proceed</span>
 							</Button>
 						</div>
-						<button type="submit" class="btn btn-primary">
+						{/* <button type="submit" class="btn btn-primary">
 							Submit
-						</button>
+						</button> */}
 					</form>
 				</div>
 			</div>
