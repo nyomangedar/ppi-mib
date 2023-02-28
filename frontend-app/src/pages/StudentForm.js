@@ -1,5 +1,5 @@
 import React from "react";
-import BasicInfo from "../components/Form/RegisterForm/BasicInfo";
+import BasicInfo from "../components/RegisterForm/BasicInfo";
 
 function StudentForm() {
     return <BasicInfo />;
