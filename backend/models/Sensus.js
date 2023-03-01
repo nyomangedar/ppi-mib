@@ -69,39 +69,57 @@ const sensusSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    permanentResident: {
+        type: Boolean,
+        required: true,
+    },
     stayPeriod: {
         type: Date,
         required: false,
     },
 
     //EDUCATION
-    degree: {
+    education: [
+        {
+            degree: {
+                type: String,
+                required: true,
+            },
+            university: {
+                type: String,
+                required: true,
+            },
+            course: {
+                type: String,
+                required: true,
+            },
+            funding: {
+                type: String,
+                required: true,
+            },
+            entryYear: {
+                type: Number,
+                required: true,
+            },
+            graduateYear: {
+                type: Number,
+                required: true,
+            },
+            studentId: {
+                type: String,
+                required: false,
+            },
+        },
+    ],
+
+    // CAREER
+    occupation: {
         type: String,
         required: true,
     },
-    university: {
+    company: {
         type: String,
         required: true,
-    },
-    course: {
-        type: String,
-        required: true,
-    },
-    funding: {
-        type: String,
-        required: true,
-    },
-    entryYear: {
-        type: Number,
-        required: true,
-    },
-    graduateYear: {
-        type: Number,
-        required: true,
-    },
-    studentId: {
-        type: String,
-        required: false,
     },
 
     // UKCONTACT
