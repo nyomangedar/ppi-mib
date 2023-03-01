@@ -5,6 +5,7 @@ import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
 import ContactIndo from "../components/RegisterForm/ContactIndo";
 import ContactUK from "../components/RegisterForm/ContactUK";
+import FormBreadCrumb from "../components/RegisterForm/FormBreadcrumb";
 
 function StudentForm() {
 	const [currentPage, setCurrentPage] = useState(1);
@@ -44,6 +45,49 @@ function StudentForm() {
 		"Student's Emergency Contact in UK",
 	];
 
+	const activateCurrent = (index) => {
+		return currentPage == index;
+	};
+
+	const progressTracker = (index) => {
+		return index < currentPage;
+	};
+
+	const handleOnClick = (index) => {
+		setCurrentPage(index);
+	};
+
+	const crumbs = [
+		{
+			active: activateCurrent(1),
+			progress: progressTracker(1),
+			end: false,
+			title: "Basic Information",
+			path: 1,
+		},
+		{
+			active: activateCurrent(2),
+			progress: progressTracker(2),
+			end: false,
+			title: "Education",
+			path: 2,
+		},
+		{
+			active: activateCurrent(3),
+			progress: progressTracker(3),
+			end: false,
+			title: "Emergency Contact Indonesia",
+			path: 3,
+		},
+		{
+			active: activateCurrent(4),
+			progress: progressTracker(4),
+			end: true,
+			title: "Emergency Contact in UK",
+			path: 4,
+		},
+	];
+
 	return (
 		<>
 			<div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
@@ -52,8 +96,8 @@ function StudentForm() {
 						{title[currentPage - 1]}
 					</h1>
 				</div>
-				<div class="container text-center p-5">
-					<h2 class="align-items-center">Progress Bar</h2>
+				<div class="container text-center py-5">
+					<FormBreadCrumb crumbs={crumbs} onClick={setCurrentPage} />
 				</div>
 				{currentPage === 1 && <BasicInfo />}
 				{currentPage === 2 && <StudentEdu />}
@@ -71,9 +115,7 @@ function StudentForm() {
 				<Button
 					className="form-next d-flex align-items-center px-4"
 					style={{ background: "#1D1D59 !important" }}
-					onClick={() => {
-						currentPage === 4 ? submitForm() : handleNext();
-					}}
+					onClick={() => handleNext()}
 				>
 					<img
 						src={arrow}
@@ -82,9 +124,7 @@ function StudentForm() {
 							marginRight: "30px",
 						}}
 					/>
-					<span class="text-center fs-4">
-						{currentPage === 4 ? "Submit" : "Proceed"}
-					</span>
+					<span class="text-center fs-4">Proceed</span>
 				</Button>
 			</div>
 		</>

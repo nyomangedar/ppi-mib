@@ -114,7 +114,11 @@ const CarouselBody = () => {
               ))
             : null;
 
-        content = <Carousel interval={null}>{postList}</Carousel>;
+        content = (
+            <Carousel id="home" interval={null}>
+                {postList}
+            </Carousel>
+        );
 
         // content = (
         // 	<Carousel interval={null}>

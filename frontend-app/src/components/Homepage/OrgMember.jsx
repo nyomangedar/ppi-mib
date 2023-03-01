@@ -8,27 +8,27 @@ const orgMemberImgs = importMany(
 const coreTeam = [
     {
         Nama: "Aldian Vounthougerenth S.",
-        Posisi: "Ketua",
+        Posisi: "President",
         Picture: orgMemberImgs["coreTeam_1.png"],
     },
     {
         Nama: "Lukman Septaekwara",
-        Posisi: "Wakil Ketua (Internal)",
+        Posisi: "Vice President (External Affairs)",
         Picture: orgMemberImgs["coreTeam_2.png"],
     },
     {
         Nama: "Qinthara Ulya Yassifa",
-        Posisi: "Wakil Ketua (Eksternal)",
+        Posisi: "Vice Presiednt (Internal Affairs)",
         Picture: orgMemberImgs["coreTeam_3.png"],
     },
     {
         Nama: "Jusrida Ramadhanti Fadhila",
-        Posisi: "Sekretaris Umum",
+        Posisi: "General Secretary",
         Picture: orgMemberImgs["coreTeam_4.png"],
     },
     {
         Nama: "Babtista Varani Anggraeni",
-        Posisi: "Bendahara",
+        Posisi: "General Treasurer",
         Picture: orgMemberImgs["coreTeam_5.png"],
     },
 ];
@@ -36,7 +36,7 @@ const coreTeam = [
 const festivalIndonesia = [
     {
         Nama: "Mardiansah Subhani",
-        Posisi: "Ketua Festival Indonesia",
+        Posisi: "Head of Festival Indonesia",
         Picture: orgMemberImgs["festIndonesia_1.png"],
     },
 ];
@@ -44,7 +44,7 @@ const festivalIndonesia = [
 const talentSportsHobby = [
     {
         Nama: "Sandi Fajar Pratama",
-        Posisi: "Kepala Divisi Talent, Sports, and Hobby",
+        Posisi: "Head of Talent, Sports, and Hobby Division",
         Picture: orgMemberImgs["tsh_1.png"],
     },
     {
@@ -54,7 +54,7 @@ const talentSportsHobby = [
     },
     {
         Nama: "Muhammad Humamvidi",
-        Posisi: "Head of Sports Even and Liaison",
+        Posisi: "Head of Sports Event and Liaison Subdivision",
         Picture: orgMemberImgs["tsh_3.png"],
     },
 ];
@@ -62,12 +62,12 @@ const talentSportsHobby = [
 const hwfk = [
     {
         Nama: "Arifah Rahmi",
-        Posisi: "Kepala Divisi Health, Wellbeing, Family and Kids",
+        Posisi: "Head of Health, Wellbeing, Family and Kids Division",
         Picture: orgMemberImgs["hwfk_1.png"],
     },
     {
         Nama: "Nurul Melati Ulfa",
-        Posisi: "Head of Society Engagement",
+        Posisi: "Head of Indonesian Society Engagement Subdivision",
         Picture: orgMemberImgs["hwfk_2.png"],
     },
 ];
@@ -75,22 +75,22 @@ const hwfk = [
 const entrepreunership = [
     {
         Nama: "Micha Paramitha",
-        Posisi: "Kepala Divisi Entrepreneurship",
+        Posisi: "Head of Entrepreneurship Division",
         Picture: orgMemberImgs["entre_1.png"],
     },
     {
         Nama: "Matthew Brian Tahir",
-        Posisi: "Business Planning and Strategy",
+        Posisi: "Head of Business Planning and Strategy Subdivision",
         Picture: orgMemberImgs["entre_2.png"],
     },
     {
         Nama: "Abdul Muthi",
-        Posisi: "Head of Marketing and Sales",
+        Posisi: "Head of Marketing and Sales Subdivision",
         Picture: orgMemberImgs["entre_3.png"],
     },
     {
         Nama: "Fedra Eirene",
-        Posisi: "Head of Fundraising",
+        Posisi: "Head of Fundraising Subdivision",
         Picture: orgMemberImgs["entre_4.png"],
     },
 ];
@@ -98,7 +98,7 @@ const entrepreunership = [
 const socmed = [
     {
         Nama: "Keysha Aira Rizki Riyadi",
-        Posisi: "Kepala Divisi Social Media and Public Relations",
+        Posisi: "Head of Social Media and Public Relations Division",
         Picture: orgMemberImgs["socmed_1.png"],
     },
     {
@@ -126,7 +126,7 @@ const socmed = [
 const profDev = [
     {
         Nama: "Fildzah Cindra Yunita",
-        Posisi: "Kepala Divisi Professional Development and Institutional Affairs",
+        Posisi: "Head of Professional Development and Institutional Affairs Division",
         Picture: orgMemberImgs["profDev_1.png"],
     },
     {
@@ -144,30 +144,30 @@ const profDev = [
 const orgDev = [
     {
         Nama: "Fakhruddin Wirakusuma",
-        Posisi: "Kepala Divisi Organisational Development and Engagement",
+        Posisi: "Head of Organisational Development and Alumni Engagement Division",
         Picture: orgMemberImgs["orgDev_1.png"],
     },
     {
         Nama: "Khasan Mustofa",
-        Posisi: "Head of Organisational Development Strategy",
+        Posisi: "Head of Alumni Engagement Subdivision",
         Picture: orgMemberImgs["orgDev_2.png"],
     },
     {
         Nama: "Andrea Nabilla Supit",
-        Posisi: "",
+        Posisi: "Head of Organisational Development Strategy Subdivision",
         Picture: orgMemberImgs["orgDev_3.png"],
     },
 ];
 
 const academic = [
     {
-        Nama: "Anisa Nurfirda Ramadhani",
-        Posisi: "Head of Academic Support, Data, and Information",
+        Nama: "Anisa Nurfirda Ramdhani",
+        Posisi: "Head of Academic Support, Data, and Information Division",
         Picture: orgMemberImgs["academic_1.png"],
     },
     {
         Nama: "Kiara Wsuesti Safi",
-        Posisi: "Secretary of Student Advisory Board Subdivision",
+        Posisi: "Secretary of Student Advisory Board",
         Picture: orgMemberImgs["academic_2.png"],
     },
     {
@@ -182,9 +182,11 @@ const academic = [
     },
 ];
 
-const generateCards = (members) =>
-    members.map((member) => (
+const generateCards = (members, name) =>
+    members.map((member, index) => (
         <CardProfile
+            team={name}
+            index={index}
             nama={member.Nama}
             posisi={member.Posisi}
             picture={member.Picture}
@@ -201,11 +203,15 @@ export const profDevCards = generateCards(profDev);
 export const orgDevCards = generateCards(orgDev);
 export const academicCards = generateCards(academic);
 
-// const OrgMember = (org) => {
-//     switch (org) {
-//         case "bph":
-//             return bph;
-//         case "talentSportsHobby":
-//             return talentSportsHobby;
-//     }
-// };
+// 1. Talent Sports and Hobby -> Talent, Sports, and Hobby
+// 2. Head of Sports Even and Liaison -> Head of Sports Event and Liaison Subdivision
+// 3. Health Wellbeing Family and Kids -> Health, Wellbeing, Family and Kids
+// 4. Head of Society Engagement -> Head of Indonesian Society Engagement Subdivision
+// 5. Entrepreunership -> Entrepreneurship
+// 6. Business Planning and Strategy -> Head Business Planning and Strategy Subdivision
+// 7. Professional Development and Enggagement -> Professional Development and Institutional Affairs
+// 8. Organisation Development and Engagement -> Organisational Development and Alumni Engagement
+// 9. Khasan salah jabatan -> Alumni Engagement Subdivision
+// 10. Wira salah jabatan -> Head of Organisational Development and Alumni Engagement
+// 11. Kiara -> gausah ada subdivision nya
+// 12. Smua anggota team tambahin subdivision kecuali yg aku mention diatas
