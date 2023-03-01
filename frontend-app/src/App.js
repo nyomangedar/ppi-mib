@@ -13,6 +13,8 @@ import RequireAuth from "./features/auth/RequireAuth";
 import LoginAdmin from "./pages/LoginAdmin";
 import PersistLogin from "./features/auth/PersistLogin";
 import StudentForm from "./pages/StudentForm";
+import AlumniForm from "./pages/AlumniForm";
+import CitizenForm from "./pages/CitizenForm";
 
 function App() {
 	return (
@@ -23,7 +25,7 @@ function App() {
 				{/* Public Routes */}
 				<Route index element={<Homepage />} />
 				<Route path="login" element={<LoginAdmin />} />
-				<Route path="register" element={<StudentForm />} />
+				<Route path="register" element={<CitizenForm />} />
 				{/* Admin Routes */}
 				<Route element={<PersistLogin />}>
 					<Route element={<RequireAuth />}>

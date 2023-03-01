@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { Button } from "react-bootstrap";
-import arrow from "../../image/formAsset/arrow-back.svg";
 
 function StudentEdu(props) {
 	const isDesktopOrLaptop = useMediaQuery({
@@ -40,12 +38,16 @@ function StudentEdu(props) {
 						<select
 							class="form-select form-input"
 							aria-label="Default select example"
+							id="degree"
+							name="degree"
+							value={props.data.degree}
+							onChange={props.onChange}
 							required
 						>
-							<option selected disabled hidden>
+							<option value="" selected disabled hidden>
 								Open this select menu
 							</option>
-							<option value="islam">Bachelor</option>
+							<option value="bachelor">Bachelor</option>
 							<option value="masters">Masters</option>
 							<option value="phd">PhD</option>
 						</select>
@@ -57,14 +59,22 @@ function StudentEdu(props) {
 						<select
 							class="form-select form-input"
 							aria-label="Default select example"
+							id="university"
+							name="university"
+							value={props.data.university}
+							onChange={props.onChange}
 							required
 						>
-							<option selected disabled hidden>
+							<option value="" selected disabled hidden>
 								Open this select menu
 							</option>
-							<option value="uob">University of Birmingham</option>
-							<option value="aston">Aston University</option>
-							<option value="bcu">Birmingham City University</option>
+							<option value="University of Birmingham">
+								University of Birmingham
+							</option>
+							<option value="Aston University">Aston University</option>
+							<option value="Birmingham City University">
+								Birmingham City University
+							</option>
 						</select>
 					</div>
 					<div class="mb-4">
@@ -76,6 +86,8 @@ function StudentEdu(props) {
 							class="form-control form-input"
 							id="course"
 							name="course"
+							value={props.data.course}
+							onChange={props.onChange}
 							aria-describedby="courseHelp"
 							placeholder="Course"
 							required
@@ -88,13 +100,17 @@ function StudentEdu(props) {
 						<select
 							class="form-select form-input"
 							aria-label="Default select example"
+							id="funding"
+							name="funding"
+							value={props.data.funding}
+							onChange={props.onChange}
 							required
 						>
-							<option selected disabled hidden>
+							<option value="" selected disabled hidden>
 								Open this select menu
 							</option>
-							<option value="uob">Self-funded</option>
-							<option value="aston">Scholarship</option>
+							<option value="self-funded">Self-funded</option>
+							<option value="scholarship">Scholarship</option>
 						</select>
 					</div>
 					<div class="mb-4">
@@ -109,6 +125,8 @@ function StudentEdu(props) {
 							onBlur={handleBlur}
 							id="entryYear"
 							name="entryYear"
+							value={props.data.entryYear}
+							onChange={props.onChange}
 							aria-describedby="entryYearHelp"
 							placeholder="Entry Year"
 							required
@@ -123,9 +141,11 @@ function StudentEdu(props) {
 							class="form-control form-input"
 							min="1000"
 							// max={currentYear}
-							onBlur={handleBlur}
+							onBlur={handleBlurGrad}
 							id="graduateYear"
 							name="graduateYear"
+							value={props.data.graduateYear}
+							onChange={props.onChange}
 							aria-describedby="graduateYearHelp"
 							placeholder="Graduate Year"
 							required

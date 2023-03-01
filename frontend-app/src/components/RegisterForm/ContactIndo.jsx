@@ -28,9 +28,11 @@ function ContactIndo(props) {
 						<input
 							type="text"
 							class="form-control form-input"
-							id="indoConName"
-							name="indoConName"
-							aria-describedby="indoConNameHelp"
+							id="idnEmergencyName"
+							name="idnEmergencyName"
+							value={props.data.idnEmergencyName}
+							onChange={props.onChange}
+							aria-describedby="idnEmergencyNameHelp"
 							placeholder="Full Name"
 							required
 						/>
@@ -47,8 +49,10 @@ function ContactIndo(props) {
 							placeholder="Enter phone number"
 							minLength="10"
 							maxLength="12"
-							id="indoConPhone"
-							name="indoConPhone"
+							id="idnEmergencyPhone"
+							name="idnEmergencyPhone"
+							value={props.data.idnEmergencyPhone}
+							onChange={props.onChange}
 							onBlur={handleBlur}
 							required
 						/>
@@ -60,8 +64,10 @@ function ContactIndo(props) {
 						<input
 							type="text"
 							class="form-control form-input"
-							id="indoConRelationship"
-							name="indoConRelationship"
+							id="idnEmergencyRelationship"
+							name="idnEmergencyRelationship"
+							value={props.data.idnEmergencyRelationship}
+							onChange={props.onChange}
 							placeholder="Relationship"
 							required
 						/>

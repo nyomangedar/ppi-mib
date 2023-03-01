@@ -28,9 +28,11 @@ function ContactUK(props) {
 						<input
 							type="text"
 							class="form-control form-input"
-							id="ukConName"
-							name="ukConName"
-							aria-describedby="ukConNameHelp"
+							id="ukEmergencyName"
+							name="ukEmergencyName"
+							value={props.data.ukEmergencyName}
+							onChange={props.onChange}
+							aria-describedby="ukEmergencyNameHelp"
 							placeholder="Full Name"
 							required
 						/>
@@ -47,8 +49,10 @@ function ContactUK(props) {
 							placeholder="Enter phone number"
 							minLength="10"
 							maxLength="12"
-							id="ukConPhone"
-							name="ukConPhone"
+							id="ukEmergencyPhone"
+							name="ukEmergencyPhone"
+							value={props.data.ukEmergencyPhone}
+							onChange={props.onChange}
 							onBlur={handleBlur}
 							required
 						/>
@@ -60,8 +64,10 @@ function ContactUK(props) {
 						<input
 							type="text"
 							class="form-control form-input"
-							id="ukConRelationship"
-							name="ukConRelationship"
+							id="ukEmergencyRelationship"
+							name="ukEmergencyRelationship"
+							value={props.data.ukEmergencyRelationship}
+							onChange={props.onChange}
 							placeholder="Relationship"
 							required
 						/>

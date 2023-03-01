@@ -6,9 +6,9 @@ import { Button } from "react-bootstrap";
 import ContactIndo from "../components/RegisterForm/ContactIndo";
 import ContactUK from "../components/RegisterForm/ContactUK";
 
-function StudentForm() {
+function AlumniForm() {
 	const [currentPage, setCurrentPage] = useState(1);
-	const totalPages = 4;
+	const totalPages = 2;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -37,12 +37,7 @@ function StudentForm() {
 		return;
 	};
 
-	const title = [
-		"Student's Basic Information",
-		"Student's Education",
-		"Student's Emergency Contact in Indonesia",
-		"Student's Emergency Contact in UK",
-	];
+	const title = ["Alumni's Basic Information", "Alumni's Education"];
 
 	return (
 		<>
@@ -57,8 +52,6 @@ function StudentForm() {
 				</div>
 				{currentPage === 1 && <BasicInfo />}
 				{currentPage === 2 && <StudentEdu />}
-				{currentPage === 3 && <ContactIndo />}
-				{currentPage === 4 && <ContactUK />}
 			</div>
 			<div class="button-col d-flex justify-content-center py-5">
 				<Button
@@ -72,7 +65,7 @@ function StudentForm() {
 					className="form-next d-flex align-items-center px-4"
 					style={{ background: "#1D1D59 !important" }}
 					onClick={() => {
-						currentPage === 4 ? submitForm() : handleNext();
+						currentPage === 2 ? submitForm() : handleNext();
 					}}
 				>
 					<img
@@ -83,7 +76,7 @@ function StudentForm() {
 						}}
 					/>
 					<span class="text-center fs-4">
-						{currentPage === 4 ? "Submit" : "Proceed"}
+						{currentPage === 2 ? "Submit" : "Proceed"}
 					</span>
 				</Button>
 			</div>
@@ -91,4 +84,4 @@ function StudentForm() {
 	);
 }
 
-export default StudentForm;
+export default AlumniForm;
