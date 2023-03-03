@@ -95,7 +95,7 @@ const sensusSchema = new mongoose.Schema({
             },
             funding: {
                 type: String,
-                required: true,
+                required: false,
             },
             entryYear: {
                 type: Number,
