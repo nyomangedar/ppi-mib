@@ -13,6 +13,7 @@ import RequireAuth from "./features/auth/RequireAuth";
 import LoginAdmin from "./pages/LoginAdmin";
 import PersistLogin from "./features/auth/PersistLogin";
 import StudentForm from "./pages/StudentForm";
+<<<<<<< HEAD
 import AlumniForm from "./pages/AlumniForm";
 import CitizenForm from "./pages/CitizenForm";
 
@@ -36,6 +37,31 @@ function App() {
 			<Footer />
 		</>
 	);
+=======
+import FormLandingPage from "./pages/FormLandingPage";
+
+function App() {
+    return (
+        <>
+            <PPIHeader />
+            <Routes>
+                <Route path="/" element={<Layout />} />
+                {/* Public Routes */}
+                <Route index element={<Homepage />} />
+                <Route path="login" element={<LoginAdmin />} />
+                <Route path="register" element={<FormLandingPage />} />
+                <Route path="register/student" element={<StudentForm />} />
+                {/* Admin Routes */}
+                <Route element={<PersistLogin />}>
+                    <Route element={<RequireAuth />}>
+                        <Route path="admin" element={<AdminMenu />} />
+                    </Route>
+                </Route>
+            </Routes>
+            <Footer />
+        </>
+    );
+>>>>>>> 8b28474b3168f8004206ee175615c4160c05b6e2
 }
 
 export default App;

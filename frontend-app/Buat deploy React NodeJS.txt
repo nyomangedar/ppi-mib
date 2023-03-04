@@ -25,7 +25,12 @@ ikutin aja flow nya ini
 
 MANUAL SERVER FIX:
     1. ssh -i key root@{server_ip}
-    2. cd /var/www/ppiwebsite/_work/ppi_mib/ppi_mib
-    3. then repeat node.js.yml
+    2. cd var/www/ppiwebsite/_work/ppi_mib/ppi_mib
+    3. then repeat node.js.yml until finishing build
+    In root folder
 
-    ** pm2 status for server runner status
+    ** 
+    pm2 status => for server runner status
+    sudo lsof -i tcp:80 => to know if nginx still listen to port 80 or web still running
+    sudo service nginx <command> => nginx command
+
