@@ -9,6 +9,7 @@ function BasicInfo(props) {
 	// const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
 	const [otherStatus, setOtherStatus] = useState(false);
+	const [permanentResident, setPermanentResident] = useState(null);
 
 	return (
 		<>
@@ -21,9 +22,11 @@ function BasicInfo(props) {
 						<input
 							type="text"
 							class="form-control form-input"
-							id="fullname"
-							name="fullname"
-							aria-describedby="nameHelp"
+							id="fullName"
+							name="fullName"
+							value={props.data.fullName}
+							onChange={props.onChange}
+							aria-describedby="fullNameHelp"
 							placeholder="Full Name"
 							required
 						/>
@@ -35,9 +38,11 @@ function BasicInfo(props) {
 						<input
 							type="tel"
 							class="form-control form-input"
-							id="phoneUK"
-							name="phoneUK"
-							aria-describedby="phoneUKHelp"
+							id="ukPhoneNumber"
+							name="ukPhoneNumber"
+							value={props.data.ukPhoneNumber}
+							onChange={props.onChange}
+							aria-describedby="ukPhoneNumberHelp"
 							placeholder="+44"
 							required
 						/>
@@ -49,9 +54,11 @@ function BasicInfo(props) {
 						<input
 							type="tel"
 							class="form-control form-input"
-							id="phoneIndo"
-							name="phoneIndo"
-							aria-describedby="phoneIndoHelp"
+							id="indonesianPhoneNumber"
+							name="indonesianPhoneNumber"
+							value={props.data.indonesianPhoneNumber}
+							onChange={props.onChange}
+							aria-describedby="indonesianPhoneNumberHelp"
 							placeholder="+62"
 							required
 						/>
@@ -65,6 +72,8 @@ function BasicInfo(props) {
 							class="form-control form-input"
 							id="email"
 							name="email"
+							value={props.data.email}
+							onChange={props.onChange}
 							aria-describedby="emailHelp"
 							placeholder="Email"
 							required
@@ -84,10 +93,15 @@ function BasicInfo(props) {
 							<input
 								class="form-check-input"
 								type="radio"
-								name="relationship"
+								name="relationshipStatus"
 								id="married"
 								value="married"
+								onChange={props.onChange}
 								onClick={() => setOtherStatus(false)}
+								checked={
+									props.data.relationshipStatus === "married" &&
+									otherStatus === false
+								}
 							/>
 							<label class="form-check-label radio-relationship" for="married">
 								Married
@@ -97,10 +111,15 @@ function BasicInfo(props) {
 							<input
 								class="form-check-input"
 								type="radio"
-								name="relationship"
+								name="relationshipStatus"
 								id="single"
 								value="single"
+								onChange={props.onChange}
 								onClick={() => setOtherStatus(false)}
+								checked={
+									props.data.relationshipStatus === "single" &&
+									otherStatus === false
+								}
 							/>
 							<label class="form-check-label radio-relationship" for="single">
 								Single
@@ -110,10 +129,14 @@ function BasicInfo(props) {
 							<input
 								class="form-check-input "
 								type="radio"
-								name="relationship"
+								name="relationshipStatus"
 								id="other"
 								value="other"
 								onClick={() => setOtherStatus(true)}
+								// checked={
+								// 	props.data.relationshipStatus !== "married" ||
+								// 	props.data.relationshipStatus !== "single"
+								// }
 							/>
 							<label class="form-check-label radio-relationship" for="other">
 								Other:
@@ -125,10 +148,11 @@ function BasicInfo(props) {
 								type="text"
 								class="form-control relationship-other"
 								id="otherRelationship"
-								name="otherRelationship"
+								name="relationshipStatus"
+								value={props.data.relationshipStatus}
+								onChange={props.onChange}
 								aria-describedby="otherRelationshipHelp"
 								placeholder="Fill in.."
-								selected
 								// disabled
 								// hidden
 							/>
@@ -141,9 +165,13 @@ function BasicInfo(props) {
 						<select
 							class="form-select form-input"
 							aria-label="Default select example"
+							id="religion"
+							name="religion"
+							value={props.data.religion}
+							onChange={props.onChange}
 							required
 						>
-							<option selected disabled hidden>
+							<option value="" selected disabled hidden>
 								Open this select menu
 							</option>
 							<option value="islam">Islam</option>
@@ -163,6 +191,8 @@ function BasicInfo(props) {
 							class="form-control form-input"
 							id="indonesianAddress"
 							name="indonesianAddress"
+							value={props.data.indonesianAddress}
+							onChange={props.onChange}
 							aria-describedby="indonesianAddressHelp"
 							placeholder="Indonesian Adress"
 							required
@@ -177,6 +207,8 @@ function BasicInfo(props) {
 							class="form-control form-input"
 							id="province"
 							name="province"
+							value={props.data.province}
+							onChange={props.onChange}
 							aria-describedby="provinceHelp"
 							placeholder="Province"
 							required
@@ -191,6 +223,8 @@ function BasicInfo(props) {
 							class="form-control form-input"
 							id="city"
 							name="city"
+							value={props.data.city}
+							onChange={props.onChange}
 							aria-describedby="cityHelp"
 							placeholder="City/Regency"
 							required
@@ -205,6 +239,8 @@ function BasicInfo(props) {
 							class="form-control form-input"
 							id="district"
 							name="district"
+							value={props.data.district}
+							onChange={props.onChange}
 							aria-describedby="districtHelp"
 							placeholder="District"
 							required
@@ -217,9 +253,11 @@ function BasicInfo(props) {
 						<input
 							type="text"
 							class="form-control form-input"
-							id="indonesianZipCode"
-							name="indonesianZipCode"
-							aria-describedby="indonesianZipCodeHelp"
+							id="idnZCode"
+							name="idnZCode"
+							value={props.data.idnZCode}
+							onChange={props.onChange}
+							aria-describedby="idnZCodeHelp"
 							placeholder="Zip Code"
 							required
 						/>
@@ -234,6 +272,8 @@ function BasicInfo(props) {
 							class="form-control form-input"
 							id="ukAddress"
 							name="ukAddress"
+							value={props.data.ukAddress}
+							onChange={props.onChange}
 							aria-describedby="ukAddressHelp"
 							placeholder="UK Address"
 							required
@@ -246,13 +286,100 @@ function BasicInfo(props) {
 						<input
 							type="text"
 							class="form-control form-input"
-							id="ukZipCode"
-							name="ukZipCode"
-							aria-describedby="ukZipCodeHelp"
-							placeholder="Zip Code"
+							id="ukZCode"
+							name="ukZCode"
+							value={props.data.ukZCode}
+							onChange={props.onChange}
+							aria-describedby="ukZCodeHelp"
+							placeholder="A12 3CD"
 							required
 						/>
 					</div>
+					<div class="mb-4">
+						<div>
+							<label class="form-label input-label">
+								Address Status <span style={{ color: "red" }}>*</span>
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input
+								class="form-check-input"
+								type="radio"
+								name="permanentResident"
+								id="permanentResident_true"
+								value={true}
+								onChange={props.onChange}
+								onClick={() => setPermanentResident(true)}
+							/>
+							<label class="form-check-label radio-relationship" for="married">
+								Permanent Residential
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input
+								class="form-check-input "
+								type="radio"
+								name="permanentResident"
+								id="permanentResident_false"
+								value={false}
+								onChange={props.onChange}
+								onClick={() => setPermanentResident(false)}
+							/>
+							<label class="form-check-label radio-relationship" for="other">
+								End Term Date:
+							</label>
+						</div>
+						<div class="form-check-inline">
+							<input
+								style={{
+									display: permanentResident === false ? "" : "none",
+								}}
+								type="date"
+								class="form-control"
+								id="stayPeriod"
+								name="stayPeriod"
+								value={props.data.stayPeriod}
+								onChange={props.onChange}
+								aria-describedby="stayPeriodHelp"
+								placeholder="Fill in.."
+								// disabled
+								// hidden
+							/>
+						</div>
+					</div>
+					<hr class="divider-basic mb-4" />
+					{/* <div class="mb-4">
+						<label class="form-label input-label">
+							Occupation <span style={{ color: "red" }}>*</span>
+						</label>
+						<input
+							type="text"
+							class="form-control form-input"
+							id="occupation"
+							name="occupation"
+							value={props.data.occupation}
+							onChange={props.onChange}
+							aria-describedby="occupationHelp"
+							placeholder="Occupation"
+							required
+						/>
+					</div>
+					<div class="mb-4">
+						<label class="form-label input-label">
+							Company (Previous/Current) <span style={{ color: "red" }}>*</span>
+						</label>
+						<input
+							type="text"
+							class="form-control form-input"
+							id="company"
+							name="company"
+							value={props.data.company}
+							onChange={props.onChange}
+							aria-describedby="companyHelp"
+							placeholder="Company"
+							required
+						/>
+					</div> */}
 					{/* <button type="submit" class="btn btn-primary">
 							Submit
 						</button> */}

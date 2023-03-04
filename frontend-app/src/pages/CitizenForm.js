@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import StudentEdu from "../components/RegisterForm/StudentEdu";
+import { useNavigate } from "react-router-dom";
 import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
 import ContactIndo from "../components/RegisterForm/ContactIndo";
@@ -7,8 +7,24 @@ import ContactUK from "../components/RegisterForm/ContactUK";
 import CitBasicInfo from "../components/RegisterForm/Citizen/CitBasicInfo";
 import Family from "../components/RegisterForm/Citizen/Family";
 import WarningModal from "../components/RegisterForm/WarningModal";
+import FormBreadCrumb from "../components/RegisterForm/FormBreadcrumb";
+import isFieldEmpty from "../tools/emptyField";
+import { useMediaQuery } from "react-responsive";
+import Education from "../components/RegisterForm/Education/Education";
+import { useRegisterSensusMutation } from "../features/sensus/sensusApiSlice";
 
 function CitizenForm() {
+	const navigate = useNavigate();
+
+	const [addRegisterSensus, { isLoading, isSuccess, isError, error }] =
+		useRegisterSensusMutation();
+
+	// useEffect(() => {
+	// 	if (isSuccess) navigate("/");
+	// }, [isSuccess]);
+
+	const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
+
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = 5;
 
@@ -23,16 +39,21 @@ function CitizenForm() {
 		ukEmergencyRelationship: "",
 		ukEmergencyPhone: "",
 		ukEmergencyName: "",
-		graduateYear: null,
-		entryYear: null,
 		company: "",
 		occupation: "",
 		stayPeriod: null,
 		permanentResident: null,
-		funding: "",
-		course: "",
-		university: "",
-		degree: "",
+		education: [
+			{
+				degree: "",
+				funding: "",
+				course: "",
+				university: "",
+				otherUni: "",
+				graduateYear: null,
+				entryYear: null,
+			},
+		],
 		ukZCode: "",
 		ukAddress: "",
 		idnZCode: "",
@@ -44,40 +65,46 @@ function CitizenForm() {
 		relationshipStatus: "",
 		password: "",
 		email: "",
-		dob: null,
-		indonesianPhoneNumber: null,
-		ukPhoneNumber: null,
+		dob: "",
+		indonesianPhoneNumber: "",
+		ukPhoneNumber: "",
 		fullName: "",
-		families: [
-			{
-				fullname: "",
-				relationship: "",
-				dob: null,
-			},
-		],
+		families: [],
+		// 	{
+		// 		fullname: "",
+		// 		relationship: "",
+		// 		dob: null,
+		// 	},
+		// ],
 	});
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [currentPage]);
 
 	const getUnfilledFields = (formData, currentPage) => {
 		let unfilledFields = [];
 
 		if (currentPage === 1) {
-			if (formData.fullName === "") unfilledFields.push("Full Name");
-			if (formData.ukPhoneNumber === null)
+			if (isFieldEmpty(formData.fullName)) unfilledFields.push("Full Name");
+			if (isFieldEmpty(formData.ukPhoneNumber))
 				unfilledFields.push("UK Phone Number");
-			if (formData.indonesianPhoneNumber === null)
+			if (isFieldEmpty(formData.indonesianPhoneNumber))
 				unfilledFields.push("Indonesian Phone Number");
-			if (formData.email === "") unfilledFields.push("Email");
-			if (formData.relationshipStatus === "")
+			if (isFieldEmpty(formData.email)) unfilledFields.push("Email");
+			// if (formData.relationshipStatus))
+			if (isFieldEmpty(formData.relationshipStatus))
 				unfilledFields.push("Relationship Status");
-			if (formData.religion === "") unfilledFields.push("Religion");
-			if (formData.indonesianAddress === "")
+			if (isFieldEmpty(formData.religion)) unfilledFields.push("Religion");
+			if (isFieldEmpty(formData.indonesianAddress))
 				unfilledFields.push("Indonesian Address");
-			if (formData.province === "") unfilledFields.push("Province");
-			if (formData.city === "") unfilledFields.push("City");
-			if (formData.district === "") unfilledFields.push("District");
-			if (formData.idnZCode === "") unfilledFields.push("Indonesian Zip Code");
-			if (formData.ukAddress === "") unfilledFields.push("UK Address");
-			if (formData.ukZCode === "") unfilledFields.push("UK Zip Code");
+			if (isFieldEmpty(formData.province)) unfilledFields.push("Province");
+			if (isFieldEmpty(formData.city)) unfilledFields.push("City");
+			if (isFieldEmpty(formData.district)) unfilledFields.push("District");
+			if (isFieldEmpty(formData.idnZCode))
+				unfilledFields.push("Indonesian Zip Code");
+			if (isFieldEmpty(formData.ukAddress)) unfilledFields.push("UK Address");
+			if (isFieldEmpty(formData.ukZCode)) unfilledFields.push("UK Zip Code");
 			if (formData.permanentResident === null && formData.stayPeriod === null)
 				unfilledFields.push("Address Status");
 			if (
@@ -85,32 +112,52 @@ function CitizenForm() {
 				formData.stayPeriod === null
 			)
 				unfilledFields.push("End Term Date");
-			if (formData.occupation === "") unfilledFields.push("Occupation");
-			if (formData.company === "") unfilledFields.push("Company");
+			if (isFieldEmpty(formData.occupation)) unfilledFields.push("Occupation");
+			if (isFieldEmpty(formData.company)) unfilledFields.push("Company");
 		} else if (currentPage === 2) {
-			if (formData.degree === "") unfilledFields.push("Degree");
-			if (formData.university === "") unfilledFields.push("University");
-			if (formData.course === "") unfilledFields.push("Course");
-			if (formData.funding === "") unfilledFields.push("Funding");
-			if (formData.entryYear === null) unfilledFields.push("Entry Year");
-			if (formData.graduateYear === null) unfilledFields.push("Graduate Year");
+			formData.education.map((item, index) => {
+				if (isFieldEmpty(item.degree))
+					unfilledFields.push(`Education ${index + 1}: Degree`);
+				if (isFieldEmpty(item.university)) {
+					unfilledFields.push(`Education ${index + 1}: University`);
+				}
+				if (item.university === "other") {
+					if (isFieldEmpty(item.otherUni))
+						unfilledFields.push(`Education ${index + 1}: University`);
+				}
+				if (isFieldEmpty(item.course))
+					unfilledFields.push(`Education ${index + 1}: Course`);
+				if (isFieldEmpty(item.funding))
+					unfilledFields.push(`Education ${index + 1}: Funding`);
+				if (item.entryYear === null)
+					unfilledFields.push(`Education ${index + 1}: Entry Year`);
+				if (item.graduateYear === null)
+					unfilledFields.push(`Education ${index + 1}: Graduate Year`);
+			});
 		} else if (currentPage === 3) {
-			// if (!formData.field3) {
-			// 	unfilledFields.push("Field 3");
-			// }
+			if (formData.families.length > 0) {
+				formData.families.map((family, index) => {
+					if (isFieldEmpty(family.fullname))
+						unfilledFields.push(`Family Member ${index + 1}: Name`);
+					if (isFieldEmpty(family.relationship))
+						unfilledFields.push(`Family Member ${index + 1}: Relationship`);
+					if (isFieldEmpty(family.dob))
+						unfilledFields.push(`Family Member ${index + 1}: Date of Birth`);
+				});
+			}
 		} else if (currentPage === 4) {
-			if (formData.idnEmergencyName === "") unfilledFields.push("Name");
-			if (formData.idnEmergencyPhone === "")
+			if (isFieldEmpty(formData.idnEmergencyName)) unfilledFields.push("Name");
+			if (isFieldEmpty(formData.idnEmergencyPhone))
 				unfilledFields.push("Phone Number");
-			if (formData.idnEmergencyRelationship === "")
+			if (isFieldEmpty(formData.idnEmergencyRelationship))
 				unfilledFields.push("Relationship");
 		} else if (currentPage === 5) {
-			if (formData.ukEmergencyName === "") unfilledFields.push("Name");
-			if (formData.ukEmergencyPhone === "") unfilledFields.push("Phone Number");
-			if (formData.ukEmergencyRelationship === "")
+			if (isFieldEmpty(formData.ukEmergencyName)) unfilledFields.push("Name");
+			if (isFieldEmpty(formData.ukEmergencyPhone))
+				unfilledFields.push("Phone Number");
+			if (isFieldEmpty(formData.ukEmergencyRelationship))
 				unfilledFields.push("Relationship");
 		}
-
 		return unfilledFields;
 	};
 
@@ -138,6 +185,22 @@ function CitizenForm() {
 		// console.log(citizenFormData.families[index]);
 	};
 
+	const educationChange = (index, event) => {
+		const { name, value } = event.target;
+		setCitizenFormData((prevState) => {
+			const education = [...prevState.education];
+			education[index] = {
+				...education[index],
+				[name]: value,
+			};
+			return {
+				...prevState,
+				education,
+			};
+		});
+		// console.log(citizenFormData.families[index]);
+	};
+
 	const handleAddFamilyMember = () => {
 		setCitizenFormData((prevState) => ({
 			...prevState,
@@ -146,29 +209,89 @@ function CitizenForm() {
 				{
 					fullname: "",
 					relationship: "",
-					dob: null,
+					dob: "",
 				},
 			],
 		}));
+		console.log(citizenFormData);
 	};
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [currentPage]);
+	const handleAddEducation = () => {
+		setCitizenFormData((prevState) => ({
+			...prevState,
+			education: [
+				...prevState.education,
+				{
+					degree: "",
+					funding: "",
+					course: "",
+					university: "",
+					otherUni: "",
+					graduateYear: null,
+					entryYear: null,
+				},
+			],
+		}));
+		console.log(citizenFormData);
+	};
 
-	const handleNext = () => {
-		const unfilled = getUnfilledFields(citizenFormData, currentPage);
+	const handleRemoveFamilyMember = (index) => {
+		setCitizenFormData((prevState) => {
+			const updatedFamilies = [...prevState.families];
+			updatedFamilies.splice(index, 1);
+			if (updatedFamilies.length === 0) {
+				setFamilyStatus(false);
+			}
+			return {
+				...prevState,
+				families: updatedFamilies,
+			};
+		});
+	};
+
+	const handleRemoveEducation = (index) => {
+		setCitizenFormData((prevState) => {
+			const updatedEducation = [...prevState.education];
+			updatedEducation.splice(index, 1);
+			return {
+				...prevState,
+				education: updatedEducation,
+			};
+		});
+	};
+
+	const removeAllFamilyMember = () => {
+		setCitizenFormData((prevState) => ({
+			...prevState,
+			families: [],
+		}));
+		setFamilyStatus(false);
+	};
+
+	const handleNext = (index) => {
 		// const unfilled = [];
-
-		if (unfilled.length > 0) {
-			setUnfilledFields(unfilled);
-			setShowWarningModal(true);
-		} else if (currentPage < totalPages) {
-			setCurrentPage(currentPage + 1);
+		if (index < currentPage) {
+			if (currentPage !== 0) {
+				setCurrentPage(index);
+			} else {
+				console.log("First Page");
+			}
 		} else {
-			// console.log("Submitting form:", formData);
-			console.log("Max page");
-			// submit form here
+			let unfilled = getUnfilledFields(citizenFormData, currentPage);
+			if (familyStatus === false && citizenFormData.families.length !== 0) {
+				removeAllFamilyMember();
+				unfilled = [];
+			}
+			if (unfilled.length > 0) {
+				setUnfilledFields(unfilled);
+				setShowWarningModal(true);
+			} else if (currentPage < totalPages) {
+				setCurrentPage(index);
+			} else {
+				submitForm();
+				console.log("Max page");
+				// submit form here
+			}
 		}
 	};
 
@@ -181,8 +304,8 @@ function CitizenForm() {
 		}
 	};
 
-	const submitForm = () => {
-		return;
+	const submitForm = async () => {
+		await addRegisterSensus(citizenFormData);
 	};
 
 	const title = [
@@ -193,33 +316,96 @@ function CitizenForm() {
 		"Citizen's Emergency Contact in UK",
 	];
 
+	const activateCurrent = (index) => {
+		return currentPage === index;
+	};
+
+	const progressTracker = (index) => {
+		return index < currentPage;
+	};
+
+	const crumbs = [
+		{
+			active: activateCurrent(1),
+			progress: progressTracker(1),
+			end: false,
+			title: "Basic Information",
+			path: 1,
+		},
+		{
+			active: activateCurrent(2),
+			progress: progressTracker(2),
+			end: false,
+			title: "Education",
+			path: 2,
+		},
+		{
+			active: activateCurrent(3),
+			progress: progressTracker(3),
+			end: false,
+			title: "Family",
+			path: 3,
+		},
+		{
+			active: activateCurrent(4),
+			progress: progressTracker(4),
+			end: false,
+			title: "Emergency Contact Indonesia",
+			path: 4,
+		},
+		{
+			active: activateCurrent(5),
+			progress: progressTracker(5),
+			end: true,
+			title: "Emergency Contact in UK",
+			path: 5,
+		},
+	];
+
+	const errClass = isError ? "errmsg" : "offscreen";
+
 	return (
 		<>
 			<WarningModal
 				show={showWarningModal}
 				toggle={() => setShowWarningModal(!showWarningModal)}
 				unfilledFields={unfilledFields}
+				page={currentPage}
 			/>
 			<div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
-				<div class="container text-center">
+				<p className={errClass}>{error?.data?.message}</p>
+				<div class="container text-center mb-3">
 					<h1 class="align-items-center form-header">
 						{title[currentPage - 1]}
 					</h1>
 				</div>
-				<div class="container text-center p-5">
-					<h2 class="align-items-center">Progress Bar</h2>
+				<div
+					class="container text-center py-5"
+					style={{ display: isMobile ? "none" : "" }}
+				>
+					<FormBreadCrumb
+						crumbs={crumbs}
+						onClick={handleNext}
+						currentIndex={currentPage}
+					/>
 				</div>
 				{currentPage === 1 && (
 					<CitBasicInfo data={citizenFormData} onChange={onChange} />
 				)}
 				{currentPage === 2 && (
-					<StudentEdu data={citizenFormData} onChange={onChange} />
+					<Education
+						data={citizenFormData}
+						onChange={educationChange}
+						addEducation={handleAddEducation}
+						removeEducation={handleRemoveEducation}
+					/>
 				)}
 				{currentPage === 3 && (
 					<Family
 						data={citizenFormData}
 						onChange={familyChange}
 						addFamily={handleAddFamilyMember}
+						removeFamily={handleRemoveFamilyMember}
 						familyStatus={familyStatus}
 						setFamilyStatus={setFamilyStatus}
 					/>
@@ -232,18 +418,20 @@ function CitizenForm() {
 				)}
 			</div>
 			<div class="button-col d-flex justify-content-center py-5">
-				<Button
-					className="form-prev d-flex align-items-center px-4 me-5"
-					onClick={() => handlePrev()}
-				>
-					<img src={arrow} className="me-4" />
-					<span class="text-center fs-4">Previous</span>
-				</Button>
+				<div style={{ display: currentPage === 1 ? "none" : "" }}>
+					<Button
+						className="form-prev d-flex align-items-center px-4 me-5"
+						onClick={() => handlePrev()}
+					>
+						<img src={arrow} className="me-4" />
+						<span class="text-center fs-4">Previous</span>
+					</Button>
+				</div>
 				<Button
 					className="form-next d-flex align-items-center px-4"
 					style={{ background: "#1D1D59 !important" }}
 					onClick={() => {
-						currentPage === totalPages ? submitForm() : handleNext();
+						handleNext(currentPage + 1);
 						console.log(citizenFormData);
 					}}
 				>

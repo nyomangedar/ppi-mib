@@ -1,27 +1,214 @@
 import React, { useState, useEffect } from "react";
-import BasicInfo from "../components/RegisterForm/BasicInfo";
-import StudentEdu from "../components/RegisterForm/StudentEdu";
 import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
 import ContactIndo from "../components/RegisterForm/ContactIndo";
 import ContactUK from "../components/RegisterForm/ContactUK";
+import WarningModal from "../components/RegisterForm/WarningModal";
 import FormBreadCrumb from "../components/RegisterForm/FormBreadcrumb";
+import isFieldEmpty from "../tools/emptyField";
+import { useMediaQuery } from "react-responsive";
+import Education from "../components/RegisterForm/Education/Education";
+import BasicInfo from "../components/RegisterForm/BasicInfo";
 
-function StudentForm() {
+function CitizenForm() {
+	const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
+
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = 4;
+
+	const [showWarningModal, setShowWarningModal] = useState(false);
+	const [unfilledFields, setUnfilledFields] = useState([]);
+
+	const [studentFormData, setStudentFormData] = useState({
+		idnEmergencyRelationship: "",
+		idnEmergencyPhone: "",
+		idnEmergencyName: "",
+		ukEmergencyRelationship: "",
+		ukEmergencyPhone: "",
+		ukEmergencyName: "",
+		company: "",
+		occupation: "",
+		stayPeriod: null,
+		permanentResident: null,
+		education: [
+			{
+				degree: "",
+				funding: "",
+				course: "",
+				university: "",
+				otherUni: "",
+				graduateYear: null,
+				entryYear: null,
+			},
+		],
+		ukZCode: "",
+		ukAddress: "",
+		idnZCode: "",
+		district: "",
+		city: "",
+		province: "",
+		indonesianAddress: "",
+		religion: "",
+		relationshipStatus: "",
+		password: "",
+		email: "",
+		dob: "",
+		indonesianPhoneNumber: "",
+		ukPhoneNumber: "",
+		fullName: "",
+		families: [],
+		// 	{
+		// 		fullname: "",
+		// 		relationship: "",
+		// 		dob: null,
+		// 	},
+		// ],
+	});
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [currentPage]);
 
-	const handleNext = () => {
-		if (currentPage < totalPages) {
-			setCurrentPage(currentPage + 1);
+	const getUnfilledFields = (formData, currentPage) => {
+		let unfilledFields = [];
+
+		if (currentPage === 1) {
+			if (isFieldEmpty(formData.fullName)) unfilledFields.push("Full Name");
+			if (isFieldEmpty(formData.ukPhoneNumber))
+				unfilledFields.push("UK Phone Number");
+			if (isFieldEmpty(formData.indonesianPhoneNumber))
+				unfilledFields.push("Indonesian Phone Number");
+			if (isFieldEmpty(formData.email)) unfilledFields.push("Email");
+			// if (formData.relationshipStatus))
+			if (isFieldEmpty(formData.relationshipStatus))
+				unfilledFields.push("Relationship Status");
+			if (isFieldEmpty(formData.religion)) unfilledFields.push("Religion");
+			if (isFieldEmpty(formData.indonesianAddress))
+				unfilledFields.push("Indonesian Address");
+			if (isFieldEmpty(formData.province)) unfilledFields.push("Province");
+			if (isFieldEmpty(formData.city)) unfilledFields.push("City");
+			if (isFieldEmpty(formData.district)) unfilledFields.push("District");
+			if (isFieldEmpty(formData.idnZCode))
+				unfilledFields.push("Indonesian Zip Code");
+			if (isFieldEmpty(formData.ukAddress)) unfilledFields.push("UK Address");
+			if (isFieldEmpty(formData.ukZCode)) unfilledFields.push("UK Zip Code");
+			if (formData.permanentResident === null && formData.stayPeriod === null)
+				unfilledFields.push("Address Status");
+			if (
+				formData.permanentResident === "false" &&
+				formData.stayPeriod === null
+			)
+				unfilledFields.push("End Term Date");
+		} else if (currentPage === 2) {
+			formData.education.map((item, index) => {
+				if (isFieldEmpty(item.degree))
+					unfilledFields.push(`Education ${index + 1}: Degree`);
+				if (isFieldEmpty(item.university)) {
+					unfilledFields.push(`Education ${index + 1}: University`);
+				}
+				if (item.university === "other") {
+					if (isFieldEmpty(item.otherUni))
+						unfilledFields.push(`Education ${index + 1}: University`);
+				}
+				if (isFieldEmpty(item.course))
+					unfilledFields.push(`Education ${index + 1}: Course`);
+				if (isFieldEmpty(item.funding))
+					unfilledFields.push(`Education ${index + 1}: Funding`);
+				if (item.entryYear === null)
+					unfilledFields.push(`Education ${index + 1}: Entry Year`);
+				if (item.graduateYear === null)
+					unfilledFields.push(`Education ${index + 1}: Graduate Year`);
+			});
+		} else if (currentPage === 3) {
+			if (isFieldEmpty(formData.idnEmergencyName)) unfilledFields.push("Name");
+			if (isFieldEmpty(formData.idnEmergencyPhone))
+				unfilledFields.push("Phone Number");
+			if (isFieldEmpty(formData.idnEmergencyRelationship))
+				unfilledFields.push("Relationship");
+		} else if (currentPage === 4) {
+			if (isFieldEmpty(formData.ukEmergencyName)) unfilledFields.push("Name");
+			if (isFieldEmpty(formData.ukEmergencyPhone))
+				unfilledFields.push("Phone Number");
+			if (isFieldEmpty(formData.ukEmergencyRelationship))
+				unfilledFields.push("Relationship");
+		}
+		return unfilledFields;
+	};
+
+	const onChange = (e) => {
+		setStudentFormData((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+		}));
+		console.log(e.target.value);
+	};
+
+	const educationChange = (index, event) => {
+		const { name, value } = event.target;
+		setStudentFormData((prevState) => {
+			const education = [...prevState.education];
+			education[index] = {
+				...education[index],
+				[name]: value,
+			};
+			return {
+				...prevState,
+				education,
+			};
+		});
+		// console.log(studentFormData.families[index]);
+	};
+
+	const handleAddEducation = () => {
+		setStudentFormData((prevState) => ({
+			...prevState,
+			education: [
+				...prevState.education,
+				{
+					degree: "",
+					funding: "",
+					course: "",
+					university: "",
+					otherUni: "",
+					graduateYear: null,
+					entryYear: null,
+				},
+			],
+		}));
+		console.log(studentFormData);
+	};
+
+	const handleRemoveEducation = (index) => {
+		setStudentFormData((prevState) => {
+			const updatedEducation = [...prevState.education];
+			updatedEducation.splice(index, 1);
+			return {
+				...prevState,
+				education: updatedEducation,
+			};
+		});
+	};
+
+	const handleNext = (index) => {
+		// const unfilled = [];
+		if (index < currentPage) {
+			if (currentPage !== 0) {
+				setCurrentPage(index);
+			} else {
+				console.log("First Page");
+			}
 		} else {
-			// console.log("Submitting form:", formData);
-			console.log("Max page");
-			// submit form here
+			let unfilled = getUnfilledFields(studentFormData, currentPage);
+			if (unfilled.length > 0) {
+				setUnfilledFields(unfilled);
+				setShowWarningModal(true);
+			} else if (currentPage < totalPages) {
+				setCurrentPage(index);
+			} else {
+				submitForm();
+				console.log("Max page");
+				// submit form here
+			}
 		}
 	};
 
@@ -46,15 +233,11 @@ function StudentForm() {
 	];
 
 	const activateCurrent = (index) => {
-		return currentPage == index;
+		return currentPage === index;
 	};
 
 	const progressTracker = (index) => {
 		return index < currentPage;
-	};
-
-	const handleOnClick = (index) => {
-		setCurrentPage(index);
 	};
 
 	const crumbs = [
@@ -90,32 +273,63 @@ function StudentForm() {
 
 	return (
 		<>
+			<WarningModal
+				show={showWarningModal}
+				toggle={() => setShowWarningModal(!showWarningModal)}
+				unfilledFields={unfilledFields}
+				page={currentPage}
+			/>
 			<div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
-				<div class="container text-center">
+				<div class="container text-center mb-3">
 					<h1 class="align-items-center form-header">
 						{title[currentPage - 1]}
 					</h1>
 				</div>
-				<div class="container text-center py-5">
-					<FormBreadCrumb crumbs={crumbs} onClick={setCurrentPage} />
+				<div
+					class="container text-center py-5"
+					style={{ display: isMobile ? "none" : "" }}
+				>
+					<FormBreadCrumb
+						crumbs={crumbs}
+						onClick={handleNext}
+						currentIndex={currentPage}
+					/>
 				</div>
-				{currentPage === 1 && <BasicInfo />}
-				{currentPage === 2 && <StudentEdu />}
-				{currentPage === 3 && <ContactIndo />}
-				{currentPage === 4 && <ContactUK />}
+				{currentPage === 1 && (
+					<BasicInfo data={studentFormData} onChange={onChange} />
+				)}
+				{currentPage === 2 && (
+					<Education
+						data={studentFormData}
+						onChange={educationChange}
+						addEducation={handleAddEducation}
+						removeEducation={handleRemoveEducation}
+					/>
+				)}
+				{currentPage === 3 && (
+					<ContactIndo data={studentFormData} onChange={onChange} />
+				)}
+				{currentPage === 4 && (
+					<ContactUK data={studentFormData} onChange={onChange} />
+				)}
 			</div>
 			<div class="button-col d-flex justify-content-center py-5">
-				<Button
-					className="form-prev d-flex align-items-center px-4 me-5"
-					onClick={() => handlePrev()}
-				>
-					<img src={arrow} className="me-4" />
-					<span class="text-center fs-4">Previous</span>
-				</Button>
+				<div style={{ display: currentPage === 1 ? "none" : "" }}>
+					<Button
+						className="form-prev d-flex align-items-center px-4 me-5"
+						onClick={() => handlePrev()}
+					>
+						<img src={arrow} className="me-4" />
+						<span class="text-center fs-4">Previous</span>
+					</Button>
+				</div>
 				<Button
 					className="form-next d-flex align-items-center px-4"
 					style={{ background: "#1D1D59 !important" }}
-					onClick={() => handleNext()}
+					onClick={() => {
+						handleNext(currentPage + 1);
+						console.log(studentFormData);
+					}}
 				>
 					<img
 						src={arrow}
@@ -124,11 +338,13 @@ function StudentForm() {
 							marginRight: "30px",
 						}}
 					/>
-					<span class="text-center fs-4">Proceed</span>
+					<span class="text-center fs-4">
+						{currentPage === totalPages ? "Submit" : "Proceed"}
+					</span>
 				</Button>
 			</div>
 		</>
 	);
 }
 
-export default StudentForm;
+export default CitizenForm;

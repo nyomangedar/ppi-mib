@@ -34,8 +34,9 @@ function Family(props) {
 								value={props.familyStatus}
 								onClick={() => {
 									props.setFamilyStatus(true);
-									if (props.familyCount == 0) {
-										props.setFamilyCount(1);
+									if (props.data.families.length === 0) {
+										props.addFamily();
+										// props.setFamilyCount(1);
 									}
 								}}
 								checked={props.familyStatus}
@@ -53,6 +54,7 @@ function Family(props) {
 								value={props.familyStatus}
 								onClick={() => props.setFamilyStatus(false)}
 								checked={props.familyStatus === false}
+								// checked={props.data.families.length > 0 || props.familyStatus === false}
 							/>
 							<label class="form-check-label radio-relationship" for="single">
 								No
@@ -65,6 +67,7 @@ function Family(props) {
 							<FamilyDetail
 								data={familyMember}
 								onChange={props.onChange}
+								removeFamily={props.removeFamily}
 								index={i}
 							/>
 						))}

@@ -49,6 +49,6 @@ export const apiSlice = createApi({
 	// 			: "https://ppi-mib.co.uk",
 	// }),
 	baseQuery: baseQueryWithReauth,
-	tagTypes: ["Post", "User"],
+	tagTypes: ["Post", "User", "Sensus"],
 	endpoints: (builder) => ({}),
 });

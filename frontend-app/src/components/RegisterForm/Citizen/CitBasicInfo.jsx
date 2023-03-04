@@ -9,7 +9,7 @@ function CitBasicInfo(props) {
 	// const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
 	const [otherStatus, setOtherStatus] = useState(false);
-	const [permanentResident, setPermanentResident] = useState(false);
+	const [permanentResident, setPermanentResident] = useState(null);
 
 	return (
 		<>
@@ -28,6 +28,22 @@ function CitBasicInfo(props) {
 							onChange={props.onChange}
 							aria-describedby="fullNameHelp"
 							placeholder="Full Name"
+							required
+						/>
+					</div>
+					<div class="mb-4">
+						<label class="form-label input-label">
+							Date of Birth <span style={{ color: "red" }}>*</span>
+						</label>
+						<input
+							type="date"
+							class="form-control form-input"
+							id="dob"
+							name="dob"
+							value={props.data.dob}
+							onChange={props.onChange}
+							aria-describedby="dobHelp"
+							placeholder="Date of Birth"
 							required
 						/>
 					</div>
@@ -331,9 +347,11 @@ function CitBasicInfo(props) {
 						</div>
 						<div class="form-check-inline">
 							<input
-								style={{ display: !permanentResident ? "" : "none" }}
+								style={{
+									display: permanentResident === false ? "" : "none",
+								}}
 								type="date"
-								class="form-control relationship-other"
+								class="form-control"
 								id="stayPeriod"
 								name="stayPeriod"
 								value={props.data.stayPeriod}
