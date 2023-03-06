@@ -18,15 +18,15 @@ function Banner(props) {
             backgroundColor: "#DCCBAF",
             paddingLeft: "2em",
         },
+        logoContainer: {
+            width: "50%" /* adjust width as needed */,
+            margin: "0 auto",
+        },
         logo: {
             borderRadius: "50%",
             backgroundColor: "white",
             height: "121px",
-            minHeight: "44.17px",
-            minWidth: "44.17px",
             width: "121px",
-            // height: "100%",
-            // width: "100%",
             boxShadow: "12px 4px 11px rgba(0, 0, 0, 0.25)",
         },
     };
@@ -47,12 +47,15 @@ function Banner(props) {
             className="d-flex justify-content-between align-items-center my-4 mb-5"
             style={getStyle(props.type)}
         >
-            <div
-                className="d-flex justify-content-center align-items-center"
-                style={style.logo}
-            >
-                <img className="img-fluid" src={logo} />
+            <div style={style.logoContainer}>
+                <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={style.logo}
+                >
+                    <img className="img-fluid" src={logo} />
+                </div>
             </div>
+
             <img className="img-fluid d-block w-100" src={props.image} />
         </div>
     );

@@ -5,6 +5,7 @@ import { importMany } from "../features/functionTools/importMany";
 import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
 import useTabletorMobileStyle from "../features/hooks/useTabletorMobileStyle";
+import Cookies from "js-cookie";
 
 function FormLandingPage() {
     const [selectStatus, setSelectStatus] = useState("");
@@ -16,8 +17,11 @@ function FormLandingPage() {
             /\.(png|jpe?g|svg)$/
         )
     );
-    const handleCheck = () => {
+    const handleCheck = (event) => {
         setTermsAgreementCheck(!termsAgreeementCheck);
+        const check = !termsAgreeementCheck;
+        Cookies.set("formAgreement", check.toString());
+        console.log(Cookies.get("formAgreement"));
     };
 
     const handlePath = (path) => {
@@ -121,6 +125,7 @@ function FormLandingPage() {
                     <input
                         type="checkbox"
                         id="termsAgreement"
+                        checked={termsAgreeementCheck}
                         onChange={handleCheck}
                         style={{ cursor: "pointer" }}
                     />
@@ -135,7 +140,9 @@ function FormLandingPage() {
                     className="form-next d-flex align-items-center px-4"
                     style={{ background: "#1D1D59 !important" }}
                     // onClick={() => handleNext()}
-                    disabled={!termsAgreeementCheck}
+                    disabled={
+                        termsAgreeementCheck === false || selectStatus === ""
+                    }
                 >
                     <a href={handlePath(selectStatus)}>
                         <img

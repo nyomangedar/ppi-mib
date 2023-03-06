@@ -16,6 +16,8 @@ import StudentForm from "./pages/StudentForm";
 import FormLandingPage from "./pages/FormLandingPage";
 import CitizenForm from "./pages/CitizenForm";
 import AlumniForm from "./pages/AlumniForm";
+import FinishForm from "./pages/FinishForm";
+import FormAgreement from "./features/auth/FormAgreement";
 
 function App() {
     return (
@@ -26,10 +28,17 @@ function App() {
                 {/* Public Routes */}
                 <Route index element={<Homepage />} />
                 <Route path="login" element={<LoginAdmin />} />
+
+                {/* Form Routes */}
                 <Route path="register" element={<FormLandingPage />} />
-                <Route path="register/citizen" element={<CitizenForm />} />
-                <Route path="register/student" element={<StudentForm />} />
-                <Route path="register/alumni" element={<AlumniForm />} />
+                {/* Protected Form Routes by terms and agreement check */}
+                <Route element={<FormAgreement />}>
+                    <Route path="register/citizen" element={<CitizenForm />} />
+                    <Route path="register/student" element={<StudentForm />} />
+                    <Route path="register/alumni" element={<AlumniForm />} />
+                    <Route path="register/finish" element={<FinishForm />} />
+                </Route>
+
                 {/* Admin Routes */}
                 <Route element={<PersistLogin />}>
                     <Route element={<RequireAuth />}>
