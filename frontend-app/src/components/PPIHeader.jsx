@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo_ppi from "../image/logo_ppi.png";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavbarBrand from "react-bootstrap/esm/NavbarBrand";
+import { useLocation } from "react-router-dom";
 
 const PPIHeader = () => {
+    const location = useLocation();
+
+    const aboutUsPathName = () => {
+        if (location.pathname === "/") {
+            return "#aboutUs";
+        }
+        return "/";
+    };
+
     return (
         <>
             <Navbar expand="lg">
@@ -23,7 +33,7 @@ const PPIHeader = () => {
                 >
                     <Nav id="navbar-links">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="#aboutUs">About Us</Nav.Link>
+                        <Nav.Link href={aboutUsPathName()}>About Us</Nav.Link>
                         <Nav.Link href="/register">Registration</Nav.Link>
                         {/* <Nav.Link href="https://bit.ly/MIBRegistration">
                             Registration

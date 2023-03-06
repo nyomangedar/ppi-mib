@@ -4,7 +4,7 @@ import landingPageImage from "../image/formAsset/landingFormBanner.png";
 import { importMany } from "../features/functionTools/importMany";
 import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import useTabletorMobileStyle from "../features/hooks/useTabletorMobileStyle";
 
 function FormLandingPage() {
     const [selectStatus, setSelectStatus] = useState("");
@@ -16,6 +16,20 @@ function FormLandingPage() {
             /\.(png|jpe?g|svg)$/
         )
     );
+    const handleCheck = () => {
+        setTermsAgreementCheck(!termsAgreeementCheck);
+    };
+
+    const handlePath = (path) => {
+        switch (path) {
+            case "Student":
+                return "register/student";
+            case "Alumni":
+                return "register/alumni";
+            case "Citizen":
+                return "register/citizen";
+        }
+    };
     const inactiveColor = "#8E8D94";
     const activeColor = "#8D191A";
     const style = {
@@ -67,20 +81,9 @@ function FormLandingPage() {
         );
     };
 
-    const handleCheck = () => {
-        setTermsAgreementCheck(!termsAgreeementCheck);
-    };
+    const statusContainerClassDefault = "d-flex gap-5";
+    const statusContainerClassResponsive = "d-flex gap-5 flex-column";
 
-    const handlePath = (path) => {
-        switch (path) {
-            case "Student":
-                return "register/student";
-            case "Alumni":
-                return "register/alumni";
-            case "Citizen":
-                return "register/citizen";
-        }
-    };
     return (
         <>
             <Banner image={landingPageImage} type={"landing"} />
@@ -88,7 +91,13 @@ function FormLandingPage() {
             <div class="divider-basic my-4" />
             <div className="d-flex flex-column justify-content-center align-items-center gap-4">
                 <h2>Select your status</h2>
-                <div className="d-flex gap-5">
+                <div
+                    className={useTabletorMobileStyle(
+                        statusContainerClassDefault,
+                        statusContainerClassResponsive,
+                        600
+                    )}
+                >
                     {statusLogo(
                         logos["studentStatusLogoActive.svg"],
                         logos["studentStatusLogo.svg"],
@@ -108,7 +117,7 @@ function FormLandingPage() {
                         "Citizen"
                     )}
                 </div>
-                <div>
+                <div className="ps-3">
                     <input
                         type="checkbox"
                         id="termsAgreement"
