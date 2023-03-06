@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
+import ContactIndo from "../components/RegisterForm/ContactIndo";
+import ContactUK from "../components/RegisterForm/ContactUK";
 import WarningModal from "../components/RegisterForm/WarningModal";
 import FormBreadCrumb from "../components/RegisterForm/FormBreadcrumb";
 import isFieldEmpty from "../tools/emptyField";
 import { useMediaQuery } from "react-responsive";
 import Education from "../components/RegisterForm/Education/Education";
-import BasicInfo from "../components/RegisterForm/BasicInfo";
+import { useRegisterSensusMutation } from "../features/sensus/sensusApiSlice";
+import AlumniBasicInfo from "../components/RegisterForm/AlumniBasicInfo";
 
-function CitizenForm() {
+function AlumniForm() {
+	const [addRegisterSensus, { isLoading, isSuccess, isError, error }] =
+		useRegisterSensusMutation();
+
+	// useEffect(() => {
+	// 	if (isSuccess) navigate("/");
+	// }, [isSuccess]);
+
 	const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -16,8 +26,10 @@ function CitizenForm() {
 
 	const [showWarningModal, setShowWarningModal] = useState(false);
 	const [unfilledFields, setUnfilledFields] = useState([]);
+	const [dateError, setDateError] = useState("");
+	const [termDateError, setTermDateError] = useState("");
 
-	const [studentFormData, setStudentFormData] = useState({
+	const [citizenFormData, setCitizenFormData] = useState({
 		idnEmergencyRelationship: "",
 		idnEmergencyPhone: "",
 		idnEmergencyName: "",
@@ -26,7 +38,7 @@ function CitizenForm() {
 		ukEmergencyName: "",
 		company: "",
 		occupation: "",
-		stayPeriod: null,
+		stayPeriod: "",
 		permanentResident: null,
 		education: [
 			{
@@ -35,8 +47,8 @@ function CitizenForm() {
 				course: "",
 				university: "",
 				otherUni: "",
-				graduateYear: null,
-				entryYear: null,
+				graduateYear: "",
+				entryYear: "",
 			},
 		],
 		ukZCode: "",
@@ -63,6 +75,8 @@ function CitizenForm() {
 		// ],
 	});
 
+	const today = new Date().toISOString().substring(0, 10);
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [currentPage]);
@@ -72,6 +86,9 @@ function CitizenForm() {
 
 		if (currentPage === 1) {
 			if (isFieldEmpty(formData.fullName)) unfilledFields.push("Full Name");
+			if (isFieldEmpty(formData.dob)) unfilledFields.push("Date of Birth");
+			if (dateError !== "")
+				unfilledFields.push("DoB: Future date is not valid for date of birth");
 			if (isFieldEmpty(formData.ukPhoneNumber))
 				unfilledFields.push("UK Phone Number");
 			if (isFieldEmpty(formData.indonesianPhoneNumber))
@@ -81,22 +98,31 @@ function CitizenForm() {
 			if (isFieldEmpty(formData.relationshipStatus))
 				unfilledFields.push("Relationship Status");
 			if (isFieldEmpty(formData.religion)) unfilledFields.push("Religion");
-			if (isFieldEmpty(formData.indonesianAddress))
-				unfilledFields.push("Indonesian Address");
-			if (isFieldEmpty(formData.province)) unfilledFields.push("Province");
-			if (isFieldEmpty(formData.city)) unfilledFields.push("City");
-			if (isFieldEmpty(formData.district)) unfilledFields.push("District");
-			if (isFieldEmpty(formData.idnZCode))
-				unfilledFields.push("Indonesian Zip Code");
-			if (isFieldEmpty(formData.ukAddress)) unfilledFields.push("UK Address");
-			if (isFieldEmpty(formData.ukZCode)) unfilledFields.push("UK Zip Code");
-			if (formData.permanentResident === null && formData.stayPeriod === null)
-				unfilledFields.push("Address Status");
-			if (
-				formData.permanentResident === "false" &&
-				formData.stayPeriod === null
-			)
-				unfilledFields.push("End Term Date");
+			// if (isFieldEmpty(formData.indonesianAddress))
+			// 	unfilledFields.push("Indonesian Address");
+			// if (isFieldEmpty(formData.province)) unfilledFields.push("Province");
+			// if (isFieldEmpty(formData.city)) unfilledFields.push("City");
+			// if (isFieldEmpty(formData.district)) unfilledFields.push("District");
+			// if (isFieldEmpty(formData.idnZCode))
+			// 	unfilledFields.push("Indonesian Zip Code");
+			// if (isFieldEmpty(formData.ukAddress)) unfilledFields.push("UK Address");
+			// if (isFieldEmpty(formData.ukZCode)) unfilledFields.push("UK Zip Code");
+			if (!isFieldEmpty(formData.ukAddress)) {
+				if (
+					formData.permanentResident === null &&
+					isFieldEmpty(formData.stayPeriod)
+				)
+					unfilledFields.push("Address Status");
+				if (
+					formData.permanentResident === "false" &&
+					isFieldEmpty(formData.stayPeriod)
+				)
+					unfilledFields.push("End Term Date");
+				if (termDateError !== "")
+					unfilledFields.push(
+						"End Term Date: End term date must be either today or in the future"
+					);
+			}
 		} else if (currentPage === 2) {
 			formData.education.map((item, index) => {
 				if (isFieldEmpty(item.degree))
@@ -112,9 +138,9 @@ function CitizenForm() {
 					unfilledFields.push(`Education ${index + 1}: Course`);
 				if (isFieldEmpty(item.funding))
 					unfilledFields.push(`Education ${index + 1}: Funding`);
-				if (item.entryYear === null)
+				if (isFieldEmpty(item.entryYear))
 					unfilledFields.push(`Education ${index + 1}: Entry Year`);
-				if (item.graduateYear === null)
+				if (isFieldEmpty(item.graduateYear))
 					unfilledFields.push(`Education ${index + 1}: Graduate Year`);
 			});
 		}
@@ -122,57 +148,11 @@ function CitizenForm() {
 	};
 
 	const onChange = (e) => {
-		setStudentFormData((prevState) => ({
+		setCitizenFormData((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.value,
 		}));
 		console.log(e.target.value);
-	};
-
-	const educationChange = (index, event) => {
-		const { name, value } = event.target;
-		setStudentFormData((prevState) => {
-			const education = [...prevState.education];
-			education[index] = {
-				...education[index],
-				[name]: value,
-			};
-			return {
-				...prevState,
-				education,
-			};
-		});
-		// console.log(studentFormData.families[index]);
-	};
-
-	const handleAddEducation = () => {
-		setStudentFormData((prevState) => ({
-			...prevState,
-			education: [
-				...prevState.education,
-				{
-					degree: "",
-					funding: "",
-					course: "",
-					university: "",
-					otherUni: "",
-					graduateYear: null,
-					entryYear: null,
-				},
-			],
-		}));
-		console.log(studentFormData);
-	};
-
-	const handleRemoveEducation = (index) => {
-		setStudentFormData((prevState) => {
-			const updatedEducation = [...prevState.education];
-			updatedEducation.splice(index, 1);
-			return {
-				...prevState,
-				education: updatedEducation,
-			};
-		});
 	};
 
 	const handleNext = (index) => {
@@ -184,7 +164,7 @@ function CitizenForm() {
 				console.log("First Page");
 			}
 		} else {
-			let unfilled = getUnfilledFields(studentFormData, currentPage);
+			let unfilled = getUnfilledFields(citizenFormData, currentPage);
 			if (unfilled.length > 0) {
 				setUnfilledFields(unfilled);
 				setShowWarningModal(true);
@@ -207,8 +187,8 @@ function CitizenForm() {
 		}
 	};
 
-	const submitForm = () => {
-		return;
+	const submitForm = async () => {
+		await addRegisterSensus(citizenFormData);
 	};
 
 	const title = ["Alumni's Basic Information", "Alumni's Education"];
@@ -238,6 +218,8 @@ function CitizenForm() {
 		},
 	];
 
+	const errClass = isError ? "errmsg" : "offscreen";
+
 	return (
 		<>
 			<WarningModal
@@ -247,6 +229,7 @@ function CitizenForm() {
 				page={currentPage}
 			/>
 			<div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
+				<p className={errClass}>{error?.data?.message}</p>
 				<div class="container text-center mb-3">
 					<h1 class="align-items-center form-header">
 						{title[currentPage - 1]}
@@ -263,16 +246,29 @@ function CitizenForm() {
 					/>
 				</div>
 				{currentPage === 1 && (
-					<BasicInfo data={studentFormData} onChange={onChange} />
+					<AlumniBasicInfo
+						data={citizenFormData}
+						setCitizenFormData={setCitizenFormData}
+						onChange={onChange}
+						dateError={dateError}
+						setDateError={setDateError}
+						termDateError={termDateError}
+						setTermDateError={setTermDateError}
+					/>
 				)}
 				{currentPage === 2 && (
 					<Education
-						data={studentFormData}
-						onChange={educationChange}
-						addEducation={handleAddEducation}
-						removeEducation={handleRemoveEducation}
+						data={citizenFormData}
+						setCitizenFormData={setCitizenFormData}
+						// onChange={educationChange}
+						// addEducation={handleAddEducation}
+						// removeEducation={handleRemoveEducation}
 					/>
 				)}
+				<hr class="divider-basic mb-4" />
+				<h4>
+					<span style={{ color: "red" }}>*</span> &#41; Required
+				</h4>
 			</div>
 			<div class="button-col d-flex justify-content-center py-5">
 				<div style={{ display: currentPage === 1 ? "none" : "" }}>
@@ -289,7 +285,7 @@ function CitizenForm() {
 					style={{ background: "#1D1D59 !important" }}
 					onClick={() => {
 						handleNext(currentPage + 1);
-						console.log(studentFormData);
+						console.log(citizenFormData);
 					}}
 				>
 					<img
@@ -308,4 +304,4 @@ function CitizenForm() {
 	);
 }
 
-export default CitizenForm;
+export default AlumniForm;

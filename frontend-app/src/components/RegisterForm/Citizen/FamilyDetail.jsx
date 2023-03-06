@@ -1,9 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import plus from "../../../image/formAsset/plus-button.svg";
 
 function FamilyDetail(props) {
 	const today = new Date().toISOString().substring(0, 10);
+
+	const [dobError, setDobError] = useState("");
+
+	function handleBlur(index, event) {
+		const { name, value } = event.target;
+		if (value.length > 0 && value > today) {
+			props.setCitizenFormData((prevState) => {
+				const families = [...prevState.families];
+				families[index] = {
+					...families[index],
+					[name]: "",
+				};
+				return {
+					...prevState,
+					families,
+				};
+			});
+			setDobError("Date of birth is not valid");
+		} else {
+			setDobError("");
+		}
+	}
+
+	const familyChange = (index, event) => {
+		const { name, value } = event.target;
+		props.setCitizenFormData((prevState) => {
+			const families = [...prevState.families];
+			families[index] = {
+				...families[index],
+				[name]: value,
+			};
+			return {
+				...prevState,
+				families,
+			};
+		});
+		// console.log(citizenFormData.families[index]);
+	};
+
+	const handleRemoveFamilyMember = (index) => {
+		props.setCitizenFormData((prevState) => {
+			const updatedFamilies = [...prevState.families];
+			updatedFamilies.splice(index, 1);
+			if (updatedFamilies.length === 0) {
+				props.setFamilyStatus(false);
+			}
+			return {
+				...prevState,
+				families: updatedFamilies,
+			};
+		});
+	};
 
 	return (
 		<>
@@ -20,7 +72,7 @@ function FamilyDetail(props) {
 					id="fullname"
 					name="fullname"
 					value={props.data.fullname}
-					onChange={(event) => props.onChange(props.index, event)}
+					onChange={(event) => familyChange(props.index, event)}
 					aria-describedby="nameHelp"
 					placeholder="Full Name"
 					required
@@ -36,7 +88,7 @@ function FamilyDetail(props) {
 					id="relationship"
 					name="relationship"
 					value={props.data.relationship}
-					onChange={(event) => props.onChange(props.index, event)}
+					onChange={(event) => familyChange(props.index, event)}
 					aria-describedby="relationshipHelp"
 					placeholder="Relationship"
 					required
@@ -48,21 +100,28 @@ function FamilyDetail(props) {
 				</label>
 				<input
 					type="date"
-					class="form-control form-input"
+					class="form-control form-input mb-2"
 					id="dob"
 					name="dob"
+					max={today}
 					value={props.data.dob}
-					onChange={(event) => props.onChange(props.index, event)}
+					onChange={(event) => familyChange(props.index, event)}
+					onBlur={(event) => handleBlur(props.index, event)}
 					aria-describedby="dobHelp"
 					placeholder="Date of Birth"
 					required
 				/>
+				{dobError !== "" && (
+					<div className="error fw-bold" style={{ color: "red" }}>
+						{dobError}
+					</div>
+				)}
 			</div>
 			<div class="button-col me-0 mb-4">
 				<Button
 					className="remove-family d-flex align-items-center"
 					onClick={() => {
-						props.removeFamily(props.index);
+						handleRemoveFamilyMember(props.index);
 						// props.setFamilyCount(props.familyCount + 1);
 					}}
 				>

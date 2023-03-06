@@ -14,6 +14,25 @@ function Education(props) {
 	// const [familyStatus, setFamilyStatus] = useState(false);
 	// const [familyCount, setFamilyCount] = useState(0);
 
+	const handleAddEducation = () => {
+		props.setCitizenFormData((prevState) => ({
+			...prevState,
+			education: [
+				...prevState.education,
+				{
+					degree: "",
+					funding: "",
+					course: "",
+					university: "",
+					otherUni: "",
+					graduateYear: "",
+					entryYear: "",
+				},
+			],
+		}));
+		console.log(props.data);
+	};
+
 	return (
 		<>
 			<div>
@@ -23,8 +42,9 @@ function Education(props) {
 						{props.data.education.map((item, i) => (
 							<StudentEdu
 								data={item}
-								onChange={props.onChange}
-								removeEducation={props.removeEducation}
+								setCitizenFormData={props.setCitizenFormData}
+								// onChange={props.onChange}
+								// removeEducation={props.removeEducation}
 								index={i}
 							/>
 						))}
@@ -32,7 +52,7 @@ function Education(props) {
 							<Button
 								className="add-family d-flex align-items-center px-4 ms-auto"
 								onClick={() => {
-									props.addEducation();
+									handleAddEducation();
 									// props.setFamilyCount(props.familyCount + 1);
 								}}
 							>
