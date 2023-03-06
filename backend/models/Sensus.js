@@ -41,33 +41,33 @@ const sensusSchema = new mongoose.Schema({
 	// INDONESIAN ADDRESS
 	indonesianAddress: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	province: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	city: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	district: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	idnZCode: {
 		type: String,
-		required: true,
+		required: false,
 	},
 
 	// UK ADRESS
 	ukAddress: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	ukZCode: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	stayPeriod: {
 		type: Date,
@@ -115,29 +115,29 @@ const sensusSchema = new mongoose.Schema({
 	// UKCONTACT
 	ukEmergencyName: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	ukEmergencyPhone: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	ukEmergencyRelationship: {
 		type: String,
-		required: true,
+		required: false,
 	},
 
 	// IDNCONTACT
 	idnEmergencyName: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	idnEmergencyPhone: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	idnEmergencyRelationship: {
 		type: String,
-		required: true,
+		required: false,
 	},
 
 	// FAMILY
@@ -145,15 +145,15 @@ const sensusSchema = new mongoose.Schema({
 		{
 			fullname: {
 				type: String,
-				required: true,
+				required: false,
 			},
 			relationship: {
 				type: String,
-				required: true,
+				required: false,
 			},
 			dob: {
 				type: Date,
-				required: true,
+				required: false,
 			},
 		},
 	],
