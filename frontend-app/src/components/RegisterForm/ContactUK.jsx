@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { Button } from "react-bootstrap";
-import arrow from "../../image/formAsset/arrow-back.svg";
+import InputMask from "react-input-mask";
 
 function ContactUK(props) {
 	const isDesktopOrLaptop = useMediaQuery({
@@ -10,10 +9,19 @@ function ContactUK(props) {
 	const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
 	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
+	const [telError, setTelError] = useState("");
+
 	function handleBlur(event) {
-		const inputPhone = event.target.value;
-		if (inputPhone.length > 13) {
-			alert("Please enter a valid year");
+		const { name, value } = event.target;
+		let inputPhone = value;
+		if (inputPhone.length < 10) {
+			props.setCitizenFormData((prevState) => ({
+				...prevState,
+				[name]: "",
+			}));
+			setTelError("Please enter a valid phone number");
+		} else {
+			setTelError("");
 		}
 	}
 
@@ -41,21 +49,27 @@ function ContactUK(props) {
 						<label class="form-label input-label">
 							Phone Number <span style={{ color: "red" }}>*</span>
 						</label>
-						<input
-							type="tel"
-							className="form-control form-input"
-							pattern="[0-9]*"
-							inputMode="numeric"
-							placeholder="Enter phone number"
-							minLength="10"
-							maxLength="12"
+						<InputMask
+							type="text"
+							className="form-control form-input mb-2"
 							id="ukEmergencyPhone"
 							name="ukEmergencyPhone"
 							value={props.data.ukEmergencyPhone}
 							onChange={props.onChange}
 							onBlur={handleBlur}
+							placeholder="6212345671234"
+							mask={"+9999999999999"}
+							maskChar={null}
+							formatChars={{
+								9: "[0-9]",
+							}}
 							required
 						/>
+						{telError !== "" && (
+							<div className="error fw-bold" style={{ color: "red" }}>
+								{telError}
+							</div>
+						)}
 					</div>
 					<div class="mb-4">
 						<label class="form-label input-label">

@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { PatternFormat } from "react-number-format";
+import provinceList from "../provinceList";
+import Select from "react-select";
+import InputMask from "react-input-mask";
 // import { useMediaQuery } from "react-responsive";
 
 function CitBasicInfo(props) {
@@ -10,6 +14,91 @@ function CitBasicInfo(props) {
 
 	const [otherStatus, setOtherStatus] = useState(false);
 	const [permanentResident, setPermanentResident] = useState(null);
+	const [selectedProvince, setSelectedProvince] = useState(null);
+
+	const today = new Date().toISOString().substring(0, 10);
+
+	const [telUkError, setTelUkError] = useState("");
+	const [telIdError, setTelIdError] = useState("");
+
+	function handleTelUkBlur(event) {
+		const { name, value } = event.target;
+		let inputPhone = value;
+		if (inputPhone.length < 10) {
+			props.setCitizenFormData((prevState) => ({
+				...prevState,
+				[name]: "",
+			}));
+			setTelUkError("Please enter a valid phone number");
+		} else {
+			setTelUkError("");
+		}
+	}
+
+	function handleTelIdBlur(event) {
+		const { name, value } = event.target;
+		let inputPhone = value;
+		if (inputPhone.length < 10) {
+			props.setCitizenFormData((prevState) => ({
+				...prevState,
+				[name]: "",
+			}));
+			setTelIdError("Please enter a valid phone number");
+		} else {
+			setTelIdError("");
+		}
+	}
+
+	const handleProvinceChange = (selectedOption, { name }) => {
+		props.setCitizenFormData((prevState) => ({
+			...prevState,
+			[name]: selectedOption.value,
+		}));
+		setSelectedProvince(selectedOption);
+		// console.log(selectedOption);
+	};
+
+	const handleDobChange = (e) => {
+		if (e.target.value <= today) {
+			props.setDateError("");
+			props.setCitizenFormData((prevState) => ({
+				...prevState,
+				[e.target.name]: e.target.value,
+			}));
+		} else {
+			props.setDateError("Future date is not valid for date of birth");
+		}
+	};
+
+	const stayPeriodBlur = (event) => {
+		const { name, value } = event.target;
+		const inputYear = value;
+		if (inputYear.length > 0 && inputYear < today) {
+			props.setCitizenFormData((prevState) => ({
+				...prevState,
+				[name]: "",
+			}));
+			props.setTermDateError("End term date is not valid");
+		} else {
+			props.setTermDateError("");
+		}
+	};
+
+	const handleResidentChange = (e) => {
+		props.setCitizenFormData((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+			["stayPeriod"]: "",
+		}));
+		props.setTermDateError("");
+	};
+
+	const handleUkZcodeChange = (e) => {
+		props.setCitizenFormData((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value.toUpperCase(),
+		}));
+	};
 
 	return (
 		<>
@@ -37,47 +126,75 @@ function CitBasicInfo(props) {
 						</label>
 						<input
 							type="date"
-							class="form-control form-input"
+							class="form-control form-input mb-2"
 							id="dob"
 							name="dob"
 							value={props.data.dob}
-							onChange={props.onChange}
+							onChange={handleDobChange}
+							max={today}
 							aria-describedby="dobHelp"
 							placeholder="Date of Birth"
 							required
 						/>
+						{props.dateError !== "" && (
+							<div className="error fw-bold" style={{ color: "red" }}>
+								{props.dateError}
+							</div>
+						)}
 					</div>
 					<div class="mb-4">
 						<label class="form-label input-label">
 							UK Phone Number <span style={{ color: "red" }}>*</span>
 						</label>
-						<input
-							type="tel"
-							class="form-control form-input"
+						<InputMask
+							type="text"
+							class="form-control form-input mb-2"
 							id="ukPhoneNumber"
 							name="ukPhoneNumber"
 							value={props.data.ukPhoneNumber}
 							onChange={props.onChange}
 							aria-describedby="ukPhoneNumberHelp"
-							placeholder="+44"
+							onBlur={handleTelUkBlur}
+							placeholder="4412345671234"
+							mask={"+9999999999999"}
+							maskChar={null}
+							formatChars={{
+								9: "[0-9]",
+							}}
 							required
 						/>
+						{telUkError !== "" && (
+							<div className="error fw-bold" style={{ color: "red" }}>
+								{telUkError}
+							</div>
+						)}
 					</div>
 					<div class="mb-4">
 						<label class="form-label input-label">
 							Indonesia Phone Number <span style={{ color: "red" }}>*</span>
 						</label>
-						<input
-							type="tel"
+						<InputMask
+							type="text"
 							class="form-control form-input"
 							id="indonesianPhoneNumber"
 							name="indonesianPhoneNumber"
 							value={props.data.indonesianPhoneNumber}
 							onChange={props.onChange}
 							aria-describedby="indonesianPhoneNumberHelp"
-							placeholder="+62"
+							onBlur={handleTelIdBlur}
+							placeholder="6212345671234"
+							mask={"+9999999999999"}
+							maskChar={null}
+							formatChars={{
+								9: "[0-9]",
+							}}
 							required
 						/>
+						{telIdError !== "" && (
+							<div className="error fw-bold" style={{ color: "red" }}>
+								{telIdError}
+							</div>
+						)}
 					</div>
 					<div class="mb-4">
 						<label class="form-label input-label">
@@ -199,9 +316,7 @@ function CitBasicInfo(props) {
 					</div>
 					<hr class="divider-basic mb-4" />
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Indonesian Address <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">Indonesian Address</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -215,10 +330,22 @@ function CitBasicInfo(props) {
 						/>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Province <span style={{ color: "red" }}>*</span>
-						</label>
-						<input
+						<label class="form-label input-label">Province</label>
+						<Select
+							type="text"
+							className="form-control form-input"
+							id="province"
+							name="province"
+							value={selectedProvince}
+							// onChange={props.onChange}
+							onChange={handleProvinceChange}
+							aria-describedby="provinceHelp"
+							placeholder="Province"
+							options={provinceList}
+							isSearchable
+							required
+						/>
+						{/* <input
 							type="text"
 							class="form-control form-input"
 							id="province"
@@ -228,12 +355,10 @@ function CitBasicInfo(props) {
 							aria-describedby="provinceHelp"
 							placeholder="Province"
 							required
-						/>
+						/> */}
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							City/Regency <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">City/Regency</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -247,9 +372,7 @@ function CitBasicInfo(props) {
 						/>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							District <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">District</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -263,16 +386,15 @@ function CitBasicInfo(props) {
 						/>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Indonesian Zip Code <span style={{ color: "red" }}>*</span>
-						</label>
-						<input
+						<label class="form-label input-label">Indonesian Zip Code</label>
+						<PatternFormat
 							type="text"
 							class="form-control form-input"
 							id="idnZCode"
 							name="idnZCode"
 							value={props.data.idnZCode}
 							onChange={props.onChange}
+							format="#####"
 							aria-describedby="idnZCodeHelp"
 							placeholder="Zip Code"
 							required
@@ -299,14 +421,20 @@ function CitBasicInfo(props) {
 						<label class="form-label input-label">
 							UK Zip Code <span style={{ color: "red" }}>*</span>
 						</label>
-						<input
+						<InputMask
 							type="text"
 							class="form-control form-input"
 							id="ukZCode"
 							name="ukZCode"
 							value={props.data.ukZCode}
-							onChange={props.onChange}
+							onChange={handleUkZcodeChange}
 							aria-describedby="ukZCodeHelp"
+							mask="*** ***"
+							maskChar={null}
+							formatChars={{
+								"*": "[A-Za-z0-9]",
+							}}
+							alwaysShowMask={false}
 							placeholder="A12 3CD"
 							required
 						/>
@@ -324,7 +452,7 @@ function CitBasicInfo(props) {
 								name="permanentResident"
 								id="permanentResident_true"
 								value={true}
-								onChange={props.onChange}
+								onChange={handleResidentChange}
 								onClick={() => setPermanentResident(true)}
 							/>
 							<label class="form-check-label radio-relationship" for="married">
@@ -351,23 +479,28 @@ function CitBasicInfo(props) {
 									display: permanentResident === false ? "" : "none",
 								}}
 								type="date"
-								class="form-control"
+								className="form-control mb-2"
 								id="stayPeriod"
 								name="stayPeriod"
 								value={props.data.stayPeriod}
 								onChange={props.onChange}
+								onBlur={stayPeriodBlur}
+								min={today}
 								aria-describedby="stayPeriodHelp"
 								placeholder="Fill in.."
 								// disabled
 								// hidden
 							/>
 						</div>
+						{props.termDateError !== "" && (
+							<div className="error fw-bold" style={{ color: "red" }}>
+								{props.termDateError}
+							</div>
+						)}
 					</div>
 					<hr class="divider-basic mb-4" />
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Occupation <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">Occupation</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -382,7 +515,7 @@ function CitBasicInfo(props) {
 					</div>
 					<div class="mb-4">
 						<label class="form-label input-label">
-							Company (Previous/Current) <span style={{ color: "red" }}>*</span>
+							Company (Previous/Current)
 						</label>
 						<input
 							type="text"

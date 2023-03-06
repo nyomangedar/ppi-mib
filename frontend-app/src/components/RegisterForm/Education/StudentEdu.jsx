@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import { NumericFormat, PatternFormat } from "react-number-format";
+import InputMask from "react-input-mask";
 import { useMediaQuery } from "react-responsive";
 import plus from "../../../image/formAsset/plus-button.svg";
 
@@ -10,25 +12,106 @@ function StudentEdu(props) {
 	const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
 	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
-	const currentYear = new Date().getFullYear();
-	const [otherStatus, setOtherStatus] = useState(false);
+	const [entryDateError, setEntryDateError] = useState("");
+	const [gradDateError, setGradDateError] = useState("");
 
-	function handleBlur(event) {
-		const inputYear = event.target.value;
+	function handleBlur(index, event) {
+		const { name, value } = event.target;
+		const inputYear = value;
 		if (
 			inputYear.length > 0 &&
 			(inputYear.length !== 4 || parseInt(inputYear) > new Date().getFullYear())
 		) {
-			alert("Please enter a valid year");
+			props.setCitizenFormData((prevState) => {
+				const education = [...prevState.education];
+				education[index] = {
+					...education[index],
+					[name]: "",
+				};
+				return {
+					...prevState,
+					education,
+				};
+			});
+			setEntryDateError("Entry year is not valid");
+		} else {
+			setEntryDateError("");
 		}
 	}
 
-	function handleBlurGrad(event) {
-		const inputYear = event.target.value;
-		if (inputYear.length > 0 && inputYear.length !== 4) {
-			alert("Please enter a valid year");
+	function handleBlurGrad(index, event) {
+		const { name, value } = event.target;
+		const inputYear = value;
+		if (
+			inputYear.length > 0 &&
+			(inputYear.length !== 4 ||
+				props.data.entryYear === "" ||
+				parseInt(inputYear) <= props.data.entryYear)
+		) {
+			props.setCitizenFormData((prevState) => {
+				const education = [...prevState.education];
+				education[index] = {
+					...education[index],
+					[name]: "",
+				};
+				return {
+					...prevState,
+					education,
+				};
+			});
+			setGradDateError(
+				props.data.entryYear !== ""
+					? "Graduate year must be greater than entry year"
+					: "You must enter your entry year first"
+			);
+		} else {
+			setGradDateError("");
 		}
 	}
+
+	const educationChange = (index, event) => {
+		const { name, value } = event.target;
+		props.setCitizenFormData((prevState) => {
+			const education = [...prevState.education];
+			education[index] = {
+				...education[index],
+				[name]: value,
+			};
+			return {
+				...prevState,
+				education,
+			};
+		});
+		// console.log(citizenFormData.families[index]);
+	};
+
+	const uniChange = (index, event) => {
+		const { name, value } = event.target;
+		props.setCitizenFormData((prevState) => {
+			const education = [...prevState.education];
+			education[index] = {
+				...education[index],
+				[name]: value,
+				["otherUni"]: "",
+			};
+			return {
+				...prevState,
+				education,
+			};
+		});
+		// console.log(citizenFormData.families[index]);
+	};
+
+	const handleRemoveEducation = (index) => {
+		props.setCitizenFormData((prevState) => {
+			const updatedEducation = [...prevState.education];
+			updatedEducation.splice(index, 1);
+			return {
+				...prevState,
+				education: updatedEducation,
+			};
+		});
+	};
 
 	return (
 		<>
@@ -47,7 +130,7 @@ function StudentEdu(props) {
 							id="degree"
 							name="degree"
 							value={props.data.degree}
-							onChange={(event) => props.onChange(props.index, event)}
+							onChange={(event) => educationChange(props.index, event)}
 							required
 						>
 							<option value="" selected disabled hidden>
@@ -68,7 +151,7 @@ function StudentEdu(props) {
 							id="university"
 							name="university"
 							value={props.data.university}
-							onChange={(event) => props.onChange(props.index, event)}
+							onChange={(event) => uniChange(props.index, event)}
 							required
 						>
 							<option value="" selected disabled hidden>
@@ -98,7 +181,7 @@ function StudentEdu(props) {
 								id="otherUni"
 								name="otherUni"
 								value={props.data.otherUni}
-								onChange={(event) => props.onChange(props.index, event)}
+								onChange={(event) => educationChange(props.index, event)}
 								aria-describedby="otherUniHelp"
 								placeholder="Fill in.."
 								required
@@ -115,7 +198,7 @@ function StudentEdu(props) {
 							id="course"
 							name="course"
 							value={props.data.course}
-							onChange={(event) => props.onChange(props.index, event)}
+							onChange={(event) => educationChange(props.index, event)}
 							aria-describedby="courseHelp"
 							placeholder="Course"
 							required
@@ -131,7 +214,7 @@ function StudentEdu(props) {
 							id="funding"
 							name="funding"
 							value={props.data.funding}
-							onChange={(event) => props.onChange(props.index, event)}
+							onChange={(event) => educationChange(props.index, event)}
 							required
 						>
 							<option value="" selected disabled hidden>
@@ -145,41 +228,60 @@ function StudentEdu(props) {
 						<label class="form-label input-label">
 							Entry Year <span style={{ color: "red" }}>*</span>
 						</label>
-						<input
-							type="number"
-							class="form-control form-input"
-							min="1000"
-							max={currentYear}
-							onBlur={handleBlur}
+						<InputMask
+							type="text"
+							class="form-control form-input mb-2"
+							onBlur={(event) => handleBlur(props.index, event)}
 							id="entryYear"
 							name="entryYear"
 							value={props.data.entryYear}
-							onChange={(event) => props.onChange(props.index, event)}
+							onChange={(event) => educationChange(props.index, event)}
+							mask={"9999"}
+							maskChar={null}
+							formatChars={{
+								9: "[0-9]",
+							}}
 							aria-describedby="entryYearHelp"
 							placeholder="Entry Year"
 							required
 						/>
+						{entryDateError !== "" && (
+							<div className="error fw-bold" style={{ color: "red" }}>
+								{entryDateError}
+							</div>
+						)}
 					</div>
-					<div class="mb-4">
+					<div
+						class="mb-4"
+						style={{ display: props.data.entryYear === "" ? "none" : "" }}
+					>
 						<label class="form-label input-label">
 							Graduate Year <span style={{ color: "red" }}>*</span>
 						</label>
-						<input
-							type="number"
-							class="form-control form-input"
-							min="1000"
-							// max={currentYear}
-							onBlur={handleBlurGrad}
+						<InputMask
+							type="text"
+							class="form-control form-input mb-2"
+							onBlur={(event) => handleBlurGrad(props.index, event)}
 							id="graduateYear"
 							name="graduateYear"
 							value={props.data.graduateYear}
-							onChange={(event) => props.onChange(props.index, event)}
+							onChange={(event) => educationChange(props.index, event)}
+							mask={"9999"}
+							maskChar={null}
+							formatChars={{
+								9: "[0-9]",
+							}}
 							aria-describedby="graduateYearHelp"
 							placeholder="Graduate Year"
 							required
 						/>
+						{gradDateError !== "" && (
+							<div className="error fw-bold" style={{ color: "red" }}>
+								{gradDateError}
+							</div>
+						)}
 					</div>
-					<div class="mb-4">
+					{/* <div class="mb-4">
 						<label class="form-label input-label">
 							Student ID Card/CAS/LoA <span style={{ color: "red" }}>*</span>
 						</label>
@@ -192,7 +294,7 @@ function StudentEdu(props) {
 							placeholder="Course"
 							// required
 						/>
-					</div>
+					</div> */}
 					<div
 						class="button-col me-0 mb-4"
 						style={{ display: props.index > 0 ? "" : "none" }}
@@ -200,7 +302,7 @@ function StudentEdu(props) {
 						<Button
 							className="remove-family d-flex align-items-center"
 							onClick={() => {
-								props.removeEducation(props.index);
+								handleRemoveEducation(props.index);
 								// props.setFamilyCount(props.familyCount + 1);
 							}}
 						>

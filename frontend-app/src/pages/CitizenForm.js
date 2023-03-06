@@ -33,6 +33,8 @@ function CitizenForm() {
     const [familyStatus, setFamilyStatus] = useState(false);
     const [showWarningModal, setShowWarningModal] = useState(false);
     const [unfilledFields, setUnfilledFields] = useState([]);
+    const [dateError, setDateError] = useState("");
+    const [termDateError, setTermDateError] = useState("");
 
     const [citizenFormData, setCitizenFormData] = useState({
         idnEmergencyRelationship: "",
@@ -43,7 +45,7 @@ function CitizenForm() {
         ukEmergencyName: "",
         company: "",
         occupation: "",
-        stayPeriod: null,
+        stayPeriod: "",
         permanentResident: null,
         education: [
             {
@@ -52,8 +54,8 @@ function CitizenForm() {
                 course: "",
                 university: "",
                 otherUni: "",
-                graduateYear: null,
-                entryYear: null,
+                graduateYear: "",
+                entryYear: "",
             },
         ],
         ukZCode: "",
@@ -80,6 +82,8 @@ function CitizenForm() {
         // ],
     });
 
+    const today = new Date().toISOString().substring(0, 10);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [currentPage]);
@@ -90,6 +94,12 @@ function CitizenForm() {
         if (currentPage === 1) {
             if (isFieldEmpty(formData.fullName))
                 unfilledFields.push("Full Name");
+            if (isFieldEmpty(formData.dob))
+                unfilledFields.push("Date of Birth");
+            if (dateError !== "")
+                unfilledFields.push(
+                    "DoB: Future date is not valid for date of birth"
+                );
             if (isFieldEmpty(formData.ukPhoneNumber))
                 unfilledFields.push("UK Phone Number");
             if (isFieldEmpty(formData.indonesianPhoneNumber))
@@ -100,32 +110,33 @@ function CitizenForm() {
                 unfilledFields.push("Relationship Status");
             if (isFieldEmpty(formData.religion))
                 unfilledFields.push("Religion");
-            if (isFieldEmpty(formData.indonesianAddress))
-                unfilledFields.push("Indonesian Address");
-            if (isFieldEmpty(formData.province))
-                unfilledFields.push("Province");
-            if (isFieldEmpty(formData.city)) unfilledFields.push("City");
-            if (isFieldEmpty(formData.district))
-                unfilledFields.push("District");
-            if (isFieldEmpty(formData.idnZCode))
-                unfilledFields.push("Indonesian Zip Code");
+            // if (isFieldEmpty(formData.indonesianAddress))
+            // 	unfilledFields.push("Indonesian Address");
+            // if (isFieldEmpty(formData.province)) unfilledFields.push("Province");
+            // if (isFieldEmpty(formData.city)) unfilledFields.push("City");
+            // if (isFieldEmpty(formData.district)) unfilledFields.push("District");
+            // if (isFieldEmpty(formData.idnZCode))
+            // 	unfilledFields.push("Indonesian Zip Code");
             if (isFieldEmpty(formData.ukAddress))
                 unfilledFields.push("UK Address");
             if (isFieldEmpty(formData.ukZCode))
                 unfilledFields.push("UK Zip Code");
             if (
                 formData.permanentResident === null &&
-                formData.stayPeriod === null
+                isFieldEmpty(formData.stayPeriod)
             )
                 unfilledFields.push("Address Status");
             if (
                 formData.permanentResident === "false" &&
-                formData.stayPeriod === null
+                isFieldEmpty(formData.stayPeriod)
             )
                 unfilledFields.push("End Term Date");
-            if (isFieldEmpty(formData.occupation))
-                unfilledFields.push("Occupation");
-            if (isFieldEmpty(formData.company)) unfilledFields.push("Company");
+            if (termDateError !== "")
+                unfilledFields.push(
+                    "End Term Date: End term date must be either today or in the future"
+                );
+            // if (isFieldEmpty(formData.occupation)) unfilledFields.push("Occupation");
+            // if (isFieldEmpty(formData.company)) unfilledFields.push("Company");
         } else if (currentPage === 2) {
             formData.education.map((item, index) => {
                 if (isFieldEmpty(item.degree))
@@ -143,9 +154,9 @@ function CitizenForm() {
                     unfilledFields.push(`Education ${index + 1}: Course`);
                 if (isFieldEmpty(item.funding))
                     unfilledFields.push(`Education ${index + 1}: Funding`);
-                if (item.entryYear === null)
+                if (isFieldEmpty(item.entryYear))
                     unfilledFields.push(`Education ${index + 1}: Entry Year`);
-                if (item.graduateYear === null)
+                if (isFieldEmpty(item.graduateYear))
                     unfilledFields.push(
                         `Education ${index + 1}: Graduate Year`
                     );
@@ -162,6 +173,10 @@ function CitizenForm() {
                     if (isFieldEmpty(family.dob))
                         unfilledFields.push(
                             `Family Member ${index + 1}: Date of Birth`
+                        );
+                    if (dateError !== "")
+                        unfilledFields.push(
+                            "DoB: Future date is not valid for date of birth"
                         );
                 });
             }
@@ -416,32 +431,56 @@ function CitizenForm() {
                     />
                 </div>
                 {currentPage === 1 && (
-                    <CitBasicInfo data={citizenFormData} onChange={onChange} />
+                    <CitBasicInfo
+                        data={citizenFormData}
+                        setCitizenFormData={setCitizenFormData}
+                        onChange={onChange}
+                        dateError={dateError}
+                        setDateError={setDateError}
+                        termDateError={termDateError}
+                        setTermDateError={setTermDateError}
+                    />
                 )}
                 {currentPage === 2 && (
                     <Education
                         data={citizenFormData}
-                        onChange={educationChange}
-                        addEducation={handleAddEducation}
-                        removeEducation={handleRemoveEducation}
+                        setCitizenFormData={setCitizenFormData}
+                        // onChange={educationChange}
+                        // addEducation={handleAddEducation}
+                        // removeEducation={handleRemoveEducation}
                     />
                 )}
                 {currentPage === 3 && (
                     <Family
                         data={citizenFormData}
-                        onChange={familyChange}
-                        addFamily={handleAddFamilyMember}
-                        removeFamily={handleRemoveFamilyMember}
+                        setCitizenFormData={setCitizenFormData}
+                        dateError={dateError}
+                        setDateError={setDateError}
+                        // onChange={familyChange}
+                        // addFamily={handleAddFamilyMember}
+                        // removeFamily={handleRemoveFamilyMember}
                         familyStatus={familyStatus}
                         setFamilyStatus={setFamilyStatus}
                     />
                 )}
                 {currentPage === 4 && (
-                    <ContactIndo data={citizenFormData} onChange={onChange} />
+                    <ContactIndo
+                        data={citizenFormData}
+                        onChange={onChange}
+                        setCitizenFormData={setCitizenFormData}
+                    />
                 )}
                 {currentPage === 5 && (
-                    <ContactUK data={citizenFormData} onChange={onChange} />
+                    <ContactUK
+                        data={citizenFormData}
+                        onChange={onChange}
+                        setCitizenFormData={setCitizenFormData}
+                    />
                 )}
+                <hr class="divider-basic mb-4" />
+                <h4>
+                    <span style={{ color: "red" }}>*</span> &#41; Required
+                </h4>
             </div>
             <div class="button-col d-flex justify-content-center py-5">
                 <div style={{ display: currentPage === 1 ? "none" : "" }}>

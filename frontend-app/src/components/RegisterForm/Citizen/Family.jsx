@@ -14,6 +14,21 @@ function Family(props) {
 	// const [familyStatus, setFamilyStatus] = useState(false);
 	// const [familyCount, setFamilyCount] = useState(0);
 
+	const handleAddFamilyMember = () => {
+		props.setCitizenFormData((prevState) => ({
+			...prevState,
+			families: [
+				...prevState.families,
+				{
+					fullname: "",
+					relationship: "",
+					dob: "",
+				},
+			],
+		}));
+		// console.log(citizenFormData);
+	};
+
 	return (
 		<>
 			<div>
@@ -35,7 +50,7 @@ function Family(props) {
 								onClick={() => {
 									props.setFamilyStatus(true);
 									if (props.data.families.length === 0) {
-										props.addFamily();
+										handleAddFamilyMember();
 										// props.setFamilyCount(1);
 									}
 								}}
@@ -66,8 +81,11 @@ function Family(props) {
 						{props.data.families.map((familyMember, i) => (
 							<FamilyDetail
 								data={familyMember}
-								onChange={props.onChange}
-								removeFamily={props.removeFamily}
+								setCitizenFormData={props.setCitizenFormData}
+								dateError={props.dateError}
+								setDateError={props.setDateError}
+								familyStatus={props.familyStatus}
+								setFamilyStatus={props.setFamilyStatus}
 								index={i}
 							/>
 						))}
@@ -75,7 +93,7 @@ function Family(props) {
 							<Button
 								className="add-family d-flex align-items-center px-4 ms-auto"
 								onClick={() => {
-									props.addFamily();
+									handleAddFamilyMember();
 									// props.setFamilyCount(props.familyCount + 1);
 								}}
 							>

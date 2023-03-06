@@ -5,7 +5,7 @@ import Select from "react-select";
 import InputMask from "react-input-mask";
 // import { useMediaQuery } from "react-responsive";
 
-function StudentBasicInfo(props) {
+function AlumniBasicInfo(props) {
 	// const isDesktopOrLaptop = useMediaQuery({
 	// 	query: "(min-width: 1224px)",
 	// });
@@ -316,9 +316,7 @@ function StudentBasicInfo(props) {
 					</div>
 					<hr class="divider-basic mb-4" />
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Indonesian Address <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">Indonesian Address</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -332,9 +330,7 @@ function StudentBasicInfo(props) {
 						/>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Province <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">Province</label>
 						<Select
 							type="text"
 							className="form-control form-input"
@@ -362,9 +358,7 @@ function StudentBasicInfo(props) {
 						/> */}
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							City/Regency <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">City/Regency</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -378,9 +372,7 @@ function StudentBasicInfo(props) {
 						/>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							District <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">District</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -394,9 +386,7 @@ function StudentBasicInfo(props) {
 						/>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Indonesian Zip Code <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">Indonesian Zip Code</label>
 						<PatternFormat
 							type="text"
 							class="form-control form-input"
@@ -412,9 +402,7 @@ function StudentBasicInfo(props) {
 					</div>
 					<hr class="divider-basic mb-4" />
 					<div class="mb-4">
-						<label class="form-label input-label">
-							UK Address <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">UK Address</label>
 						<input
 							type="text"
 							class="form-control form-input"
@@ -428,9 +416,7 @@ function StudentBasicInfo(props) {
 						/>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							UK Zip Code <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">UK Zip Code</label>
 						<InputMask
 							type="text"
 							class="form-control form-input"
@@ -449,7 +435,10 @@ function StudentBasicInfo(props) {
 							required
 						/>
 					</div>
-					<div class="mb-4">
+					<div
+						class="mb-4"
+						style={{ display: props.data.ukAddress === "" ? "none" : "" }}
+					>
 						<div>
 							<label class="form-label input-label">
 								Address Status <span style={{ color: "red" }}>*</span>
@@ -508,6 +497,37 @@ function StudentBasicInfo(props) {
 							</div>
 						)}
 					</div>
+					<hr class="divider-basic mb-4" />
+					<div class="mb-4">
+						<label class="form-label input-label">Occupation</label>
+						<input
+							type="text"
+							class="form-control form-input"
+							id="occupation"
+							name="occupation"
+							value={props.data.occupation}
+							onChange={props.onChange}
+							aria-describedby="occupationHelp"
+							placeholder="Occupation"
+							required
+						/>
+					</div>
+					<div class="mb-4">
+						<label class="form-label input-label">
+							Company (Previous/Current)
+						</label>
+						<input
+							type="text"
+							class="form-control form-input"
+							id="company"
+							name="company"
+							value={props.data.company}
+							onChange={props.onChange}
+							aria-describedby="companyHelp"
+							placeholder="Company"
+							required
+						/>
+					</div>
 					{/* <button type="submit" class="btn btn-primary">
 							Submit
 						</button> */}
@@ -517,4 +537,4 @@ function StudentBasicInfo(props) {
 	);
 }
 
-export default StudentBasicInfo;
+export default AlumniBasicInfo;
