@@ -136,9 +136,11 @@ function StudentEdu(props) {
 							<option value="" selected disabled hidden>
 								Open this select menu
 							</option>
-							<option value="bachelor">Bachelor</option>
-							<option value="masters">Masters</option>
-							<option value="phd">PhD</option>
+							<option value="foundation">Foundation</option>
+							<option value="undergraduate">Undergraduate</option>
+							<option value="master">Master Degree</option>
+							<option value="phd">Doctoral Degree</option>
+							<option value="other">Other</option>
 						</select>
 					</div>
 					<div class="mb-4">
@@ -163,6 +165,10 @@ function StudentEdu(props) {
 							<option value="Aston University">Aston University</option>
 							<option value="Birmingham City University">
 								Birmingham City University
+							</option>
+							<option value="Newman University">Newman University</option>
+							<option value="University College Birmingham">
+								University College Birmingham
 							</option>
 							<option value="other">Other</option>
 						</select>
@@ -221,7 +227,10 @@ function StudentEdu(props) {
 								Open this select menu
 							</option>
 							<option value="self-funded">Self-funded</option>
-							<option value="scholarship">Scholarship</option>
+							<option value="chevening">Chevening</option>
+							<option value="iisma">IISMA</option>
+							<option value="lpdp">LPDP</option>
+							<option value="other">Other</option>
 						</select>
 					</div>
 					<div class="mb-4">
