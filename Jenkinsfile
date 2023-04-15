@@ -7,10 +7,6 @@ pipeline {
         }
     }
 
-// NODE_ENV = development
-// DATABASE_URI=mongodb+srv://admin:WuD8ckUUvk8b3P0G@cluster0.dt2mkpp.mongodb.net/PPIMIB_DB?retryWrites=true&w=majority
-// DEV_DATABASE_URI=mongodb+srv://admin:WuD8ckUUvk8b3P0G@cluster0.dt2mkpp.mongodb.net/DEVELOPMENT?retryWrites=true&w=majority
-// SECRET_KEY =pzzcfNtNHDbmz0YPGWgGlothcPsxiVwY
     stages {
         stage('Stopping Process'){
             steps{
