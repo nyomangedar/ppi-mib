@@ -308,9 +308,11 @@ function AlumniBasicInfo(props) {
 								Open this select menu
 							</option>
 							<option value="islam">Islam</option>
-							<option value="kristen">Kristen</option>
+							<option value="protestan">Protestan</option>
+							<option value="katolik">Katolik</option>
 							<option value="hindu">Hindu</option>
-							<option value="hindu">Buddha</option>
+							<option value="buddha">Buddha</option>
+							<option value="other">Other</option>
 							<option value="pnts">Prefer not to say</option>
 						</select>
 					</div>
