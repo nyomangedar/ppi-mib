@@ -9,10 +9,10 @@ pipeline {
 
     stages {
         stage('Stopping Process'){
-            steps{
-                echo 'Stop Process'
-                sh "pm2 stop all"
-            }
+            // steps{
+            //     echo 'Stop Process'
+            //     sh "pm2 stop all"
+            // }
         }
         stage('Environment Setup'){
             steps{
@@ -40,10 +40,11 @@ pipeline {
         stage('Starting server'){
             steps{
                 echo 'Start Server'
-                sh 'pm2 start server.js'
-                sh 'pm2 save'
-                echo 'Restart Nginx'
-                sh 'sudo service nginx restart'
+                sh 'npm start server.js'
+                // sh 'pm2 start server.js'
+                // sh 'pm2 save'
+                // echo 'Restart Nginx'
+                // sh 'sudo service nginx restart'
             }
         }
     }
