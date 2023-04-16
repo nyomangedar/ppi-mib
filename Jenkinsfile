@@ -8,12 +8,12 @@ pipeline {
     }
 
     stages {
-        stage('Stopping Process'){
+        // stage('Stopping Process'){
             // steps{
             //     echo 'Stop Process'
             //     sh "pm2 stop all"
             // }
-        }
+        // }
         stage('Environment Setup'){
             steps{
                 echo 'Environment setup'
