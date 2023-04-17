@@ -9,6 +9,12 @@ pipeline {
     // }
 
     stages {
+        stage('Stopping server'){
+            steps{
+                echo 'Stopping server'
+                sh 'sudo pm2 stop 0'
+            }
+        }
         stage('Environment Setup'){
             steps{
                 echo 'Environment setup'
@@ -19,16 +25,16 @@ pipeline {
                 """
             }
         }
-        // stage('Updating Packages'){
-        //     steps{
-        //         echo 'Updating'
-        //         sh 'ncu -u'
-        //     }
-        // }
+        stage('Updating Packages'){
+            steps{
+                echo 'Updating'
+                sh 'sudo ncu -u'
+            }
+        }
         stage('Building Node') {
             steps {
                 echo 'Building...'
-                sh 'sudo npm install'
+                sh 'sudo npm ci'
             }
         }
         // stage('Building React'){
@@ -38,21 +44,19 @@ pipeline {
         //         echo 'npm run build '
         //     }
         // }
+        
+        stage('Starting server'){
+            steps{
+                echo 'Start Server'
+                sh 'sudo pm2 start all'
+            }
+        }
+
         stage('Finishing jobs'){
             steps{
                 echo 'Restarting nginx'
                 sh 'sudo systemctl restart nginx'
             }
         }
-        // stage('Starting server'){
-        //     steps{
-        //         echo 'Start Server'
-        //         sh 'npm start server.js'
-        //         // sh 'pm2 start server.js'
-        //         // sh 'pm2 save'
-        //         // echo 'Restart Nginx'
-        //         // sh 'sudo service nginx restart'
-        //     }
-        // }
     }
 }
