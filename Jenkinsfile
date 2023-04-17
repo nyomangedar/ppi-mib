@@ -38,6 +38,7 @@ pipeline {
                 echo 'Building React'
                 sh 'cd frontend-app'
                 sh 'sudo npm install --loglevel verbose'
+                sh 'sudo npm run build --loglevel verbose'
             }
         }
         // stage('Building React'){
