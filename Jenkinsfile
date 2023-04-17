@@ -40,7 +40,7 @@ pipeline {
         stage('Finishing jobs'){
             steps{
                 echo 'Restarting nginx'
-                sh 'sudo systemctl restart nginx'
+                sh 'systemctl restart nginx'
             }
         }
         // stage('Starting server'){
