@@ -24,16 +24,22 @@ pipeline {
                 """
             }
         }
+        stage('Updating Packages'){
+            steps{
+                echo 'Updating'
+                sh 'ncu -u'
+            }
+        }
         stage('Building Node') {
             steps {
                 echo 'Building...'
-                sh 'npm install'
+                sh 'npm ci'
             }
         }
         stage('Building React'){
             steps{
                 echo 'npm install'
-                sh 'npm install'
+                sh 'npm ci'
                 echo 'npm run build '
             }
         }
