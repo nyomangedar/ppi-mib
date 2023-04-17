@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // CONNECTING SERVER TO BUILD PATH
-app.use(express.static(path.join(__dirname, "frontend-app/build")));
+// app.use(express.static(path.join(__dirname, "frontend-app/build")));
 
 // app.get("/", function (req, res) {
 // 	res.sendFile(path.join(__dirname, "frontend-app/build", "index.html"));
