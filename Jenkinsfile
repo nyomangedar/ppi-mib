@@ -26,10 +26,8 @@ pipeline {
         // }
         stage('Building Node') {
             steps {
-                echo 'Make empty node_modules'
-                sh 'mkdir node_modules'
                 echo 'Building...'
-                sh 'npm ci'
+                sh 'npm install'
             }
         }
         // stage('Building React'){
