@@ -12,7 +12,7 @@ pipeline {
         stage('Stopping server'){
             steps{
                 echo 'Stopping server'
-                sh 'sudo pm2 stop 0'
+                // sh 'sudo pm2 stop 0'
             }
         }
         stage('Environment Setup'){
@@ -51,7 +51,7 @@ pipeline {
         stage('Starting server'){
             steps{
                 echo 'Start Server'
-                sh 'sudo pm2 start all'
+                // sh 'sudo pm2 start all'
             }
         }
 
