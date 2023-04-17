@@ -8,12 +8,6 @@ pipeline {
     }
 
     stages {
-        // stage('Stopping Process'){
-            // steps{
-            //     echo 'Stop Process'
-            //     sh "pm2 stop all"
-            // }
-        // }
         stage('Environment Setup'){
             steps{
                 echo 'Environment setup'
@@ -24,34 +18,42 @@ pipeline {
                 """
             }
         }
-        stage('Updating Packages'){
-            steps{
-                echo 'Updating'
-                sh 'ncu -u'
-            }
-        }
+        // stage('Updating Packages'){
+        //     steps{
+        //         echo 'Updating'
+        //         sh 'ncu -u'
+        //     }
+        // }
         stage('Building Node') {
             steps {
+                echo 'Make empty node_modules'
+                sh 'mkdir node_modules'
                 echo 'Building...'
                 sh 'npm ci'
             }
         }
-        stage('Building React'){
+        // stage('Building React'){
+        //     steps{
+        //         echo 'Installing dependencies'
+        //         sh 'npm ci'
+        //         echo 'npm run build '
+        //     }
+        // }
+        stage('Finishing jobs'){
             steps{
-                echo 'npm install'
-                sh 'npm ci'
-                echo 'npm run build '
+                echo 'Restarting nginx'
+                sh 'sudo systemctl restart nginx'
             }
         }
-        stage('Starting server'){
-            steps{
-                echo 'Start Server'
-                sh 'npm start server.js'
-                // sh 'pm2 start server.js'
-                // sh 'pm2 save'
-                // echo 'Restart Nginx'
-                // sh 'sudo service nginx restart'
-            }
-        }
+        // stage('Starting server'){
+        //     steps{
+        //         echo 'Start Server'
+        //         sh 'npm start server.js'
+        //         // sh 'pm2 start server.js'
+        //         // sh 'pm2 save'
+        //         // echo 'Restart Nginx'
+        //         // sh 'sudo service nginx restart'
+        //     }
+        // }
     }
 }
