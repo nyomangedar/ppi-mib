@@ -1,12 +1,12 @@
 pipeline {
 
-    agent {
-        any
-        // docker {
-        //     image 'node'
-        //     args '-u root'
-        // }
-    }
+    // agent {
+    //     any
+    //     // docker {
+    //     //     image 'node'
+    //     //     args '-u root'
+    //     // }
+    // }
 
     stages {
         stage('Environment Setup'){
