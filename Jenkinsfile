@@ -31,9 +31,12 @@ pipeline {
                 sh 'sudo ncu -u'
             }
         }
-        stage('Building Node') {
+        stage('Building Process') {
             steps {
-                echo 'Building...'
+                echo 'Building Node'
+                sh 'sudo npm install'
+                echo 'Building React'
+                sh 'cd frontend-app'
                 sh 'sudo npm install'
             }
         }
