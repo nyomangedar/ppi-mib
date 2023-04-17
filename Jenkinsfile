@@ -34,10 +34,10 @@ pipeline {
         stage('Building Process') {
             steps {
                 echo 'Building Node'
-                sh 'sudo npm install'
+                sh 'sudo npm install --loglevel verbose'
                 echo 'Building React'
                 sh 'cd frontend-app'
-                sh 'sudo npm install'
+                sh 'sudo npm install -loglevel verbose'
             }
         }
         // stage('Building React'){
