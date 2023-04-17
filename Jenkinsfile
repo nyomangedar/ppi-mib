@@ -34,7 +34,7 @@ pipeline {
         stage('Building Node') {
             steps {
                 echo 'Building...'
-                sh 'sudo npm ci'
+                sh 'sudo npm install'
             }
         }
         // stage('Building React'){
