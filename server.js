@@ -28,26 +28,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-// CONNECTING SERVER TO BUILD PATH
-// app.use(express.static(path.join(__dirname, "frontend-app/build")));
-
-// app.get("/", function (req, res) {
-// 	res.sendFile(path.join(__dirname, "frontend-app/build", "index.html"));
-// });
-
-// app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "frontend-app/build", "index.html"));
-// });
-
-const root = path.join(__dirname, "frontend-app", "build");
-app.use(express.static(root));
-app.get("*", (req, res) => {
-    res.sendFile("index.html", { root });
-});
-/////////////////////////////////
-
 app.use("/", express.static(path.join(__dirname, "backend", "/public")));
 app.use("/", express.static(path.join(__dirname, "backend", "/uploads")));
+
+// CONNECTING SERVER TO BUILD PATH
+const root = path.join(__dirname, "frontend-app", "build");
+app.use(express.static(root));
+
+/////////////////////////////////
 
 app.use("/", require("./backend/routes/root"));
 app.use("/admin", require("./backend/routes/authRoutes"));
@@ -56,6 +44,9 @@ app.use("/posts", require("./backend/routes/postRoutes"));
 app.use("/sensus", require("./backend/routes/sensusRoutes"));
 // app.use("/posts", require("./backend/routes/postRoutes"));c
 
+app.get("*", (req, res) => {
+    res.sendFile("index.html", { root });
+});
 app.all("*", (req, res) => {
     res.status(404);
     if (req.accepts("html")) {
