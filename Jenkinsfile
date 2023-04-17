@@ -28,7 +28,7 @@ pipeline {
         stage('Building Node') {
             steps {
                 echo 'Building...'
-                sh 'npm install'
+                sh 'sudo npm install'
             }
         }
         // stage('Building React'){
@@ -41,7 +41,7 @@ pipeline {
         stage('Finishing jobs'){
             steps{
                 echo 'Restarting nginx'
-                sh 'systemctl restart nginx'
+                sh 'sudo systemctl restart nginx'
             }
         }
         // stage('Starting server'){
