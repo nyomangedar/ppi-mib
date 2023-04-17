@@ -2,6 +2,7 @@
     "name": "ppi",
     "version": "1.0.0",
     "description": "PPI Web Application",
+    "homepage": "https://ppi-mib.co.uk/",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
