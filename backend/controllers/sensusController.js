@@ -1,6 +1,6 @@
 const Sensus = require("../models/Sensus");
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const CryptoJS = require("crypto-js");
 
 function enc(data) {
