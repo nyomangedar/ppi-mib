@@ -13,13 +13,16 @@ import AlumniBasicInfo from "../components/RegisterForm/AlumniBasicInfo";
 import BasicInfo from "../components/RegisterForm/BasicInfo";
 import Banner from "../components/RegisterForm/Banner";
 import alumniFormBanner from "../image/formAsset/alumniFormBanner.png";
+import { useNavigate } from "react-router-dom";
 
 function AlumniForm() {
     const [addRegisterSensus, { isLoading, isSuccess, isError, error }] =
         useRegisterSensusMutation();
 
+    const navigate = useNavigate();
+
     // useEffect(() => {
-    // 	if (isSuccess) navigate("/");
+    //     if (isSuccess) navigate("/");
     // }, [isSuccess]);
 
     const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
@@ -185,6 +188,7 @@ function AlumniForm() {
             } else {
                 submitForm();
                 console.log("Max page");
+                navigate("/register/finish");
                 // submit form here
             }
         }

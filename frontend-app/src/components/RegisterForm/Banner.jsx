@@ -1,25 +1,33 @@
 import logo from "../../image/logo_ppi.png";
+import { useMediaQuery } from "react-responsive";
+import useTabletorMobileStyle from "../../features/hooks/useTabletorMobileStyle";
 
 function Banner(props) {
+    const isTablet = useMediaQuery({
+        query: "(max-width: 768px)",
+    });
     const style = {
         landingBg: {
             backgroundColor: "#86543B",
-            paddingLeft: "2em",
+            // paddingLeft: "2em",
         },
         studentBg: {
             backgroundColor: "#1D1D59",
-            paddingLeft: "2em",
+            // paddingLeft: "2em",
         },
         alumniBg: {
             backgroundColor: "#8D191A",
-            paddingLeft: "2em",
+            // paddingLeft: "2em",
         },
         citizenBg: {
             backgroundColor: "#DCCBAF",
-            paddingLeft: "2em",
+            // paddingLeft: "2em",
         },
         logoContainer: {
-            width: "50%" /* adjust width as needed */,
+            paddingLeft: "2em",
+            margin: "0 auto",
+        },
+        logoContainerResponsive: {
             margin: "0 auto",
         },
         logo: {
@@ -47,7 +55,13 @@ function Banner(props) {
             className="d-flex justify-content-between align-items-center my-4 mb-5"
             style={getStyle(props.type)}
         >
-            <div style={style.logoContainer}>
+            <div
+                style={useTabletorMobileStyle(
+                    style.logoContainer,
+                    style.logoContainerResponsive,
+                    768
+                )}
+            >
                 <div
                     className="d-flex justify-content-center align-items-center"
                     style={style.logo}
@@ -55,8 +69,7 @@ function Banner(props) {
                     <img className="img-fluid" src={logo} />
                 </div>
             </div>
-
-            <img className="img-fluid d-block w-100" src={props.image} />
+            {!isTablet && <img className="form-banner" src={props.image} />}
         </div>
     );
     return banner;

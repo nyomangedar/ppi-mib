@@ -21,8 +21,10 @@ function StudentForm() {
         useRegisterSensusMutation();
 
     // useEffect(() => {
-    // 	if (isSuccess) navigate("/");
+    //     if (isSuccess) navigate("/");
     // }, [isSuccess]);
+
+    const navigate = useNavigate();
 
     const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
 
@@ -203,6 +205,7 @@ function StudentForm() {
             } else {
                 submitForm();
                 console.log("Max page");
+                navigate("/register/finish");
                 // submit form here
             }
         }

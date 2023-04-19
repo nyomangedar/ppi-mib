@@ -121,7 +121,7 @@ function FormLandingPage() {
                         "Citizen"
                     )}
                 </div>
-                <div className="ps-3">
+                <div className="d-flex align-items-center">
                     <input
                         type="checkbox"
                         id="termsAgreement"
@@ -129,7 +129,11 @@ function FormLandingPage() {
                         onChange={handleCheck}
                         style={{ cursor: "pointer" }}
                     />
-                    <label class="ms-3" for="termsAgreeement">
+                    <label
+                        class="ms-3"
+                        for="termsAgreeement"
+                        style={{ maxWidth: "500px" }}
+                    >
                         By registering for our database, you give us permission
                         to access and use your data for contact reasons and to
                         inform you of upcoming events.
