@@ -18,12 +18,12 @@ pipeline {
         }
         stage('Build server') { 
             steps {
-                sh 'npm install' 
+                sh 'sudo npm install' 
             }
         }
         stage('Build client') {
             steps {
-                sh 'cd frontend-app && npm install && npm run build'
+                sh 'sudo cd frontend-app && sudo npm install && sudo npm run build'
             }
         }
     }
