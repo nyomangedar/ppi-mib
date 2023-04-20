@@ -1,0 +1,11 @@
+version: "1"
+services:
+    server:
+        build: .
+        command: npm start
+        volumes:
+            - .:/usr/app/
+            - /usr/app/node_modules
+            - .:/usr/app/frontend-app
+        ports:
+            - "3500:3500"
