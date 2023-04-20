@@ -16,24 +16,16 @@ pipeline {
                 """
             }
         }
-        withEnv([
-            /* Override the npm cache directory */
-            /* Reset Home dir */
-            'npm_config_cache=npm-cache',
-            'HOME=.',
-        ]){
-            stage('Build server') { 
+        stage('Build server') { 
             steps {
-                sh 'sudo npm install' 
+                sh 'npm install' 
             }
         }
-            stage('Build client') {
-                steps {
-                    sh 'sudo cd frontend-app && sudo npm install && sudo npm run build'
-                }
+        stage('Build client') {
+            steps {
+                sh 'cd frontend-app && npm install && npm run build'
             }
         }
-        
     }
 }
 
