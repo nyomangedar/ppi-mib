@@ -11,11 +11,19 @@ pipeline {
                 """
             }
         }
-        // stage('Run Docker Compose') { 
-        //     steps {
-        //         sh 'docker-compose up -d' 
-        //     }
-        // }
+        stage('Starting server'){
+            steps{
+                echo 'Start Server'
+                sh 'sudo pm2 restart 0'
+            }
+        }
+
+        stage('Finishing jobs'){
+            steps{
+                echo 'Restarting nginx'
+                sh 'sudo systemctl restart nginx'
+            }
+        }
     }
 }
 

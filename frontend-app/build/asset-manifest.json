@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.70c4b32c.css",
-    "main.js": "/static/js/main.ec1b37bd.js",
+    "main.js": "/static/js/main.6e3e0bad.js",
     "static/media/keluarga_cemara.png": "/static/media/keluarga_cemara.81d2d926a34bf222f935.png",
     "static/media/citizenFormBanner.png": "/static/media/citizenFormBanner.3f120b7c8df8336dbe5d.png",
     "static/media/landingFormBanner.png": "/static/media/landingFormBanner.8b52186160a743ac5cbb.png",
@@ -50,10 +50,10 @@
     "static/media/plus-button.svg": "/static/media/plus-button.4cc88baea79a28808db844e079ca7a54.svg",
     "index.html": "/index.html",
     "main.70c4b32c.css.map": "/static/css/main.70c4b32c.css.map",
-    "main.ec1b37bd.js.map": "/static/js/main.ec1b37bd.js.map"
+    "main.6e3e0bad.js.map": "/static/js/main.6e3e0bad.js.map"
   },
   "entrypoints": [
     "static/css/main.70c4b32c.css",
-    "static/js/main.ec1b37bd.js"
+    "static/js/main.6e3e0bad.js"
   ]
 }

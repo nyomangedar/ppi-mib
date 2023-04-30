@@ -404,6 +404,14 @@ const sensusSchema = new mongoose.Schema(
                     type: Date,
                     required: true,
                 },
+                nationality: {
+                    type: String,
+                    required: true,
+                },
+                dependant: {
+                    type: String,
+                    required: false,
+                },
             },
         ],
     },
