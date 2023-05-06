@@ -93,7 +93,7 @@ function StudentForm() {
 	const getUnfilledFields = (formData, currentPage) => {
 		let unfilledFields = [];
 
-		if (currentPage === 6) {
+		if (currentPage === 1) {
 			if (isFieldEmpty(formData.fullName)) unfilledFields.push("Full Name");
 			if (isFieldEmpty(formData.dob)) unfilledFields.push("Date of Birth");
 			if (dateError !== "")
@@ -130,7 +130,7 @@ function StudentForm() {
 				unfilledFields.push(
 					"End Term Date: End term date must be either today or in the future"
 				);
-		} else if (currentPage === 7) {
+		} else if (currentPage === 2) {
 			formData.education.map((item, index) => {
 				if (isFieldEmpty(item.degree))
 					unfilledFields.push(`Education ${index + 1}: Degree`);
