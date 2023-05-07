@@ -194,7 +194,7 @@ function StudentBasicInfo(props) {
 							</div>
 						)}
 						<div id="phoneNumber1Help" class="form-text">
-							If possible, Phone Number 1 should have available WhatsApp.
+							Phone Number 1 that has available WhatsApp is preferable.
 						</div>
 					</div>
 					<div class="mb-4">
