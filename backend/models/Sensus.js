@@ -239,6 +239,7 @@ const sensusSchema = new mongoose.Schema(
             required: false,
             get: (encryptData) => {
                 // Decrypt the data field using the secret key
+                console.log({ encryptData });
                 const bytes = CryptoJS.AES.decrypt(
                     encryptData,
                     process.env.SECRET_KEY
@@ -326,11 +327,11 @@ const sensusSchema = new mongoose.Schema(
         // UKCONTACT
         ukEmergencyName: {
             type: String,
-            required: true,
+            required: false,
         },
         ukEmergencyPhone: {
             type: String,
-            required: true,
+            required: false,
             get: (encryptData) => {
                 // Decrypt the data field using the secret key
                 const bytes = CryptoJS.AES.decrypt(
@@ -353,17 +354,17 @@ const sensusSchema = new mongoose.Schema(
         },
         ukEmergencyRelationship: {
             type: String,
-            required: true,
+            required: false,
         },
 
         // IDNCONTACT
         idnEmergencyName: {
             type: String,
-            required: true,
+            required: false,
         },
         idnEmergencyPhone: {
             type: String,
-            required: true,
+            required: false,
             get: (encryptData) => {
                 // Decrypt the data field using the secret key
                 const bytes = CryptoJS.AES.decrypt(
@@ -386,7 +387,7 @@ const sensusSchema = new mongoose.Schema(
         },
         idnEmergencyRelationship: {
             type: String,
-            required: true,
+            required: false,
         },
 
         // FAMILY
@@ -394,19 +395,19 @@ const sensusSchema = new mongoose.Schema(
             {
                 fullname: {
                     type: String,
-                    required: true,
+                    required: false,
                 },
                 relationship: {
                     type: String,
-                    required: true,
+                    required: false,
                 },
                 dob: {
                     type: Date,
-                    required: true,
+                    required: false,
                 },
                 nationality: {
                     type: String,
-                    required: true,
+                    required: false,
                 },
                 dependant: {
                     type: String,
@@ -416,6 +417,7 @@ const sensusSchema = new mongoose.Schema(
         ],
     },
     { toJSON: { getters: true } }
+    // { toObject: { getters: true } }
 );
 
 module.exports = mongoose.model("Sensus", sensusSchema);

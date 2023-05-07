@@ -8,7 +8,10 @@ import FormBreadCrumb from "../components/RegisterForm/FormBreadcrumb";
 import isFieldEmpty from "../tools/emptyField";
 import { useMediaQuery } from "react-responsive";
 import Education from "../components/RegisterForm/Education/Education";
-import { useRegisterSensusMutation } from "../features/sensus/sensusApiSlice";
+import {
+    useRegisterSensusMutation,
+    useCheckSensusMutation,
+} from "../features/sensus/sensusApiSlice";
 import AlumniBasicInfo from "../components/RegisterForm/AlumniBasicInfo";
 import BasicInfo from "../components/RegisterForm/BasicInfo";
 import Banner from "../components/RegisterForm/Banner";
@@ -188,7 +191,7 @@ function AlumniForm() {
             } else {
                 submitForm();
                 console.log("Max page");
-                navigate("/register/finish");
+                // navigate("/register/finish");
                 // submit form here
             }
         }
