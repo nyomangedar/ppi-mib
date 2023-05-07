@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.70c4b32c.css",
-    "main.js": "/static/js/main.3831f5aa.js",
+    "main.js": "/static/js/main.37fa6101.js",
     "static/media/keluarga_cemara.png": "/static/media/keluarga_cemara.81d2d926a34bf222f935.png",
     "static/media/citizenFormBanner.png": "/static/media/citizenFormBanner.3f120b7c8df8336dbe5d.png",
     "static/media/landingFormBanner.png": "/static/media/landingFormBanner.8b52186160a743ac5cbb.png",
@@ -40,20 +40,20 @@
     "static/media/coreTeam_2.png": "/static/media/coreTeam_2.22b5d381bbf9b1feb565.png",
     "static/media/tsh_3.png": "/static/media/tsh_3.e7b852ee0a8f2463d4d2.png",
     "static/media/logo-stakeholder.png": "/static/media/logo-stakeholder.683fd853bce87d02766d.png",
-    "static/media/citizenStatusLogo.svg": "/static/media/citizenStatusLogo.175677314e82e4e7730c.svg",
-    "static/media/citizenStatusLogoActive.svg": "/static/media/citizenStatusLogoActive.4faa4e0a3238a00dbc9d.svg",
-    "static/media/alumniStatusLogo.svg": "/static/media/alumniStatusLogo.6525fdbe99a0fad3067c.svg",
-    "static/media/alumniStatusLogoActive.svg": "/static/media/alumniStatusLogoActive.950d30f902d47a4437a8.svg",
-    "static/media/studentStatusLogo.svg": "/static/media/studentStatusLogo.97d7d7f550fb5a5fb25a.svg",
-    "static/media/studentStatusLogoActive.svg": "/static/media/studentStatusLogoActive.dd1fa9abb2cef24523e7.svg",
-    "static/media/arrow-back.svg": "/static/media/arrow-back.565e22b2af7e6eb02b9d2f04646b9dec.svg",
-    "static/media/plus-button.svg": "/static/media/plus-button.4cc88baea79a28808db844e079ca7a54.svg",
+    "static/media/citizenStatusLogo.svg": "/static/media/citizenStatusLogo.9dc7bef7934c6969eddb.svg",
+    "static/media/citizenStatusLogoActive.svg": "/static/media/citizenStatusLogoActive.f9eb8f48bec3a5ce52b3.svg",
+    "static/media/alumniStatusLogo.svg": "/static/media/alumniStatusLogo.9ebccac3de5bd66c9ad2.svg",
+    "static/media/alumniStatusLogoActive.svg": "/static/media/alumniStatusLogoActive.b1cebdd15c50664d3b85.svg",
+    "static/media/studentStatusLogo.svg": "/static/media/studentStatusLogo.8f77e69c544a2b652d4b.svg",
+    "static/media/studentStatusLogoActive.svg": "/static/media/studentStatusLogoActive.57aa1214548c15feee95.svg",
+    "static/media/arrow-back.svg": "/static/media/arrow-back.781d7b41f5f42583ec1b8e2c070977b5.svg",
+    "static/media/plus-button.svg": "/static/media/plus-button.93c5a39384a41e8bb5284f138fc9d8d8.svg",
     "index.html": "/index.html",
     "main.70c4b32c.css.map": "/static/css/main.70c4b32c.css.map",
-    "main.3831f5aa.js.map": "/static/js/main.3831f5aa.js.map"
+    "main.37fa6101.js.map": "/static/js/main.37fa6101.js.map"
   },
   "entrypoints": [
     "static/css/main.70c4b32c.css",
-    "static/js/main.3831f5aa.js"
+    "static/js/main.37fa6101.js"
   ]
 }
