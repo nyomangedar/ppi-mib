@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PatternFormat } from "react-number-format";
 import provinceList from "./provinceList";
 import Select from "react-select";
@@ -7,12 +7,6 @@ import { useCheckSensusMutation } from "../../features/sensus/sensusApiSlice";
 // import { useMediaQuery } from "react-responsive";
 
 function AlumniBasicInfo(props) {
-    // const isDesktopOrLaptop = useMediaQuery({
-    // 	query: "(min-width: 1224px)",
-    // });
-    // const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
-    // const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-
     const [otherStatus, setOtherStatus] = useState(false);
     const [permanentResident, setPermanentResident] = useState(null);
     const [selectedProvince, setSelectedProvince] = useState(null);
@@ -26,17 +20,26 @@ function AlumniBasicInfo(props) {
     const [emailError, setEmailError] = useState("");
 
     const errClass = isError ? true : false;
+    useEffect(() => {
+        if (errClass) {
+            setEmailError("Email is already used, please enter another email");
+            props.setCitizenFormData((prevState) => ({
+                ...prevState,
+                ["email"]: "",
+            }));
+        } else {
+            setEmailError("");
+        }
+    }, [isError]);
 
     const handleEmailBlur = async (event) => {
         const { value } = event.target;
         let email = value;
-        await checkEmailSensus({ email: email });
-        if (errClass) {
-            setEmailError("Email already used");
-        } else {
-            setEmailError("");
+        if (email !== "") {
+            await checkEmailSensus({ email: email });
         }
     };
+
     function handleTelUkBlur(event) {
         const { name, value } = event.target;
         let inputPhone = value;
@@ -48,7 +51,6 @@ function AlumniBasicInfo(props) {
             setTelUkError("Please enter a valid phone number");
         } else {
             setTelUkError("");
-            ``;
         }
     }
 
