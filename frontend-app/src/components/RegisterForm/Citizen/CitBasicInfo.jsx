@@ -144,16 +144,16 @@ function CitBasicInfo(props) {
 					</div>
 					<div class="mb-4">
 						<label class="form-label input-label">
-							UK Phone Number <span style={{ color: "red" }}>*</span>
+							Phone Number 1 <span style={{ color: "red" }}>*</span>
 						</label>
 						<InputMask
 							type="text"
 							class="form-control form-input mb-2"
-							id="ukPhoneNumber"
-							name="ukPhoneNumber"
-							value={props.data.ukPhoneNumber}
+							id="phoneNumber1"
+							name="phoneNumber1"
+							value={props.data.phoneNumber1}
 							onChange={props.onChange}
-							aria-describedby="ukPhoneNumberHelp"
+							aria-describedby="phoneNumber1Help"
 							onBlur={handleTelUkBlur}
 							placeholder="4412345671234"
 							mask={"+9999999999999"}
@@ -168,19 +168,20 @@ function CitBasicInfo(props) {
 								{telUkError}
 							</div>
 						)}
+						<div id="phoneNumber1Help" class="form-text">
+							If possible, Phone Number 1 should have available WhatsApp.
+						</div>
 					</div>
 					<div class="mb-4">
-						<label class="form-label input-label">
-							Indonesia Phone Number <span style={{ color: "red" }}>*</span>
-						</label>
+						<label class="form-label input-label">Phone Number 2</label>
 						<InputMask
 							type="text"
 							class="form-control form-input"
-							id="indonesianPhoneNumber"
-							name="indonesianPhoneNumber"
-							value={props.data.indonesianPhoneNumber}
+							id="phoneNumber2"
+							name="phoneNumber2"
+							value={props.data.phoneNumber2}
 							onChange={props.onChange}
-							aria-describedby="indonesianPhoneNumberHelp"
+							aria-describedby="phoneNumber2Help"
 							onBlur={handleTelIdBlur}
 							placeholder="6212345671234"
 							mask={"+9999999999999"}
@@ -312,6 +313,7 @@ function CitBasicInfo(props) {
 							<option value="katolik">Katolik</option>
 							<option value="hindu">Hindu</option>
 							<option value="buddha">Buddha</option>
+							<option value="konghucu">Konghucu</option>
 							<option value="other">Other</option>
 							<option value="pnts">Prefer not to say</option>
 						</select>
