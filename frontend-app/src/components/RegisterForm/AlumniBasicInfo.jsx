@@ -1,25 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PatternFormat } from "react-number-format";
 import provinceList from "./provinceList";
 import Select from "react-select";
 import InputMask from "react-input-mask";
+import { useCheckSensusMutation } from "../../features/sensus/sensusApiSlice";
 // import { useMediaQuery } from "react-responsive";
 
 function AlumniBasicInfo(props) {
-	// const isDesktopOrLaptop = useMediaQuery({
-	// 	query: "(min-width: 1224px)",
-	// });
-	// const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
-	// const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-
 	const [otherStatus, setOtherStatus] = useState(false);
 	const [permanentResident, setPermanentResident] = useState(null);
 	const [selectedProvince, setSelectedProvince] = useState(null);
+	const [checkEmailSensus, { isLoading, isSuccess, isError, error }] =
+		useCheckSensusMutation();
 
 	const today = new Date().toISOString().substring(0, 10);
 
 	const [telUkError, setTelUkError] = useState("");
 	const [telIdError, setTelIdError] = useState("");
+	const [emailError, setEmailError] = useState("");
+
+	const errClass = isError ? true : false;
+	useEffect(() => {
+		if (errClass) {
+			setEmailError("Email is already used, please enter another email");
+			props.setCitizenFormData((prevState) => ({
+				...prevState,
+				["email"]: "",
+			}));
+		} else {
+			setEmailError("");
+		}
+	}, [isError]);
+
+	const handleEmailBlur = async (event) => {
+		const { value } = event.target;
+		let email = value;
+		if (email !== "") {
+			await checkEmailSensus({ email: email });
+		}
+	};
 
 	function handleTelUkBlur(event) {
 		const { name, value } = event.target;
@@ -210,11 +229,17 @@ function AlumniBasicInfo(props) {
 							onChange={props.onChange}
 							aria-describedby="emailHelp"
 							placeholder="Email"
+							onBlur={handleEmailBlur}
 							required
 						/>
 						<div id="emailHelp" class="form-text">
 							We'll never share your email with anyone else.
 						</div>
+						{emailError !== "" && (
+							<div className="erorr fw-bold" style={{ color: "red" }}>
+								{emailError}
+							</div>
+						)}
 					</div>
 					<hr class="divider-basic mb-4" />
 					<div class="mb-4">
@@ -313,7 +338,6 @@ function AlumniBasicInfo(props) {
 							<option value="katolik">Katolik</option>
 							<option value="hindu">Hindu</option>
 							<option value="buddha">Buddha</option>
-							<option value="konghucu">Konghucu</option>
 							<option value="other">Other</option>
 							<option value="pnts">Prefer not to say</option>
 						</select>
@@ -441,7 +465,9 @@ function AlumniBasicInfo(props) {
 					</div>
 					<div
 						class="mb-4"
-						style={{ display: props.data.ukAddress === "" ? "none" : "" }}
+						style={{
+							display: props.data.ukAddress === "" ? "none" : "",
+						}}
 					>
 						<div>
 							<label class="form-label input-label">
