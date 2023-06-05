@@ -32,7 +32,7 @@ function FormLandingPage() {
                 return "register/student";
             case "Alumni":
                 return "register/alumni";
-            case "Citizen":
+            case "Resident":
                 return "register/citizen";
         }
     };
@@ -119,8 +119,8 @@ function FormLandingPage() {
                     {statusLogo(
                         logos["citizenStatusLogoActive.svg"],
                         logos["citizenStatusLogo.svg"],
-                        selectStatus === "Citizen",
-                        "Citizen"
+                        selectStatus === "Resident",
+                        "Resident"
                     )}
                 </div>
                 <div className="d-flex align-items-center mx-2">
