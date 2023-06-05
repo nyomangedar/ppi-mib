@@ -72,8 +72,8 @@ function StudentForm() {
 		password: "",
 		email: "",
 		dob: "",
-		indonesianPhoneNumber: "",
-		ukPhoneNumber: "",
+		phoneNumber1: "",
+		phoneNumber2: "",
 		fullName: "",
 		families: [],
 		// 	{
@@ -98,10 +98,10 @@ function StudentForm() {
 			if (isFieldEmpty(formData.dob)) unfilledFields.push("Date of Birth");
 			if (dateError !== "")
 				unfilledFields.push("DoB: Future date is not valid for date of birth");
-			if (isFieldEmpty(formData.ukPhoneNumber))
-				unfilledFields.push("UK Phone Number");
-			if (isFieldEmpty(formData.indonesianPhoneNumber))
-				unfilledFields.push("Indonesian Phone Number");
+			if (isFieldEmpty(formData.phoneNumber1))
+				unfilledFields.push("Phone Number 1");
+			// if (isFieldEmpty(formData.phoneNumber2))
+			// 	unfilledFields.push("Phone Number 2");
 			if (isFieldEmpty(formData.email)) unfilledFields.push("Email");
 			// if (formData.relationshipStatus))
 			if (isFieldEmpty(formData.relationshipStatus))
@@ -163,6 +163,8 @@ function StudentForm() {
 						unfilledFields.push(
 							"DoB: Future date is not valid for date of birth"
 						);
+					if (isFieldEmpty(family.nationality))
+						unfilledFields.push(`Family Member ${index + 1}: National`);
 				});
 			}
 		} else if (currentPage === 4) {

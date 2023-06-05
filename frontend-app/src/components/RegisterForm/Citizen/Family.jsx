@@ -23,10 +23,12 @@ function Family(props) {
 					fullname: "",
 					relationship: "",
 					dob: "",
+					dependant: "",
+					nationality: "",
 				},
 			],
 		}));
-		// console.log(citizenFormData);
+		console.log(props.data);
 	};
 
 	return (
