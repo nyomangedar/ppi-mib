@@ -1,7 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.70c4b32c.css",
-    "main.js": "/static/js/main.3831f5aa.js",
+    "main.js": "/static/js/main.46a090ec.js",
+    "static/media/UserGuide.pdf": "/static/media/UserGuide.492865e21d6df19e53b6.pdf",
     "static/media/keluarga_cemara.png": "/static/media/keluarga_cemara.81d2d926a34bf222f935.png",
     "static/media/citizenFormBanner.png": "/static/media/citizenFormBanner.3f120b7c8df8336dbe5d.png",
     "static/media/landingFormBanner.png": "/static/media/landingFormBanner.8b52186160a743ac5cbb.png",
@@ -40,6 +41,7 @@
     "static/media/coreTeam_2.png": "/static/media/coreTeam_2.22b5d381bbf9b1feb565.png",
     "static/media/tsh_3.png": "/static/media/tsh_3.e7b852ee0a8f2463d4d2.png",
     "static/media/logo-stakeholder.png": "/static/media/logo-stakeholder.683fd853bce87d02766d.png",
+    "static/media/GDPR.pdf": "/static/media/GDPR.3c15ab929989c240aa86.pdf",
     "static/media/citizenStatusLogo.svg": "/static/media/citizenStatusLogo.175677314e82e4e7730c.svg",
     "static/media/citizenStatusLogoActive.svg": "/static/media/citizenStatusLogoActive.4faa4e0a3238a00dbc9d.svg",
     "static/media/alumniStatusLogo.svg": "/static/media/alumniStatusLogo.6525fdbe99a0fad3067c.svg",
@@ -50,10 +52,10 @@
     "static/media/plus-button.svg": "/static/media/plus-button.4cc88baea79a28808db844e079ca7a54.svg",
     "index.html": "/index.html",
     "main.70c4b32c.css.map": "/static/css/main.70c4b32c.css.map",
-    "main.3831f5aa.js.map": "/static/js/main.3831f5aa.js.map"
+    "main.46a090ec.js.map": "/static/js/main.46a090ec.js.map"
   },
   "entrypoints": [
     "static/css/main.70c4b32c.css",
-    "static/js/main.3831f5aa.js"
+    "static/js/main.46a090ec.js"
   ]
 }

@@ -6,6 +6,8 @@ import arrow from "../image/formAsset/arrow-back.svg";
 import { Button } from "react-bootstrap";
 import useTabletorMobileStyle from "../features/hooks/useTabletorMobileStyle";
 import Cookies from "js-cookie";
+import gdpr from "../documents/GDPR.pdf";
+import userGuide from "../documents/UserGuide.pdf";
 
 function FormLandingPage() {
     const [selectStatus, setSelectStatus] = useState("");
@@ -121,6 +123,15 @@ function FormLandingPage() {
                         "Citizen"
                     )}
                 </div>
+                <div className="d-flex align-items-center mx-2">
+                    <span>
+                        See our{" "}
+                        <a href={userGuide} target="_blank">
+                            user guidance
+                        </a>{" "}
+                        for more info about filling the forms
+                    </span>
+                </div>
                 <div className="d-flex align-items-center">
                     <input
                         type="checkbox"
@@ -134,9 +145,14 @@ function FormLandingPage() {
                         for="termsAgreeement"
                         style={{ maxWidth: "500px" }}
                     >
-                        By registering for our database, you give us permission
-                        to access and use your data for contact reasons and to
-                        inform you of upcoming events.
+                        By registering for our database, you agreeing to our{" "}
+                        <a
+                            href={gdpr}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            terms and condition
+                        </a>
                     </label>
                 </div>
 
