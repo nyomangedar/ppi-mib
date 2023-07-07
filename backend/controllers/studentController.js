@@ -4,11 +4,22 @@ const asyncHandler = require("express-async-handler");
 // @desc Get Student
 // @route Get /posts
 // @access Private
-const getAllStudents = asyncHandler(async (req, res) => {
-    const students = await Sensus.find();
-    if (students) {
-        return res.json(students);
-    } else {
-        return res.status(400).json({ message: "Error finding sensus" });
-    }
-});
+const getStudentData = asyncHandler(async (req,res)=>{
+    const student = await Sensus.find({
+        education: {
+            $elemMatch:{
+                graduateYear: {$gte: 2023},
+
+            }
+        }
+    })
+    let result = []
+    student.forEach((element) => {
+        result.push({name: element.fullName, email: element.email, university: element.education.university, degree: element.education.degree})\
+    })
+    res.status(200).json(result)
+})
+
+module.exports = {
+    getStudentData
+}
