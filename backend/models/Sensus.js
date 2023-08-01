@@ -13,10 +13,13 @@ const sensusSchema = new mongoose.Schema(
 			required: true,
 			get: (encryptData) => {
 				// Decrypt the data field using the secret key
-				const bytes = CryptoJS.AES.decrypt(encryptData, process.env.SECRET_KEY);
-				const data = bytes.toString(CryptoJS.enc.Utf8);
-
-				return data;
+				if (encryptData !== undefined){
+					console.log(typeof encryptData)
+					const bytes = CryptoJS.AES.decrypt(encryptData, process.env.SECRET_KEY);
+					const data = bytes.toString(CryptoJS.enc.Utf8);
+					return data;
+				}
+				return
 			},
 			set: (data) => {
 				// Encrypt the data field using the secret key
@@ -33,10 +36,13 @@ const sensusSchema = new mongoose.Schema(
 			required: false,
 			get: (encryptData) => {
 				// Decrypt the data field using the secret key
-				const bytes = CryptoJS.AES.decrypt(encryptData, process.env.SECRET_KEY);
-				const data = bytes.toString(CryptoJS.enc.Utf8);
-
-				return data;
+				if (encryptData !== undefined){
+					console.log(typeof encryptData)
+					const bytes = CryptoJS.AES.decrypt(encryptData, process.env.SECRET_KEY);
+					const data = bytes.toString(CryptoJS.enc.Utf8);
+					return data;
+				}
+				return
 			},
 			set: (data) => {
 				// Encrypt the data field using the secret key
