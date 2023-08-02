@@ -14,6 +14,7 @@ pipeline {
         stage('Starting server'){
             steps{
                 echo 'Start Server'
+                sh 'npm install'
                 sh 'sudo pm2 restart 0'
             }
         }
