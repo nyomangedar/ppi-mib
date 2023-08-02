@@ -12,7 +12,7 @@ const createNewSensus = asyncHandler(async (req, res) => {
     // Hash password
     // const salt = await bcrypt.genSalt(10);
     // sensus.password = await bcrypt.hash(sensus.password, salt);
-    console.log({sensus})
+    console.log({ sensus });
     try {
         await Sensus.create(sensus);
         res.status(201).json({ message: `New Sensus ${sensus.email} created` });
@@ -40,7 +40,7 @@ const checkEmailData = asyncHandler(async (req, res) => {
 });
 
 const getAlumniFullName = asyncHandler(async (req, res) => {
-    const lastYear = new Date().getFullYear() - 1
+    const lastYear = new Date().getFullYear() - 1;
     const alumni = await Sensus.find({
         education: {
             $elemMatch: {
@@ -51,15 +51,15 @@ const getAlumniFullName = asyncHandler(async (req, res) => {
     });
     let result = [];
     alumni.forEach((element) => {
-        result.push(element)
+        result.push(element);
         // result.push({ name: element.fullName, email: element.email });
     });
     res.status(200).json(result);
 });
 
 const getStudentFullName = asyncHandler(async (req, res) => {
-    const currentYear = new Date().getFullYear()
-    const university = req.body.university
+    const currentYear = new Date().getFullYear();
+    const university = req.body.university;
     const student = await Sensus.find({
         education: {
             $elemMatch: {
@@ -70,25 +70,25 @@ const getStudentFullName = asyncHandler(async (req, res) => {
     });
     let result = [];
     student.forEach((element) => {
-        result.push(element)
+        result.push(element);
         // result.push({ name: element.fullName, email: element.email });
     });
 
     res.status(200).json(result);
 });
 
-const getCitizen = asyncHandler(async (req,res) => {
+const getCitizen = asyncHandler(async (req, res) => {
     const citizens = await Sensus.find({
-        stayPeriod: null
-    })
-    res.status(200).json(citizens)
-})
+        stayPeriod: null,
+    });
+    res.status(200).json(citizens);
+});
 
-const getAllSensus = asyncHandler(async (req,res) => {
-    const sensuss = await Sensus.find()
+const getAllSensus = asyncHandler(async (req, res) => {
+    const sensuss = await Sensus.find();
 
-    res.status(200).json(sensuss)
-})
+    res.status(200).json(sensuss);
+});
 
 module.exports = {
     createNewSensus,
@@ -96,5 +96,5 @@ module.exports = {
     getAlumniFullName,
     getStudentFullName,
     getAllSensus,
-    getCitizen
+    getCitizen,
 };

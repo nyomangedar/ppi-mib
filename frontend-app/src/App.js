@@ -18,6 +18,7 @@ import CitizenForm from "./pages/CitizenForm";
 import AlumniForm from "./pages/AlumniForm";
 import FinishForm from "./pages/FinishForm";
 import FormAgreement from "./features/auth/FormAgreement";
+import AdminDB from "./pages/AdminDB";
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                 <Route element={<PersistLogin />}>
                     <Route element={<RequireAuth />}>
                         <Route path="admin" element={<AdminMenu />} />
+                        <Route path="admin/db" element={<AdminDB />} />
                     </Route>
                 </Route>
             </Routes>

@@ -34,3 +34,4 @@ MANUAL SERVER FIX:
     sudo lsof -i tcp:80 => to know if nginx still listen to port 80 or web still running
     sudo service nginx <command> => nginx command
 
+Passwordnyappituhini!
