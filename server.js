@@ -45,7 +45,7 @@ app.use("/sensus", require("./backend/routes/sensusRoutes"));
 // app.use("/posts", require("./backend/routes/postRoutes"));c
 
 app.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
+    res.sendFile(path.join(__dirname, "frontend-app/build", "index.html"));
 });
 
 app.all("*", (req, res) => {
