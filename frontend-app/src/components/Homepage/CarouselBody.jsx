@@ -21,7 +21,7 @@ const CarouselBody = () => {
     const developmentUri =
         process.env.NODE_ENV === "development"
             ? "http://localhost:3500"
-            : "https://ppi-mib.co.uk";
+            : "https://www.ppi-mib.co.uk";
 
     // const developmentUri = "http://localhost:3500";
 
