@@ -44,9 +44,10 @@ app.use("/posts", require("./backend/routes/postRoutes"));
 app.use("/sensus", require("./backend/routes/sensusRoutes"));
 // app.use("/posts", require("./backend/routes/postRoutes"));c
 
-app.get("*", (req, res) => {
-    res.sendFile("index.html", { root });
+app.get("/*", function (req, res) {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
 });
+
 app.all("*", (req, res) => {
     res.status(404);
     if (req.accepts("html")) {

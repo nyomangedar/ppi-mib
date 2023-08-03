@@ -15,7 +15,7 @@ pipeline {
             steps{
                 echo 'Start Server'
                 sh 'npm install'
-                sh 'sudo pm2 restart 0'
+                sh 'pm2 restart 0'
             }
         }
 
