@@ -19,7 +19,7 @@ connectDB();
 
 app.use(logger);
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,6 +35,10 @@ app.use("/", express.static(path.join(__dirname, "backend", "/uploads")));
 const root = path.join(__dirname, "frontend-app", "build");
 app.use(express.static(root));
 
+// app.get("/", function (req, res) {
+//     res.sendFile(path.join(__dirname, "frontend-app/build", "index.html"));
+// });
+
 /////////////////////////////////
 
 app.use("/", require("./backend/routes/root"));
@@ -44,8 +48,8 @@ app.use("/posts", require("./backend/routes/postRoutes"));
 app.use("/sensus", require("./backend/routes/sensusRoutes"));
 // app.use("/posts", require("./backend/routes/postRoutes"));c
 
-app.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "frontend-app/build", "index.html"));
+app.get("*", (req, res) => {
+    res.sendFile("index.html", { root });
 });
 
 app.all("*", (req, res) => {
