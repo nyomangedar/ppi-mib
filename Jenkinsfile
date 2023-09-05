@@ -1,21 +1,44 @@
 pipeline {
     agent any
     stages {
+        stage('Before Setup'){
+            steps{
+                try{
+                    sh 'sudo pm2 stop 0'
+                } catch(Exception e){
+                    echo 'No process are detected'
+                }
+                
+            }
+        }
         stage('Environment Setup'){
             steps{
                 echo 'Environment setup'
                 sh "rm -f .env"
                 sh "touch .env"
                 sh """
-                    echo "NODE_ENV=${env.NODE_ENV}\nDATABASE_URI=${env.DATABASE_URI}\nSECRET_KEY=${env.SECRET_KEY}\nACCESS_TOKEN_KEY=${env.ACCESS_TOKEN_KEY}\nREFRESH_TOKEN_KEY=${env.REFRESH_TOKEN_KEY}" >> .env
+                    echo "NODE_ENV=${env.NODE_ENV}\n
+                    DATABASE_URI=${env.DATABASE_URI}\n
+                    SECRET_KEY=${env.SECRET_KEY}\n
+                    ACCESS_TOKEN_KEY=${env.ACCESS_TOKEN_KEY}\n
+                    REFRESH_TOKEN_KEY=${env.REFRESH_TOKEN_KEY}" >> .env
                 """
             }
         }
-        stage('Starting server'){
+        stage('Installing dependencies'){
             steps{
-                echo 'Start Server'
                 sh 'npm install'
-                sh 'pm2 restart 0'
+            }
+        }
+        stage('Starting Server'){
+            steps{
+                try{
+                    sh 'sudo pm2 start 0'
+                } catch(Exception e){
+                    echo 'No initial server started'
+                    sh 'sudo pm2 start server.js'
+                }
+                
             }
         }
 
