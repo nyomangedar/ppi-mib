@@ -3,12 +3,13 @@ pipeline {
     stages {
         stage('Before Setup'){
             steps{
-                try{
-                    sh 'sudo pm2 stop 0'
-                } catch(Exception e){
-                    echo 'No process are detected'
+                script {
+                    try {
+                        sh 'sudo pm2 stop 0'
+                    } catch (IOException e) {
+                        echo "Error stopping process 0: ${e.getMessage()}"
+                    }
                 }
-                
             }
         }
         stage('Environment Setup'){
@@ -32,13 +33,14 @@ pipeline {
         }
         stage('Starting Server'){
             steps{
-                try{
-                    sh 'sudo pm2 start 0'
-                } catch(Exception e){
-                    echo 'No initial server started'
-                    sh 'sudo pm2 start server.js'
+                script {
+                    try {
+                        sh 'sudo pm2 start 0'
+                    } catch (IOException e) {
+                        echo "Error starting process 0: ${e.getMessage()}"
+                        sh 'sudo pm2 start server.js'
+                    }
                 }
-                
             }
         }
 
