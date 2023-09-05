@@ -48,3 +48,5 @@ pipeline {
         }
     }
 }
+// If jenkins failed to clean the workspace
+// "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace" 
