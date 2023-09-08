@@ -5,6 +5,7 @@ const allowedOrigins =
         : [
               "http://ppi-mib.co.uk",
               "https://ppi-mib.co.uk",
+              "https://www.ppi-mib.co.uk",
               "http://localhost:3500",
               "http://localhost:3000",
           ];
